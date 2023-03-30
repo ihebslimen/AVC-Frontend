@@ -1,0 +1,239 @@
+<body>
+    <app-header></app-header>
+    <!-- <div class="example-header">
+      <div class="form-group">
+        <label>Filter Table</label>
+          <input matInput  placeholder="Search"  #input>
+      </div>-->
+      <!-- <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="input1" id="label">Label 1</label>
+          </div>
+          </div>
+          <div class="row">
+          <div class="col-sm-3" >
+            <input type="text" id="input1" class="form-control">
+          </div>
+        </div> 
+      </div>  -->
+      <!-- <div class="form-floating">
+        <input type="text" class="form-control" id="input1" placeholder="Input Text">
+        <label for="input1">Label Text</label>
+      </div> -->
+      
+    <!-- <button cdkDrag (cdkDragMoved)="onButtonMoved($event)">Drag me!</button> -->
+    <!-- <button class="btn btn-success" draggable="true" (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">drag me</button> -->
+    <!-- <div class="drag-element" (mousedown)="onMouseDown($event)" (mouse)="onMouseMove($event:)">
+      Drag me!
+    </div> -->
+    
+    <!-- <nav class="navbar navbar-expand-lg  fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact">Contact us</a>
+          </li>
+        </ul>
+        <li class="nav-item" id="loginButton">
+          <button class="btn btn-primary">
+          <a class="nav-link " routerLink="/login">login</a>
+          </button>
+        </li>
+      </div>
+    </nav> -->
+
+    <!-- <div class="section">
+      <div class="col ">
+        <div class="row">div</div>
+        <div class="row">div</div>
+        <div class="row">div</div>
+      </div>
+      <div class="col">
+        <div class="row">div</div>
+        <div class="row">div</div>
+        <div class="row">div</div>
+      </div>
+      <div class="col">
+        <div class="row">div</div>
+        <div class="row">div</div>
+        <div class="row">div</div>
+      </div>
+    </div> -->
+    <div class="section" id="section1"  [ngStyle]="{ 'background-color': getRandomColor() }">
+      <div class="row">
+        <div class="col">
+          <div class="card grid-item flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">card 2
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back flip-card">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">Card 3
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card grid-item flip-card">Card 4
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back flip-card">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">Card 5
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">Card 6
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card grid-item flip-card" >Card 7
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">Card 8
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card grid-item flip-card">Card 9
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <!-- Front content here -->
+                <h3>Front Title</h3>
+                <p>Front content goes here.</p>
+              </div>
+              <div class="flip-card-back">
+                <!-- Back content here -->
+                <h3>Back Title</h3>
+                <p>Back content goes here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section d-flex" id="section2"  [ngStyle]="{ 'background-color': getRandomColor() }">
+      Notre chaîne commence par le producteur (l'agriculteur) qui récolte sa récolte de dattes, puis cette récolte est acheminée vers le centre de stockage par un transporteur, où les dattes sont stockées soit comme matières premières, soit transformées en matières manufacturées dérivées de celles-ci, sous forme brute ou des produits les dattes sont distribués sur le marché local ou exportés vers le marché mondial.
+    </div>
+    <div class="section" id="section3" [ngStyle]="{ 'background-color': getRandomColor() }">nas to be shown</div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }">
+      <section class="landing-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h1>Welcome to my landing page</h1>
+              <p>This is a sample text for the landing page section. You can use this space to describe your product or service.</p>
+              <button class="btn btn-primary">Get started</button>
+            </div>
+            <div class="col-md-4">
+              <img src="https://via.placeholder.com/300x300" alt="Product Image">
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }">another writing</div>
+          <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }"><div class="container">
+            <div class="triangle-left"></div>
+            <div class="triangle-right"></div>
+          </div>
+    </div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }"></div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }"></div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }"></div>
+    <div class="section"  [ngStyle]="{ 'background-color': getRandomColor() }"></div>
+      
+</body>
+  

@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" placeholder="filtre sur tout les champs" [(ngModel)]="filterValue">
+          </div>
+          </div>
+          <div class="row">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="filterName">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="filterUsername">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Email" [(ngModel)]="filterEmail">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary" (click)="applyFilter()">Filter</button>
+      </div>
+    </div>
+  </div>
+  
+<select [(ngModel)]="selectedLength">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+  </select>
+
+<input type="text" [(ngModel)]="sortValue" placeholder="Sort table by...">
+<button (click)="sortTable()">sort</button>
+<button class="btn btn-success" (click)="resetTable()">&#8634;</button>
+
+  
+<table class="table">
+    <thead>
+        <tr>
+            <th><span class="arrow" (click)="sortTable()"></span><span class="arrow"></span></th>
+            <th><span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <th><span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <th><span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let user of users.slice(start,selectedLength)"> -->
+    <tr *ngFor="let user of getPaginatedData()">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+        </tbody>
+      
+  </table>
+  <div class="paginator">
+    <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+    <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+  </div>
+
+    
+

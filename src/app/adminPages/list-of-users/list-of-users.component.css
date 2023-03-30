@@ -1,0 +1,10 @@
+table{
+    background-color: gray; color:white
+}
+.arrow:active, .arrow:visited{
+    color:red;
+}
+.paginator{
+    position:absolute; right:50px;
+    display: flex; width:100px;  justify-content: space-between;
+}

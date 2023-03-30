@@ -1,0 +1,41 @@
+nav{
+    position:fixed; box-shadow: 0 0 5px 2px black;
+top:0; width:100%;  
+}
+.navbar {
+  background-color: rgb(41, 78, 157);
+  color:white; padding-bottom: 40px;
+  z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.navbar ul li {
+  
+  transition: background-color 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar ul li:hover {
+  background-color: #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar ul li a{
+  color:white;}
+
+  .navbar ul li:hover a{
+    color:blue;}
+  
+.active-link{
+  background-color: aqua; transform:scale(1.5);
+}
+
+
+
+
+
+
+
+
+
+  

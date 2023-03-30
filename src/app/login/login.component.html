@@ -1,0 +1,79 @@
+<app-header></app-header>
+<body> 
+  <div class="transparent"></div>
+<div class="container">
+<div class="slideWelcome mx-auto my-auto " [ngClass]="{'hidden': isHidden}" >
+  <button class="exit btn btn-danger" (click)="hide()">X</button>
+  <div>
+    <!-- <H2>welcome</H2>
+    <button class="button" (click)="goToSubscribe()">create an account</button> -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center mb-12"><h2>Registre</h2></h5>
+              
+                <form #formCin="ngForm" (ngSubmit)="onSubmitCin($event)">
+                  <div class="form-group" [ngClass]="{'hidden':cinRegisterIsValid}" >
+                      <label for="CIN"><h5>CIN :</h5></label>
+                      <input type="number" min="0" max="99999999" name="CIN" [(ngModel)]="cinRegister" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" required class="form-control" id="CIN"  placeholder="CIN"><small>Format: 13-46-13-46</small>
+                  </div>
+                  <button type="submit" #btnEnvoyerVerifier class="btn btn-primary w-100" (click)="bouttonVerifierClicked()" [ngClass]="{'hidden':cinRegisterIsValid}">envoyer</button>
+                </form>
+                  <form #formCode="ngForm" [ngClass]="{'hidden':!bouttonVerifierIsClicked}" *ngIf="cinRegisterIsValid" (ngSubmit)="onSubmitCode()">
+                  
+                  <h5>Code de vérification :</h5>
+                  <p>Veuillez entrer le code de vérification reçu par SMS :</p>
+                <div class="mb-2" class="d-flex justify-content-center ">
+                  <input type="text" class="form-control verification-input" id="code1" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input1" name="input1">
+                  <input type="text" class="form-control verification-input" id="code2" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input2" name="input2">
+                  <input type="text" class="form-control verification-input" id="code3" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input3" name="input3">
+                  <input type="text" class="form-control verification-input" id="code4" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input4" name="input4">
+                  <input type="text" class="form-control verification-input" id="code5" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input5" name="input5">
+                  <input type="text" class="form-control verification-input" id="code6" minlength="1" maxlength="1" pattern="\d" required [(ngModel)]="input6" name="input6">
+                </div>
+              
+                <br><br>
+                <button type="submit" #btnEnvoyerVerifier class="btn btn-primary w-100" (click)="bouttonVerifierClicked()">vérifier</button>
+              </form>
+              <p class="text-center mt-3"><a href="#">Renvoyer le code</a></p>
+            </div>
+          </div>
+
+    <div  class="loginBtn btn btn-success" (click)="moveLoginForm()"> login </div>
+  </div>
+</div>
+<form class="login-form" (ngSubmit)="onSubmitLogin()" #myForm="ngForm"  [ngClass]="{'active': isActive}">
+  <br><br>
+    <h1 style="color:gold;">Connexion</h1>
+    <div ngModelGroup="personDetails" #personDetails="ngModelGroup">
+    <div class="form-group">
+  <br><br>
+        <input type="text" class="form-control"  id="cin" name="cin" required aria-describedby="cinHelp" placeholder="cin" minlength="8" maxlength="8" [(ngModel)]="cin" >
+      <small id="emailHelp" class="form-text text-muted">We'll never share your cin with anyone else.</small>
+    </div>
+    <div class="form-group">
+     
+      <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password" placeholder="password">
+    </div><br>
+  </div>
+    <button type="submit" class="seConnecter" type="submit">Se connecter</button>
+    <br>
+    <b  class="text-center" >Mot de passe oublié</b>
+
+  <div  class="moveHorizentally btn btn-success" (click)="moveLoginForm()"> sign up </div>
+  
+  
+  
+  </form>
+  </div>
+  <div class="message" class="loading d-flex justify-content-center" *ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && isWaiting">
+    <span>your request is on treatement</span></div>
+
+<div class="message success" *ngIf="codeSubmitted && codeRegisterIsValid && showSuccessMessage">the verification code you wrote is true => password sent</div>
+  <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div>
+  <div class="message success" *ngIf="cinSubmitted && cinRegisterIsValid && showSuccessMessage">the cin is valid write the code sent to your phone</div>
+
+ <div class="message error" *ngIf="personDetails.invalid && personDetails.touched && loginIsSubmitted && passwordError" >the informations provided are not valid (all fields are required)</div>
+ <div class="message error"*ngIf="!loginIsValid && loginIsSubmitted" >only numbers from 0 to 9 are allowed</div>
+<div class="message error" *ngIf="cinSubmitted && !cinRegisterIsValid && showerrorMessage">the cin is not valid</div>
+<div class="message error" *ngIf="showerrorMessage && codeSubmitted && !codeRegisterIsValid">the verification code you wrote is not valid</div>
+</body>
