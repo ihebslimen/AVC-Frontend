@@ -6,5 +6,37 @@ table{
 }
 .paginator{
     position:absolute; right:50px;
-    display: flex; width:100px;  justify-content: space-between;
+    display: flex; width: 150px;  justify-content: space-between;
 }
+
+.container{
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  .marget{
+    left: 58%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 150px;
+  }
+  .margett{
+    left:50%;
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  }
+  .taille{
+    height: 100vh;
+    top: 85px;
+    position: fixed;
+    
+  }
+  .s8ir
+  {
+    width: 1000px;
+  }
+  
+
+
+  

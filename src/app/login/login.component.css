@@ -1,6 +1,6 @@
 body{
   display: flex; justify-content: center; align-items: center;position:relative;
-background-image: url('src\assets\backgroundProjet.png'); 
+background-image: url('src\assets\backgound.jpg'); 
 background-repeat: no-repeat; background-size: cover;
 background-position: center;
 }
@@ -19,7 +19,7 @@ background-position: center;
 /* .animate-left {
   
   left: 0;
- 
+
 } */
 .moved {
   animation: moveLeft 15s ease-in-out;

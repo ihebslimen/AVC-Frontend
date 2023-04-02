@@ -4,7 +4,7 @@ top:0; width:100%;
 }
 .navbar {
   background-color: rgb(41, 78, 157);
-  color:white; padding-bottom: 40px;
+  color:white; padding-bottom: 35px;
   z-index: 1000;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

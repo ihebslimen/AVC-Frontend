@@ -21,7 +21,7 @@
     </form>
   </nav> -->
   <nav class="navbar navbar-expand-lg  fixed-top"  #nav>
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" style="color: white;" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -47,17 +47,18 @@
   <a class="dropdown-item" href="#">Item 3</a>
 </div> -->
 
-      <select *ngIf="showScrollList" [(ngModel)]="selectedSection" (ngModelChange)="scrollToSection()">
-        select a section to scroll to
-        <option value="section1">section 1</option>
-        <option value="section2">section 2</option>
-        <option value="section3">section 3</option>
-      </select>
-      <li class="nav-item" id="loginButton">
+<select class="form-select" *ngIf="showScrollList" [(ngModel)]="selectedSection" (ngModelChange)="scrollToSection()">
+  select a section to scroll to
+  <option value="section1">section 1</option>
+  <option value="section2">section 2</option>
+  <option value="section3">section 3</option>
+</select>
+      <div class="nav-item" id="loginButton">
         <button class="btn btn-primary" *ngIf="showLoginButton">
-        <a class="nav-link " routerLink="/login" >login</a>
-        </button>
-      </li> 
+          <a class="nav-link " routerLink="/login" >login</a>
+          </button>
+          &nbsp;
+      </div> 
     </div>
   </nav>
   

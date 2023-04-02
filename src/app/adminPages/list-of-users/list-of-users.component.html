@@ -1,69 +1,156 @@
+<body style="background-color: #f6f9ff;">
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="filtre sur tout les champs" [(ngModel)]="filterValue">
-          </div>
-          </div>
-          <div class="row">
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="filterName">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="filterUsername">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Email" [(ngModel)]="filterEmail">
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-12 text-center">
-        <button class="btn btn-primary" (click)="applyFilter()">Filter</button>
-      </div>
-    </div>
-  </div>
-  
-<select [(ngModel)]="selectedLength">
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="15">15</option>
-    <option value="20">20</option>
-  </select>
+    <div class="row" >
+           <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
+            <div class="nav flex-column nav-pills mt-5 d-flex flex-column " style="Display:fixed;">
+              <h1 style="color: white;">Dashboard</h1><br><br>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" href="#"><h6>&nbsp;Gestion utilisateur</h6></a><br>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" href="#"><h6>&nbsp;Inscription</h6></a>
+            </div>
+          </div> 
+        </div>
+        
 
-<input type="text" [(ngModel)]="sortValue" placeholder="Sort table by...">
-<button (click)="sortTable()">sort</button>
-<button class="btn btn-success" (click)="resetTable()">&#8634;</button>
+    <div class="marget" id="utilisateur" [hidden]="!showSection">
+        <div class="col-md-12 s8ir">
 
-  
-<table class="table">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="filtre sur tout les champs" [(ngModel)]="filterValue" (ngModelChange)="applyFilter()">
+          <button class="btn btn-primary" >Filter</button> 
+        </div>
+      
+        </div>
+
+<div class="margett" >
+    
+<table class="table" *ngIf=" filterValue ==='' ">
     <thead>
         <tr>
-            <th><span class="arrow" (click)="sortTable()"></span><span class="arrow"></span></th>
-            <th><span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-            <th><span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-            <th><span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-        </tr>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email</th>
-      </tr>
+            <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
+            <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <th colspan="2">Action</th>
+          </tr>
     </thead>
-    <tbody>
-      <!-- <tr *ngFor="let user of users.slice(start,selectedLength)"> -->
+    <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()">
         <td>{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
+        <td>
+          <a class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit" style="color:white;" >
+            <i class="fa fa-pencil"></i> Edit
+          </a>&nbsp;&nbsp;
+          <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete" style="color:white;" >
+            <i class="fa fa-trash"></i> Delete
+          </a>
+        </td>
       </tr>
         </tbody>
       
   </table>
+  <table class="table" *ngIf=" filterValue.length > 0">
+    <thead>
+      <tr>
+        <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
+        <th>Name<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+        <th>Username<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+        <th>Email<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+        <th colspan="2">Action</th>
+      </tr>
+    </thead>
+    <tbody class="table-light">
+      
+    <tr *ngFor="let user of filtredUsers ">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <a class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit" style="color:white;" >
+            <i class="fa fa-pencil"></i> Edit
+          </a>&nbsp;&nbsp;
+          <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete" style="color:white;" >
+            <i class="fa fa-trash"></i> Delete
+          </a>
+        </td>
+      </tr>
+        </tbody>
+      
+  </table>
+
   <div class="paginator">
+    <select class="form-select" [(ngModel)]="selectedLength">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
     <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
     <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
   </div>
+</div>
+</div>
 
+
+
+
+
+<!--INSCRIPTION -->
+
+<div class="marget" id="Inscription" [hidden]="showSection">
+
+
+<div class="margett" >
+
+<table class="table" >
+<thead>
+<tr>
     
+      <th>ID</th>
+      <th>Name&nbsp;</th>
+      <th>Username&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th colspan="2">Action</th>
+</tr>
 
+</thead>
+<tbody class="table-light">
+
+<tr *ngFor="let user of filtredUsers " >
+  <td>{{user.id}}</td>
+  <td>{{user.name}}</td>
+  <td>{{user.username}}</td>
+  <td>{{user.email}}</td>
+  <td>
+    <a class="btn btn-primary tooltips" data-placement="top" data-original-title="Accepter" style="color:white;" >
+      <i class="fa fa-pencil"></i> Accepter
+    </a>&nbsp;&nbsp;
+    <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Réfusé" style="color:white;" >
+      <i class="fa fa-trash"></i> Réfusé
+    </a>
+  </td>
+</tr>
+  </tbody>
+
+</table>
+
+<div class="paginator">
+<select class="form-select" [(ngModel)]="selectedLength">
+<option value="5">5</option>
+<option value="10">10</option>
+<option value="15">15</option>
+<option value="20">20</option>
+</select>
+<button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+<button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+</div>
+</div>
+
+
+
+</div>
+</div>
+</body>

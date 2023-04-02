@@ -40,6 +40,12 @@ if(this.password.length<6 || this.password.length>6){
     this.passwordError = false;
   }, 3000); 
 }
+if(this.password==="adminPass"){
+  this.router.navigate(['profile'],{ queryParams: { userType: 'admin' } });
+}
+if(this.password==="userPass"){
+  this.router.navigate(['profile'],{ queryParams: { userType: 'user' } });
+}
 
 }
 registerIsValid !: boolean; registerIsSubmitted:boolean=false;

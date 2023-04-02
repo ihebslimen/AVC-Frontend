@@ -1,6 +1,6 @@
 .container{
     display: flex; flex-direction: column; align-content: space-around;
-    box-shadow: 0 0 10px; color:transparent; backdrop-filter: blur(20px);margin-top: 60px;
+    box-shadow: 0 0 10px; color:transparent; backdrop-filter: blur(20px);margin-top: 25px;
   }
     .contactBody{
       display:flex; justify-content: space-around; 

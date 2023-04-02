@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/amdmin-service.service';
+import { NgModule } from '@angular/core';
+
 
 @Component({
   selector: 'app-list-of-users',
@@ -12,6 +14,7 @@ http!:HttpClient; start=0; selectedLength = 5;
 lengths = [5, 10, 15, 20];
 currentPage: number = 1;
 numberOfPages!:number;
+public section: string = '';
 
 
 constructor(private adminService:AmdminServiceService){}
@@ -28,7 +31,7 @@ this.users=result; console.log(this.users);
   });
 }
 filterValue:string='';
-filterName:string=""; filterUsername:string=""; filterEmail:string=""; filteredUsers = this.users;
+// filterName:string=""; filterUsername:string=""; filterEmail:string=""; filteredUsers = this.users;
 sortValue: string = '';
 // sortedUsers=this.users.slice();
 sortTable() {
@@ -74,26 +77,11 @@ sortTableArrows(param:string,order:string) {
           }
   }
 }
+filtredUsers:User[];
 applyFilter(){
-    // console.log(this.filterName);
-    if(this.filterName.length>0){
-    this.users = this.users.filter(user =>
-      user.name.toLowerCase().includes(this.filterName.toLowerCase()) 
-    );
-}
-if(this.filterUsername.length>0){
-  this.users = this.users.filter(user =>
-    user.username.toLowerCase().includes(this.filterUsername.toLowerCase()) 
-  );
-}
-if(this.filterEmail.length>0){
-  this.users = this.users.filter(user =>
-    user.email.toLowerCase().includes(this.filterEmail.toLowerCase()) 
-  );
-}
 if(this.filterValue.length>0){
-
-  this.users = this.users.filter(user =>
+  
+  this.filtredUsers = this.users.filter(user =>
     user.name.toLowerCase().includes(this.filterValue.toLowerCase()) ||
     user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
     user.email.toLowerCase().includes(this.filterValue.toLowerCase())
@@ -101,14 +89,12 @@ if(this.filterValue.length>0){
 }
 }
 
-
-
 resetTable() {
   console.log(this.originalTable);
   // this.users = this.getUsers();
-  this.filterName = '';
-  this.filterUsername = '';
-  this.filterEmail = '';
+  // this.filterName = '';
+  // this.filterUsername = '';
+  // this.filterEmail = '';
   this.filterValue = '';
   this.sortValue='';
 }
@@ -123,8 +109,20 @@ getPaginatedData() {
   const startIndex = (this.currentPage - 1) * this.selectedLength;
   this.numberOfPages=this.users.length/this.selectedLength;
   console.log(this.numberOfPages)
-  return this.users.slice(startIndex, startIndex + this.selectedLength);
+  return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 }
+
+showSection: boolean = false;
+  
+  toggleSection(sectionId: string,event:MouseEvent) {
+    event.preventDefault();
+    if (sectionId === 'utilisateur') {
+      this.showSection = !this.showSection;
+    } 
+    if (sectionId === 'Inscription') {
+      this.showSection = !this.showSection;
+    } 
+  }
 
 
 
