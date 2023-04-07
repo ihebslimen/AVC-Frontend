@@ -1,0 +1,114 @@
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<app-header></app-header>
+
+<form class="login-form" #subscribeForm="ngForm" (ngSubmit)="onSubmit(subscribeForm)">
+    <div class="form-group">
+      <br><br>
+      <h1 style="color:white;">Subscribe</h1>
+      <br><br>
+     <div class="menu-container" clickOutside (clickoutside)="clickedOutside()">
+      <div class="menu-toggler" (click)="toggleMenu()">toggle menu</div>
+    <div class="menu" *ngIf="isMenuOpened">
+      <div class="menu-item">item</div>
+      <div class="menu-item">item</div>
+      <div class="menu-item">item</div>
+    </div> 
+    </div>
+      <div>
+        <label for="email">chose an email</label>
+        <input type="email" class="form-control" id="email" maxlength="8" ngModel="email" #email="ngModel" aria-describedby="emailHelp" placeholder="email">
+        <!-- <div  class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
+          email clicked
+          <div *ngIF="email.errors.maxlength">max length error!!!</div>
+        </div> -->
+      </div>
+      
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+     <label for="password">chose password</label>
+      <input type="password" class="form-control" id="password" ngModel name="password" #password="ngModel" placeholder="password" required>
+    </div><br>
+    <div class="form-group">
+     <label for="password2">repeat your password</label>
+        <input type="password" class="form-control" id="password2" ngModel name="password1" #password1="ngModel" placeholder="password">
+      </div><br>
+    <button type="submit" class="seConnecter">créer le compte</button>
+    <br>
+  </form>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div  class="alert alert-danger" >
+  email clicked
+  
+</div>
+
+<div aria-live="polite" aria-atomic="true" class="position-relative collapsed " [ngbCollapse]="isCollapsed" >
+
+  <div class="toast-container top-0 end-0 p-3 position-fixed end-0">
+
+    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+        <strong class="me-auto">Registre</strong>
+        <small class="text-muted">Créer un Compte</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+
+            <div class="form-group">
+                <div class="collapse " id="collapseExample">
+                    <div class="card card-body">
+                        <div class="container">
+                            <div class="row justify-content-center align-items-center vh-100">
+                              <div class="col-24 col-md-16 col-lg-16 collapsed">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title text-center mb-12" ><h2>Registre</h2></h5>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="CIN"><h5>CIN :</h5></label>
+                                            <input type="tel" name="CIN" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" required class="form-control" id="CIN"  placeholder="CIN"><small>Format: 13-46-13-46</small>
+                                        </div>
+                                        <h5>Code de vérification :</h5>
+                                        <p>Veuillez entrer le code de vérification reçu par SMS :</p>
+                                      <div class="mb-2" class="d-flex justify-content-center ">
+                                        <input type="text" class="form-control verification-input" id="code1" maxlength="1" pattern="\d" required>
+                                        <input type="text" class="form-control verification-input" id="code2" maxlength="1" pattern="\d" required>
+                                        <input type="text" class="form-control verification-input" id="code3" maxlength="1" pattern="\d" required>
+                                        <input type="text" class="form-control verification-input" id="code4" maxlength="1" pattern="\d" required>
+                                        <input type="text" class="form-control verification-input" id="code5" maxlength="1" pattern="\d" required>
+                                        <input type="text" class="form-control verification-input" id="code6" maxlength="1" pattern="\d" required>
+                                      </div>
+                                      <br><br>
+                                      <button type="submit" class="btn btn-primary w-100">Vérifier</button>
+                                    </form>
+                                    <p class="text-center mt-3"><a href="#">Renvoyer le code</a></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+
+
+
+
+

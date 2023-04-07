@@ -42,21 +42,30 @@
     <div  class="loginBtn btn btn-success" (click)="moveLoginForm()"> login </div>
   </div>
 </div>
-<form class="login-form" (ngSubmit)="onSubmitLogin()" #myForm="ngForm"  [ngClass]="{'active': isActive}">
+     <div class="login-form">
+      <h1 style="color:rgb(255, 255, 255);">Connexion</h1>
+<form  (ngSubmit)="onSubmitLogin()"    [ngClass]="{'hidden':loginIsValid}"  >
   <br><br>
-    <h1 style="color:rgb(255, 255, 255);">Connexion</h1>
-    <div ngModelGroup="personDetails" #personDetails="ngModelGroup">
+    
+    <!-- <div ngModelGroup="personDetails" #personDetails="ngModelGroup"> -->
     <div class="form-group">
   <br><br>
         <input type="text" class="form-control"  id="cin" name="cin" required aria-describedby="cinHelp" placeholder="cin" minlength="8" maxlength="8" [(ngModel)]="cin" >
       <small id="emailHelp" class="form-text " style="color:rgb(255, 255, 255);">We'll never share your cin with anyone else.</small>
     </div>
-    <div class="form-group">
-     
+    <div style="text-align: center;">
+    <button type="submit" class="seConnecter" >envoyer password</button>
+    </div>
+    </form>
+    <form >
+    <div class="form-group" *ngIf="loginIsValid">
+      <br><br>
       <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password" placeholder="password">
     </div><br>
-  </div>
-    <button type="submit" class="seConnecter" type="submit">Se connecter</button>
+  <!-- </div> -->
+  <div style="text-align: center;">
+    <button  *ngIf="loginIsValid" type="submit" class="seConnecter" (click)="onSubmitPassword()" >Se connecter</button>
+    </div>
     <br>
     <!-- <b  class="text-center" >Mot de passe oublié</b> -->
 
@@ -65,15 +74,16 @@
   
   
   </form>
+                    </div>
   </div>
-  <div class="message" class="loading d-flex justify-content-center" *ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && isWaiting">
+  <div class="message" class="loading d-flex justify-content-center" *ngIf="cin && loginIsValid  && loginIsSubmitted && isWaiting">
     <span>your request is on treatement</span></div>
 
 <div class="message success" *ngIf="codeSubmitted && codeRegisterIsValid && showSuccessMessage">the verification code you wrote is true => password sent</div>
-  <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div>
+  <!-- <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div> -->
   <div class="message success" *ngIf="cinSubmitted && cinRegisterIsValid && showSuccessMessage">the cin is valid write the code sent to your phone</div>
 
- <div class="message error" *ngIf="personDetails.invalid && personDetails.touched && loginIsSubmitted && passwordError" >the informations provided are not valid (all fields are required)</div>
+ <!-- <div class="message error" *ngIf="personDetails.invalid && personDetails.touched && loginIsSubmitted && passwordError" >the informations provided are not valid (all fields are required)</div> -->
  <div class="message error"*ngIf="!loginIsValid && loginIsSubmitted" >only numbers from 0 to 9 are allowed</div>
 <div class="message error" *ngIf="cinSubmitted && !cinRegisterIsValid && showerrorMessage">the cin is not valid</div>
 <div class="message error" *ngIf="showerrorMessage && codeSubmitted && !codeRegisterIsValid">the verification code you wrote is not valid</div>

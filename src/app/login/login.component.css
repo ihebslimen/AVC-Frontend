@@ -178,7 +178,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .login-form button {
     width: 250px;
-    height: 60px; border-radius: 10px;
+    height: 60px; border-radius: 10px; background-color:
   }
  .seConnecter{
     background-color: #2B968F;

@@ -1,0 +1,86 @@
+h1{text-align:center;}
+.login-form {
+    width: 500px; height:700px;  background-color:#cf9f22; margin-top:35px;
+    margin: 0 auto; 
+    align-items: center; padding:10px;
+    display: flex;flex-direction: column;
+    /* text-align: center;  */
+    /* box-shadow: 5px -5px 5px black; */
+    box-shadow: 0 0 5px 2px black;
+  }
+  .login-form input[type="email"],
+  .login-form input[type="text"],
+  .login-form input[type="password"],
+  .login-form input[type="submit"]
+  {
+    width: 400px;
+    height: 60px; border-radius: 12px;
+  }
+
+  .login-form button {
+    width: 250px;
+    height: 60px; border-radius: 10px;
+  }
+ .seConnecter{
+    background-color: #2B968F;
+    color:white; font-family: regular; font-size:24px; line-height: 48px;
+  }
+  .carre{
+    width:60px; height:6Opx; background-color: #698d5d;
+  }
+  .CunComp{
+    background-color:#454E4D; color:white;
+    width: 250px;
+    height: 60px;
+    border-radius: 10px;font-size:24px;
+  }
+  .login-btn{
+    background-color: rgb(61, 61, 222);
+}
+.alert {
+  position:fixed;left: calc(calc(100% - 700px)/2);
+  top:0; width:700px; height: 100px; display:none;
+}.menu-container{
+  width:200px;
+  background:aqua;
+  font-size:20px;
+}
+.menu-toggler{
+  padding:10px;
+}
+.menu{
+  background:thistle;
+  color:#fff;
+  padding:10px;
+}
+.menu-item:hover{
+  text-decoration:underline;
+}
+.verification-input {
+  width: 2.2rem; /* taille minimale de l'input */
+  text-align: center; /* centrage du texte */
+  margin: 0 0.5rem; /* marge horizontale entre les inputs */
+}
+.collapsed {
+  padding: 0px;
+  width: 550px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.verification-input {
+    width: 2.2rem; /* taille minimale de l'input */
+    text-align: center; /* centrage du texte */
+    margin: 0 0.5rem; /* marge horizontale entre les inputs */
+  }
+  .collapsed {
+    padding: 0px;
+    width: 550px;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+

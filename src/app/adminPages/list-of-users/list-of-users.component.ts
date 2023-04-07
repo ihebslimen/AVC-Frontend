@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/amdmin-service.service';
 import { NgModule } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 
 
 @Component({
@@ -16,8 +17,13 @@ currentPage: number = 1;
 numberOfPages!:number;
 public section: string = '';
 
-
-constructor(private adminService:AmdminServiceService){}
+userType: string | null;
+  
+constructor(private adminService:AmdminServiceService,private route: ActivatedRoute){
+  //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
+  this.userType=this.route.snapshot.queryParamMap.get('userType');
+  console.log("lmodel dhaher"+this.showModalFlag);
+}
 // users:User[]=[];
 public users:User[]=[]; public originalTable!:User[];
 ngOnInit(){
@@ -112,20 +118,72 @@ getPaginatedData() {
   return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 }
 
-showSection: boolean = false;
-  
+showSectionInscription: boolean = false;
+showSectionGestionUtilisateur: boolean = true;
   toggleSection(sectionId: string,event:MouseEvent) {
     event.preventDefault();
     if (sectionId === 'utilisateur') {
-      this.showSection = !this.showSection;
+      this.showSectionInscription = false;
+      this.showSectionGestionUtilisateur = true;
     } 
     if (sectionId === 'Inscription') {
-      this.showSection = !this.showSection;
+      this.showSectionGestionUtilisateur = false;
+      this.showSectionInscription = true;
+
     } 
+    // console.log(this.showSection);
+  }
+//todo fazet ki tenzel 3al bouton yo5rjo informations
+  selectedUser: any;
+  showModalFlag = false; operation:string;
+
+  showModal(user: any,operation:string) {
+    this.selectedUser = user;
+    this.showModalFlag = true;
+    if(operation==='edit'){
+      this.operation="edit";
+    }
+    if(operation==='delete'){
+      this.operation="delete";
+    }
+
+    
   }
 
+  hideModal() {
+    this.selectedUser = null;
+    this.showModalFlag = false;
+  }
+
+//todo fonctions modifier et supprimer
 
 
+public onUpdateUser(user: User): void {
+  this.adminService.updateUser(user).subscribe(
+    (response: User) => {
+      console.log(response);
+      this.getUsers();
+    },
+    // (error: HttpErrorResponse) => {
+    //   alert(error.message);
+    // }
+  );
+}
+
+public onDeleteUser(userId: number): void {
+  this.adminService.deleteUser(userId).subscribe(
+    (response: void) => {
+      console.log(response);
+      this.getUsers();
+    },
+    // (error: HttpErrorResponse) => {
+    //   alert(error.message);
+    // }
+  );
+}
+
+
+//toDo
 
 // moveLeft(){
 //   this.start=this.start-5;
