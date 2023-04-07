@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
+import { AuthenticationServiceService } from '../services/authentication-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,8 @@ import {Router} from '@angular/router';
 export class LoginComponent {
   isCollapsed = true; regex = /^\d+$/; 
   showAlert !:boolean; showerrorMessage=false; showSuccessMessage=false;
-constructor(private router:Router){}
+  
+constructor(private router:Router,private authenticationService:AuthenticationServiceService){}
 goToSubscribe(): void {
   this.router.navigate(['subscribe']);
 }
@@ -17,35 +19,46 @@ cin !: string; password:string=''; passwordError=false;
   loginIsValid !: boolean; loginIsSubmitted:boolean=false;
   errorMessage !:string; 
 onSubmitLogin(){
+  console.log("submission ......");
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
   this.loginIsValid = this.regex.test(this.cin);
   if(this.loginIsValid){
     this.showSuccessMessage = true;
-
+console.log("login valid")
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);
   }
   else{
+    console.log("login is not valid")
     this.showerrorMessage=true;
     setTimeout(() => {
+      this.loginIsValid=true;
       this.showerrorMessage = false;
     }, 3000);
   }
-if(this.password.length<6 || this.password.length>6){
-  this.passwordError=true;
-  console.log(this.passwordError,"ekteb kol chay",this.password,this.password.length);
-  setTimeout(() => {
-    this.passwordError = false;
-  }, 3000); 
-}
-if(this.password==="adminPass"){
-  this.router.navigate(['profile'],{ queryParams: { userType: 'admin' } });
-}
-if(this.password==="userPass"){
-  this.router.navigate(['profile'],{ queryParams: { userType: 'user' } });
-}
+  //todo ki kenet submit bil cin wel password
+
+// if(this.password.length<6 || this.password.length>6){
+//   this.passwordError=true;
+//   console.log(this.passwordError,"ekteb kol chay",this.password,this.password.length);
+//   setTimeout(() => {
+//     this.passwordError = false;
+//   }, 3000); 
+// }
+//todo
+// if(this.password==="adminPass"){
+//   this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'admin' } });
+// }
+//todo ki kenet submit bil cin wel password
+// this.authenticationService.login(this.cin,this.password);
+//todo
+
+
+// if(this.password==="userPass"){
+//   this.router.navigate(['profile'],{ queryParams: { userType: 'user' } });
+// }
 
 }
 registerIsValid !: boolean; registerIsSubmitted:boolean=false;
@@ -108,6 +121,15 @@ this.showerrorMessage=true;
     }, 3000);
   }
 }
+
+
+onSubmitPassword(){
+  console.log("password submitted")
+  console.log(this.password);
+  this.authenticationService.login(this.password);
+}
+
+
 isHidden = false; isWaiting=false;
 isActive=false;
 active(){ 

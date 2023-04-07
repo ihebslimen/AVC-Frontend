@@ -1,6 +1,6 @@
 body{
   display: flex; justify-content: center; align-items: center;position:relative;
-background-image: url('src\assets\backgound.jpg'); z-index: 5;
+background-image: url('src\assets\backgound.jpg'); 
 background-repeat: no-repeat; background-size: cover;
 background-position: center;
 }
@@ -170,7 +170,7 @@ transition: transform .5s ease-in-out;
     height: 60px; border-radius: 12px;
   }
   input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
+input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -178,7 +178,7 @@ transition: transform .5s ease-in-out;
 
   .login-form button {
     width: 250px;
-    height: 60px; border-radius: 10px;
+    height: 60px; border-radius: 10px; background-color:
   }
  .seConnecter{
     background-color: #2B968F;

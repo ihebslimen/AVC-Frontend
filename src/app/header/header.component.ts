@@ -1,29 +1,30 @@
 import { Component,Input,Output ,EventEmitter, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Router,NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router'
+import { AuthenticationServiceService } from '../services/authentication-service.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-showLoginButton=true;
-  showScrollList:boolean;
+showLoginButton=true; loggedIn=false; buttonText=''; role:string;
+  showScrollList:boolean; connected:boolean;   routeUrl: string;
 @ViewChild('dropdownButton') dropdownButton!: ElementRef;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
-  routeUrl: string;
- 
-constructor(private router:Router,private renderer: Renderer2,private route: ActivatedRoute) {
-  this.showScrollList=false;
-  if(this.router.url==='/login'){
-    this.showLoginButton=false;
-  }
+constructor(private router:Router,private renderer: Renderer2,private route: ActivatedRoute, public authenticationService:AuthenticationServiceService) {
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       this.routeUrl = event.url;
     }
   });
+
+  this.showScrollList=false;
+  if(this.router.url==='/login'){
+    this.showLoginButton=false;
+  }
 }
+
 
 @ViewChild('nav') myElement!: ElementRef;
 
@@ -37,8 +38,8 @@ constructor(private router:Router,private renderer: Renderer2,private route: Act
 // const navHeight=document.querySelector('.navbar navbar-expand-lg')as HTMLElement?.getBoundingClientRect.Heig
  
  
- 
- 
+
+isLoggedIn$ = this.authenticationService.isLoggedIn();
  ngOnInit() {
   this.route.url.subscribe(url => {
     // Check the current URL to see if the button should be shown
@@ -48,8 +49,19 @@ constructor(private router:Router,private renderer: Renderer2,private route: Act
       this.showScrollList = false;
     }
   });
+  this.authenticationService.isLoggedIn().subscribe((loggedIn) => {
+    this.loggedIn = loggedIn; this.connected=this.authenticationService.connected;
+    this.buttonText = this.connected ? 'Logout' : 'Login';
+    this.role=this.role;
+    
+  });
+  console.log("connecté? =>"+this.connected);
 }
 
+logout(): void {
+  this.authenticationService.logout();
+  console.log("connexion state"+this.loggedIn)
+}
 
  
  goToContact(){
@@ -109,7 +121,6 @@ constructor(private router:Router,private renderer: Renderer2,private route: Act
   scrollToSection(){
     const selectedSectionElement = document.getElementById(this.selectedSection);
     selectedSectionElement!.scrollIntoView({ behavior: "smooth" });
-
   }
 
 

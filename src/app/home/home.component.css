@@ -1,64 +1,30 @@
 body{
-  margin:0 0 0 0; padding:0; 
-    height: 4400px;
+      height:auto;
+    margin:0; padding:0; 
   }
   .section{
-    height:1000px;  display: flex; align-items:center;
-     justify-content: center;
-     flex-direction: column; border:2px solid black; 
-    border:2px solid black; background-color: #C1DF9F;
+    height:auto;  display: flex; align-items:center; justify-content: center;
+    flex-direction: column; border:2px solid black; 
+    border:2px solid black; background-color:rgb(72, 51, 195);
     padding:100px 0;
-   
-  }
-  .ajnab {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    position: relative;
-    background-image: url('src/assets/ajnab.jpg');
-    background-repeat:no-repeat;
-    background-size:100%;
-    background-position: center; 
-  }
-  
-  
-  .card {width:250px; height:250px; margin:100px;  text-align: center;}
-  
-  .flip-card-inner {
-    background-color: #EBF4DF;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-  .section:nth-child(1){
-    padding-top: 50px;
   }
 
-  .dragging {
-    opacity: 0.5;
-  }
-  .espace{
-    margin:100px 100px 100px 100px;
-  }
 
-  .back1{
-    background-image: url('src\assets\home.jpg');
-    background-repeat: no-repeat; background-size: cover;
-    background-position: center;
-    display: flex; justify-content: center; align-items: center;position:relative;
-  }
-.img-thumbnail{
-  height: 300px;
-  width: 450px;
-}
+#welcometoourplateforme{margin-top: -70px;}
+
  
+  .card {width:250px; height:250px; margin:100px; text-align: center;}
+  .flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
 #input1:hover + #label{
   transform: translateY(50px);
   background-color: red;
 }
-
 
 .flip-card-front, .flip-card-back {
   position: absolute;
@@ -71,12 +37,19 @@ body{
   transform: rotateY(0deg); text-align: center; display:flex; align-items: center;
   justify-content:center /* Set the initial state of the front element */
 }
+.flip-card-front h1{margin: auto;}
 .flip-card-back {
   transform: rotateY(180deg); /* Set the initial state of the back element */
 }
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg); /* Flip the card by rotating the inner element 180 degrees on the Y axis */
 }
+
+
+
+
+
+
 
 .text {
   position: absolute;
@@ -91,31 +64,36 @@ body{
 }
 
 
-.drag-element {
-  position: absolute;
-  left: 50px;
-  top: 50px;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
-  color: white;
-  cursor: move;
-  user-select: none;
-}
+
 
 #E-Hawiya{
-  font-size:30px; line-height: 70px;color: #333;text-align:center;
+  font-size:35px; line-height: 70px;color: #333;text-align:center;
+  /* font-family: 'Montserrat', sans-serif;  */
   font-family: 'Dancing Script', cursive; flex-direction: column;
-  margin:100px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1), 0px -8px 15px rgba(0, 0, 0, 0.1); 
-  height:1000px;
+  margin:50px 0;
+   /* background-size: cover;
+  background-repeat: no-repeat; background-position:40%;
+background-image: url('https://idaraty.tn/images/e-houwiya-mobile-id-tunisie.jpg'); */
+
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1), 0px -8px 15px rgba(0, 0, 0, 0.1); /* add a box-shadow to the top and bottom */
+height:auto;
 }
+#E-Hawiya div >*:not(h1){
+color: white;
+}
+
 .writing-effect {
   overflow: hidden;
-  border-right: 0.15em solid #333;
-  white-space: nowrap;
-  letter-spacing: 0.15em;
-  animation: typing 3.5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+      border-right: 0.15em solid #333;
+      white-space: nowrap;
+      letter-spacing: 0.15em;
+      animation: typing 3.5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+  transition: background-color 0.3s ease-in-out; padding:15px 5px;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0)
+    );
 }
 
 @keyframes typing {
@@ -126,6 +104,7 @@ body{
     width: 100%;
   }
 }
+
 @keyframes blink-caret {
   from,
   to {
@@ -135,6 +114,49 @@ body{
     border-color: #333;
   }
 }
+/*sections one by one*/
+
+
+
+.section3container{
+   display: flex; justify-content: center;
+   width:100%;
+}
+#section3{
+display: grid; 
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: repeat(2, 1fr);
+  gap: 10px; 
+}
+#section3 div {
+  height: 450px; width:600px;
+  flex-basis: 50%;
+  box-sizing: border-box;
+  background-color: yellow;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  transform: perspective(1000px) rotateX(20deg) rotateY(10deg);
+  transition: all 0.3s ease-in-out; 
+}
+
+#section3 div:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+}
+//todo 
+#section img{
+  background-size: cover; background-position: center; }
+  #section3 div:has(img) {
+    height: 450px; width:600px;
+    flex-basis: 50%;
+    box-sizing: border-box;
+    background-color: yellow;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    transform: perspective(1000px) rotateX(20deg) rotateY(10deg);
+    transition: all 0.3s ease-in-out; 
+    display: flex; justify-content: center;}
+
+//todo
+
 .image {
   width: 100%; height:100%;
   background-color: #ccc;
@@ -142,56 +164,4 @@ body{
   background-size: cover;
   background-position: center;
 }
-#section3 div:hover {
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-}
-#section3 div {
-  height: 450px; width:600px;
-  flex-basis: 50%;
-  box-sizing: border-box;
-  /* background-color: rgba(255, 255, 0, 0.322); */
-  background-color: #EBF4DF;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-  transform: perspective(1000px) rotateX(20deg) rotateY(10deg);
-  transition: all 0.3s ease-in-out;
-}
-.section3container{
-  display: flex; justify-content: center;
-  /* width:100%;height: 1000px; */
-}
-#section3{
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-    gap: 10px; 
-  }
 
-.containere {
-  position: absolute; 
-  display: flex;top: 0;
-  flex-direction: column; background-color: transparent;
-  box-shadow: 0 0 10px;
-  padding: 20px;backdrop-filter: blur(35px);height: 450px;width: 1650px;
-  margin-top: 10%;
-  border-radius: 2%;
-  left: 500px;
-}
-h6{
-  line-height: 2;
-  font-size: large;
-}
-.img-thumbnail {
-  border: 2px solid black;
-  box-shadow: 0 0 10px;
-  max-width: 100%;
-  height: auto;
-  }
-  .profile-info {
-  position: relative;
-  display: flex; 
-  align-items: center;
-  }
-  .personal-info {
-  width: 70%; 
-  }

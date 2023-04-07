@@ -13,6 +13,7 @@ import { AdminProfileComponent } from './adminPages/admin-profile/admin-profile.
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ListOfUsersComponent } from './adminPages/list-of-users/list-of-users.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -33,8 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     NgbModule,
     NgbCollapseModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    CommonModule
 
   ],
   providers: [],
