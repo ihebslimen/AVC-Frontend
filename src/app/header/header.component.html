@@ -6,7 +6,10 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLinkActive="'active-link'" href="#" >Home<span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLinkActive="'active-link'" href="#" (click)="toggleSectionHome()" >Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLinkActive="'active-link'" href="#" (click)="toggleSectionApropos()" >À propos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/contact" routerLinkActive="'active-link'">Contact us</a>
@@ -24,9 +27,9 @@
   <option value="utilisationdelaplateforme">utilisation?</option>
 </select>
       <div class="nav-item" id="loginButton">
-        <button class="btn btn-primary" *ngIf="showLoginButton">
-          <a class="nav-link " *ngIf="this.loggedIn" (click)="logout()" routerLink="/login">logout</a>
-          <a class="nav-link " *ngIf="!this.loggedIn" routerLink="/login">login</a>  
+        <button class="btn btn-success" *ngIf="showLoginButton">
+          <a class="nav-link "style="color:white;font-family:roboto;" *ngIf="this.loggedIn" (click)="logout()" routerLink="/login">logout</a>
+          <a class="nav-link "style="color:white; font-family:roboto;" *ngIf="!this.loggedIn" routerLink="/login">login</a>  
         </button>
           &nbsp;
       </div> 

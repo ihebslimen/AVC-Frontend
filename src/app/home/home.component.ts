@@ -1,5 +1,6 @@
 import { Component,ViewChild,ElementRef,OnInit, ViewChildren,Renderer2, QueryList } from '@angular/core';
 import {Router} from '@angular/router';
+import { AuthenticationServiceService } from '../services/authentication-service.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +19,7 @@ export class HomeComponent {
   //   const b = Math.floor(Math.random() * 256);
   //   return `rgb(${r}, ${g}, ${b})`;}
     ngOnInit(){
+      
       const flipCards = document.querySelectorAll('.flip-card');
     flipCards.forEach(flipCard => {
     flipCard.addEventListener('click', function() {
@@ -25,7 +27,48 @@ export class HomeComponent {
     });
     }); 
     }
+    constructor(private router: Router ,public sectionService:AuthenticationServiceService) { }
+
     isDragging = false;
+
+
+
+
+
+//   showSectionHome: boolean = true;
+// showSectionapropos: boolean = false;
+// toggleSection(sectionId: string,event:MouseEvent) {
+//   event.preventDefault();
+//   if (sectionId === 'apropos') {
+//     this.showSectionHome = false;
+//     this.showSectionapropos = true;
+//     // Modifier la route pour correspondre à la section affichée
+//     this.router.navigate(['/apropos']);
+//   } 
+//   if (sectionId === 'Home') {
+//     this.showSectionapropos = false;
+//     this.showSectionHome = true;
+//     // Modifier la route pour correspondre à la section affichée
+//     this.router.navigate(['/home']);
+//   } 
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      
   //   onDragStart(event: DragEvent) {
   //     this.isDragging = true;
@@ -82,7 +125,7 @@ export class HomeComponent {
 
  
 
-  
+
 
 
 

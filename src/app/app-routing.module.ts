@@ -20,7 +20,8 @@ const routes: Routes = [
   {path:"admin",component:AdminProfileComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"profile",component:ProfileComponent},
   {path:"listOfUsers",component:ListOfUsersComponent,canActivate:[IsAdminRouteGuardService]},
-  {path:"**",component:PageNotFoundComponent}
+  {path:"**",component:PageNotFoundComponent},
+  
 ];
 
 @NgModule({

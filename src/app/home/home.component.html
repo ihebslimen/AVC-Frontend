@@ -1,37 +1,10 @@
 <app-header></app-header>
 <body style="background-color: #EBF4DF;margin-bottom: 0%;bottom: 0;">
-    
+    <div *ngIf="sectionService.showSectionHome">
 
 <!--   section -->
 
 
-<div class="section back1">
-  <section class="landing-section" >
-    <div class="container containere">
-        <div class="profile-info">
-          <div class="personal-info ">
-            <div class="row">
-        <div class="col-md-12 ">
-          <h1 style="font-family:Roboto;">Welcome to our plateforme</h1>
-          <h6 style="font-family:Roboto;">Cette plateforme permettra des résoudre plusieurs problèmes notamment la traçabilité
-             puisque tout les transactions effectués seront enregistré dans des registres immuables et sécurisés,
-              ce qui permet de tracer la provenance des produits et en plus assurer la sécurité des données et réduire 
-              les risques de fraude ou de falsification des informations. La mise en place d'un système de rémunération 
-              basé sur le score dans notre plateforme de blockchain peut avoir un impact significatif sur l'amélioration de la compétitivité 
-              dans la chaîne de valeur agricole impliquant différents acteurs, tels que les producteurs, les transporteurs et les exportateurs
-               ce qui résulte en meilleur productivité et meilleur compétitivité de dattes tunisienne.</h6>
-          <button class="btn btn-success">Get started</button>
-        </div></div></div>
-         <div class="col-md-4">
-   
-        <div class="text-center">
-          <img src="./assets/tmar.jpg" class="img-thumbnail " alt="Image description">
-        </div>
-      </div>
-      </div>
-    </div>
-  </section>
-</div>
 
  <!--  Dernier section -->
  <!-- <div class="section" id="section3" style="background-color: #FCFDF8;">nas to be shown</div> -->
@@ -46,48 +19,33 @@
  
  
      <!--   section -->
-     <div class="section d-flex espace image" id="E-Hawiya" style="background-image: url(./assets/home2.jpg); background-size:100%;
-     background-position: center;"   >
-      <div class="content">
-      <h1 class="writing-effect" style="margin-left: 70px;font-family: Roboto;">Notre application fonctionne en collaboration avec e-howeya.</h1>
-     <br>
-      <p style="margin:40px 70px 40px 70px;font-family: Roboto;line-height: 3;">
-        Dans notre plateforme de gestion de chaîne de valeur des dattes, nous avons intégré la solution E-Hawiya de vérification d'identité numérique basée sur la technologie blockchain. Cette intégration permet de garantir l'identité des différents acteurs impliqués dans la chaîne de valeur des dattes, tels que les producteurs, les distributeurs, les transformateurs et les consommateurs. Les entreprises et les consommateurs peuvent ainsi utiliser leurs identités numériques vérifiées pour accéder à la plateforme et effectuer des transactions en toute sécurité et confidentialité. Cette intégration de la solution E-Hawiya dans notre plateforme de gestion de chaîne de valeur des dattes renforce ainsi la confiance et la transparence dans la gestion de la chaîne de valeur des dattes.    
-      </p>
-    </div>
-    </div>
-    
-    
-      <div class="section3container ajnab section espace" id="utilisationdelaplateforme">
-
-
-        <h1 class="writing-effect">Comment commencer à utiliser la plateforme</h1>
-  
-        <div  id="section3" >
-          <div class="top-left  grid-item">
-            <img class="image" src="assets/registrePage.png" alt="Product Image">
+     <div class="section back1">
+      <section class="landing-section" >
+        <div class="container containere">
+            <div class="profile-info">
+              <div class="personal-info ">
+                <div class="row">
+            <div class="col-md-12 ">
+              <h1 style="font-family:Roboto;">Welcome to our plateforme</h1>
+              <h6 style="font-family:Roboto;">Cette plateforme permettra des résoudre plusieurs problèmes notamment la traçabilité
+                 puisque tout les transactions effectués seront enregistré dans des registres immuables et sécurisés,
+                  ce qui permet de tracer la provenance des produits et en plus assurer la sécurité des données et réduire 
+                  les risques de fraude ou de falsification des informations. La mise en place d'un système de rémunération 
+                  basé sur le score dans notre plateforme de blockchain peut avoir un impact significatif sur l'amélioration de la compétitivité 
+                  dans la chaîne de valeur agricole impliquant différents acteurs, tels que les producteurs, les transporteurs et les exportateurs
+                   ce qui résulte en meilleur productivité et meilleur compétitivité de dattes tunisienne.</h6>
+              <button class="btn btn-success"(click)="sectionService.showApropos()">Get started</button>
+            </div></div></div>
+             <div class="col-md-4">
+       
+            <div class="text-center">
+              <img src="./assets/tmar.jpg" class="img-thumbnail " alt="Image description">
             </div>
-          <div class="top-right grid-item">
-            <h2 class="text-center"style="font-family:Roboto;">Signup</h2>
-            <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Pour commencer à utiliser la plateforme, vous devrez d'abord vous inscrire en fournissant votre numéro CIN et le numéro de téléphone portable associé à votre CIN. Après avoir soumis ces informations, un code de vérification sera envoyé à votre téléphone portable. Saisissez ce code dans le champ prévu à cet effet pour confirmer votre identité.
-    
-              Nous utilisons les données de e-haweya pour vérifier votre identité et pour faciliter le processus d'inscription. Une fois que votre identité est vérifiée, vous serez invité à créer un compte sur la plateforme.</p>
-          </div >
-          <div class="bottom-left grid-item">
-            <h2 class="text-center" style="font-family:Roboto;">Login</h2>
-            <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Une fois que vous avez créé votre compte, vous pourrez vous connecter à la plateforme en saisissant votre numéro CIN et le mot de passe qui vous a été envoyé précédemment. Si vous avez oublié votre mot de passe, vous pouvez cliquer sur le lien "Mot de passe oublié" et suivre les instructions pour le réinitialiser.
-    
-              Une fois que vous êtes connecté, vous pouvez commencer à utiliser les fonctionnalités de la plateforme, notamment l'enregistrement des transactions, la vérification de l'historique des transactions et la gestion de votre compte utilisateur. N'oubliez pas de garder votre mot de passe en sécurité et de ne jamais le partager avec d'autres personnes. Si vous avez des problèmes pour vous connecter ou pour utiliser la plateforme, veuillez contacter notre équipe de support technique pour obtenir de l'aide.</p>
           </div>
-          <div class="bottom-right grid-item">
-            <img  class="image" src="assets/loginPage.png" alt="Product Image">
           </div>
         </div>
-      </div>
-     
-  
-
-
+      </section>
+    </div>
 
     <!--  Dernier section -->
     
@@ -230,5 +188,65 @@
           </div>
         </div>
       </div>
+    
+    
+    </div>
+
+
+<div *ngIf="sectionService.showSectionApropos">
+
+  <div class="section d-flex espace image" id="E-Hawiya" style="background-image: url(./assets/home2.jpg); background-size:100%;
+  background-position: center;"   >
+   <div class="content">
+   <h1 class="writing-effect" style="margin-left: 70px;font-family: Roboto;">Notre application fonctionne en collaboration avec e-howeya.</h1>
+  <br>
+   <p style="margin:40px 70px 40px 70px;font-family: Roboto;line-height: 3;">
+     Dans notre plateforme de gestion de chaîne de valeur des dattes, nous avons intégré la solution E-Hawiya de vérification d'identité numérique basée sur la technologie blockchain. Cette intégration permet de garantir l'identité des différents acteurs impliqués dans la chaîne de valeur des dattes, tels que les producteurs, les distributeurs, les transformateurs et les consommateurs. Les entreprises et les consommateurs peuvent ainsi utiliser leurs identités numériques vérifiées pour accéder à la plateforme et effectuer des transactions en toute sécurité et confidentialité. Cette intégration de la solution E-Hawiya dans notre plateforme de gestion de chaîne de valeur des dattes renforce ainsi la confiance et la transparence dans la gestion de la chaîne de valeur des dattes.    
+   </p>
+ </div>
+ </div>
+ 
+ 
+   <div class="section3container ajnab section espace" id="utilisationdelaplateforme">
+
+
+     <h1 class="writing-effect">Comment commencer à utiliser la plateforme</h1>
+
+     <div  id="section3" >
+       <div class="top-left  grid-item">
+         <img class="image" src="assets/registrePage.png" alt="Product Image">
+         </div>
+       <div class="top-right grid-item">
+         <h2 class="text-center"style="font-family:Roboto;">Signup</h2>
+         <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Pour commencer à utiliser la plateforme, vous devrez d'abord vous inscrire en fournissant votre numéro CIN et le numéro de téléphone portable associé à votre CIN. Après avoir soumis ces informations, un code de vérification sera envoyé à votre téléphone portable. Saisissez ce code dans le champ prévu à cet effet pour confirmer votre identité.
+ 
+           Nous utilisons les données de e-haweya pour vérifier votre identité et pour faciliter le processus d'inscription. Une fois que votre identité est vérifiée, vous serez invité à créer un compte sur la plateforme.</p>
+       </div >
+       <div class="bottom-left grid-item">
+         <h2 class="text-center" style="font-family:Roboto;">Login</h2>
+         <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Une fois que vous avez créé votre compte, vous pourrez vous connecter à la plateforme en saisissant votre numéro CIN et le mot de passe qui vous a été envoyé précédemment. Si vous avez oublié votre mot de passe, vous pouvez cliquer sur le lien "Mot de passe oublié" et suivre les instructions pour le réinitialiser.
+ 
+           Une fois que vous êtes connecté, vous pouvez commencer à utiliser les fonctionnalités de la plateforme, notamment l'enregistrement des transactions, la vérification de l'historique des transactions et la gestion de votre compte utilisateur. N'oubliez pas de garder votre mot de passe en sécurité et de ne jamais le partager avec d'autres personnes. Si vous avez des problèmes pour vous connecter ou pour utiliser la plateforme, veuillez contacter notre équipe de support technique pour obtenir de l'aide.</p>
+       </div>
+       <div class="bottom-right grid-item">
+         <img  class="image" src="assets/loginPage.png" alt="Product Image">
+       </div>
+     </div>
+   </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
   

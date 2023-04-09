@@ -40,4 +40,22 @@ export class AuthenticationServiceService {
   }
 
 
+  showSectionHome: boolean = true;
+  showSectionApropos: boolean = false;
+
+  toggleSectionHome() {
+    this.showSectionHome = true;
+    this.showSectionApropos = false;
+  }
+
+  toggleSectionApropos() {
+    this.showSectionHome = false;
+    this.showSectionApropos = true;
+  }
+
+  showApropos() {
+    this.showSectionHome = false;
+    this.showSectionApropos = true;
+  }
+
 }
