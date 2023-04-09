@@ -18,7 +18,12 @@ export class IsAdminRouteGuardService implements CanActivate {
     } else {
       return this.router.parseUrl('/login');
     }
+<<<<<<< HEAD
   // ){return true;}
+=======
+  // {return true;}
+>>>>>>> 0af58a092cd9f730f74f54a6214fa4826c8b1c1c
   }
 }
   
+}
