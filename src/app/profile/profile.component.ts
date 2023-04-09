@@ -22,7 +22,7 @@ export class ProfileComponent {
   isCollapsed = true;
  
   showSection: boolean = false;
-  
+  showScoreTitle:boolean;
 
   toggleSection(sectionId: string,event:MouseEvent) {
     if (sectionId === 'gestionUtilisateur') {
@@ -30,6 +30,14 @@ export class ProfileComponent {
       this.showSection = !this.showSection;
     } 
   }
+
+  
+
+
+  
+    
+  
+  
 
 
 }

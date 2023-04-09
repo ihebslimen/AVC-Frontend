@@ -18,7 +18,7 @@
       </button> -->
       </div>
    
-<div class="container">
+<!-- <div class="container">
     <div class="profile-info">
       <div class="personal-info">
         <h5 style="color: green;">Welcome !</h5>
@@ -29,7 +29,37 @@
       </div>
       <div class="profile-picture"></div>
     </div>
+  </div> -->
+
+
+  <div class="container-fluid profileContainer">
+    <div class="row">
+      <div class="col-md-3 profile">
+        <p class="scoreTitle" *ngIf="showScoreTitle">your score</p>
+        <div class="score" (click)="showScoreTitle = true" (mouseout)="showScoreTitle = false">100</div>
+        <div class="profile-header">
+          <img src="https://via.placeholder.com/300x300" alt="Profile Picture" class="rounded-circle">
+          <h1>username</h1>
+          <p class="role">role</p>
+        </div>
+        <div class="profile-body">
+          <h2>My Transactions</h2>
+          <ul class="choices">
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+          </ul>
+            
+          
+        </div>
+      </div>
+      
+       
+    </div>
   </div>
+  
+ 
+  
   <div class="row slideOfParam" style="background-color:  rgb(41, 78, 157);">
     <div class="col-2  fixed-left taille" >
      <div class="nav flex-column nav-pills mt-5 d-flex flex-column " style="Display:fixed;">

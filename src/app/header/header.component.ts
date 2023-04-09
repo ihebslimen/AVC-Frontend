@@ -8,7 +8,7 @@ import { AuthenticationServiceService } from '../services/authentication-service
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-showLoginButton=true; loggedIn=false; buttonText=''; role:string;
+showLoginButton=true; loggedIn=false; buttonText=''; role:string='';
   showScrollList:boolean; connected:boolean;   routeUrl: string;
 @ViewChild('dropdownButton') dropdownButton!: ElementRef;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;

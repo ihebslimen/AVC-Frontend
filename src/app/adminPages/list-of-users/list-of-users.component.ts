@@ -83,7 +83,7 @@ sortTableArrows(param:string,order:string) {
           }
   }
 }
-filtredUsers:User[];
+  filtredUsers: User[] = [];
 applyFilter(){
 if(this.filterValue.length>0){
   
@@ -135,7 +135,7 @@ showSectionGestionUtilisateur: boolean = true;
   }
 //todo fazet ki tenzel 3al bouton yo5rjo informations
   selectedUser: any;
-  showModalFlag = false; operation:string;
+  showModalFlag = false; operation:string | undefined;
 
   showModal(user: any,operation:string) {
     this.selectedUser = user;
