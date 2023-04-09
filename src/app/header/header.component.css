@@ -21,8 +21,12 @@ top:0; width:100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.navbar ul li a{
-  color:white;}
+.navbar ul li {
+  color:white;
+}
+.navbar a{
+  color:white;
+}
 
   .navbar ul li:hover a{
     color:rgb(0, 0, 255);}
@@ -34,7 +38,10 @@ top:0; width:100%;
       .transparentNavbar {
         background-color:rgba(255, 255, 255, 0.252)  ;
       }
-      .transparentNavbar ul li a{
+      .transparentNavbar ul li {
+        color: black;
+      }
+      .transparentNavbar a {
         color: black;
       }
 

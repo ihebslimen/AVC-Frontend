@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { IsAdminRouteGuardService } from './services/routeGuardservices/is-admin-route-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationServiceService } from './services/authentication-service.service';
+
 const routes: Routes = [
   {path:"header",component:HeaderComponent},
   {path:"contact",component:ContactComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:"admin",component:AdminProfileComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"profile",component:ProfileComponent},
   {path:"listOfUsers",component:ListOfUsersComponent,canActivate:[IsAdminRouteGuardService]},
-  {path:"**",component:PageNotFoundComponent}
+  {path:"**",component:PageNotFoundComponent},
+  
 ];
 
 @NgModule({

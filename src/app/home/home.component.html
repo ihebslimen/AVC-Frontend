@@ -1,198 +1,252 @@
-<body>
-    <app-header></app-header>
-    <div class="section"  id="welcometoourplateforme">
-      <section class="landing-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8">
-              <h1 class="writing-effect">welcome to our plateforme</h1>
+<app-header></app-header>
+<body style="background-color: #EBF4DF;margin-bottom: 0%;bottom: 0;">
+    <div *ngIf="sectionService.showSectionHome">
 
-              <p>Cette plateforme permettra des résoudre plusieurs problèmes notamment la traçabilité puisque tout les transactions effectués seront enregistré dans des registres immuables et sécurisés, ce qui permet de tracer la provenance des produits et en plus assurer la sécurité des données et réduire les risques de fraude ou de falsification des informations.
-                La mise en place d'un système de rémunération basé sur le score dans notre plateforme de blockchain peut avoir un impact significatif sur l'amélioration de la compétitivité dans la chaîne de valeur agricole impliquant différents acteurs, tels que les producteurs, les transporteurs et les exportateurs ce qui résulte en meilleur productivité et meilleur compétitivité de dattes tunisienne.
-                </p>
-              <button class="btn btn-primary" routerLink="/login">Get started</button>
+<!--   section -->
+
+
+
+ <!--  Dernier section -->
+ <!-- <div class="section" id="section3" style="background-color: #FCFDF8;">nas to be shown</div> -->
+
+ <!--  Dernier section -->
+
+     <!-- <div class="section d-flex espace " id="section2" style="  background-color: #EBF4DF; " >
+      
+       Notre chaîne commence par le producteur (l'agriculteur) qui récolte sa récolte de dattes, puis cette récolte est acheminée vers le centre de stockage par un transporteur, où les dattes sont stockées soit comme matières premières, soit transformées en matières manufacturées dérivées de celles-ci, sous forme brute ou des produits les dattes sont distribués sur le marché local ou exportés vers le marché mondial.
+     </div> -->
+
+ 
+ 
+     <!--   section -->
+     <div class="section back1">
+      <section class="landing-section" >
+        <div class="container containere">
+            <div class="profile-info">
+              <div class="personal-info ">
+                <div class="row">
+            <div class="col-md-12 ">
+              <h1 style="font-family:Roboto;">Welcome to our plateforme</h1>
+              <h6 style="font-family:Roboto;">Cette plateforme permettra des résoudre plusieurs problèmes notamment la traçabilité
+                 puisque tout les transactions effectués seront enregistré dans des registres immuables et sécurisés,
+                  ce qui permet de tracer la provenance des produits et en plus assurer la sécurité des données et réduire 
+                  les risques de fraude ou de falsification des informations. La mise en place d'un système de rémunération 
+                  basé sur le score dans notre plateforme de blockchain peut avoir un impact significatif sur l'amélioration de la compétitivité 
+                  dans la chaîne de valeur agricole impliquant différents acteurs, tels que les producteurs, les transporteurs et les exportateurs
+                   ce qui résulte en meilleur productivité et meilleur compétitivité de dattes tunisienne.</h6>
+              <button class="btn btn-success"(click)="sectionService.showApropos()">Get started</button>
+            </div></div></div>
+             <div class="col-md-4">
+       
+            <div class="text-center">
+              <img src="./assets/tmar.jpg" class="img-thumbnail " alt="Image description">
             </div>
-            <div class="col-md-4">
-              <img src="https://via.placeholder.com/300x300" alt="Product Image">
-            </div>
+          </div>
           </div>
         </div>
       </section>
-      </div>
-    <div class="section" id="lesvaleursdenotrechaine"  >
-      <h1 class="writing-effect">les valeurs de notre chaine</h1>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>sécurité</h3>
-                
+    <!--  Dernier section -->
+    
+      <div class="section espace ajnab" id="lesvaleursdenotrechaine" style="background-image: url(./assets/home3.jpg); background-size:100%;
+      background-position: center;" >
+        <h1 class="writing-effect">les valeurs de notre chaine</h1>
+  
+        <div class="row">
+          <div class="col">
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>sécurité</h3>
+                  
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>otre plateforme assure la sécurité des transactions grâce aux protocoles de sécurité cryptographiques, et permet une gestion plus fiable et transparente des données de la chaîne de valeur des dattes.</p>
+                </div>
               </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>otre plateforme assure la sécurité des transactions grâce aux protocoles de sécurité cryptographiques, et permet une gestion plus fiable et transparente des données de la chaîne de valeur des dattes.</p>
+            </div>
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>intégrité</h3>
+                  
+                </div>
+                <div class="flip-card-back flip-card">
+                  <!-- Back content here -->
+                 
+                  <p>La blockchain assure l'intégrité des données enregistrées sur notre plateforme de gestion de chaîne de valeur des dattes, grâce à son mécanisme de consensus distribué qui garantit que toutes les transactions sont validées par le réseau de participants avant d'être enregistrées sur la blockchain.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Traçabilité</h3>
+                  
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>Notre plateforme utilise offre une traçabilité totale des dattes tout au long de la chaîne de valeur, permettant ainsi aux consommateurs de connaître l'origine des produits qu'ils achètent et aux producteurs de suivre les produits tout au long du processus de production et de distribution.</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>intégrité</h3>
-                
+          <div class="col">
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Immutabilité</h3>
+                  
+                </div>
+                <div class="flip-card-back flip-card">
+                  <!-- Back content here -->
+                  
+                  <p>Grâce à l'utilisation de la blockchain, toutes les transactions effectuées sur notre plateforme sont permanentes et ne peuvent pas être modifiées, ce qui assure l'intégrité des données de la chaîne de valeur des dattes.</p>
+                </div>
               </div>
-              <div class="flip-card-back flip-card">
-                <!-- Back content here -->
+            </div>
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Coûts réduits</h3>
                
-                <p>La blockchain assure l'intégrité des données enregistrées sur notre plateforme de gestion de chaîne de valeur des dattes, grâce à son mécanisme de consensus distribué qui garantit que toutes les transactions sont validées par le réseau de participants avant d'être enregistrées sur la blockchain.</p>
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>L'utilisation de la technologie blockchain sur notre plateforme de gestion de chaîne de valeur des dattes permet une réduction significative des coûts de transaction grâce à l'absence d'intermédiaires.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Smart contracts</h3>
+                  
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>Notre plateforme utilise des smart contracts pour automatiser les transactions et les contrats, ce qui réduit les coûts et les délais associés à la gestion manuelle de la chaîne de valeur des dattes.</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Traçabilité</h3>
+          <div class="col">
+            <div class="card grid-item flip-card" >
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Transparence</h3>
                 
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>Notre plateforme utilise offre une traçabilité totale des dattes tout au long de la chaîne de valeur, permettant ainsi aux consommateurs de connaître l'origine des produits qu'ils achètent et aux producteurs de suivre les produits tout au long du processus de production et de distribution.</p>
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>La blockchain permet une transparence totale des transactions effectuées sur la plateforme de gestion de chaîne de valeur des dattes, offrant ainsi une visibilité à tous les participants de la chaîne sur les transactions en cours.</p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Immutabilité</h3>
-                
-              </div>
-              <div class="flip-card-back flip-card">
-                <!-- Back content here -->
-                
-                <p>Grâce à l'utilisation de la blockchain, toutes les transactions effectuées sur notre plateforme sont permanentes et ne peuvent pas être modifiées, ce qui assure l'intégrité des données de la chaîne de valeur des dattes.</p>
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Immutabilité</h3>
+               
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>Grâce à l'utilisation de la blockchain, toutes les transactions effectuées sur notre plateforme sont permanentes et ne peuvent pas être modifiées, ce qui assure l'intégrité des données de la chaîne de valeur des dattes.</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Coûts réduits</h3>
-             
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
+            <div class="card grid-item flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <!-- Front content here -->
+                  <h3>Rapidité</h3>
                 
-                <p>L'utilisation de la technologie blockchain sur notre plateforme de gestion de chaîne de valeur des dattes permet une réduction significative des coûts de transaction grâce à l'absence d'intermédiaires.</p>
-              </div>
-            </div>
-          </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Smart contracts</h3>
-                
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>Notre plateforme utilise des smart contracts pour automatiser les transactions et les contrats, ce qui réduit les coûts et les délais associés à la gestion manuelle de la chaîne de valeur des dattes.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card grid-item flip-card" >
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Transparence</h3>
-              
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>La blockchain permet une transparence totale des transactions effectuées sur la plateforme de gestion de chaîne de valeur des dattes, offrant ainsi une visibilité à tous les participants de la chaîne sur les transactions en cours.</p>
-              </div>
-            </div>
-          </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Immutabilité</h3>
-             
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>Grâce à l'utilisation de la blockchain, toutes les transactions effectuées sur notre plateforme sont permanentes et ne peuvent pas être modifiées, ce qui assure l'intégrité des données de la chaîne de valeur des dattes.</p>
-              </div>
-            </div>
-          </div>
-          <div class="card grid-item flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <!-- Front content here -->
-                <h3>Rapidité</h3>
-              
-              </div>
-              <div class="flip-card-back">
-                <!-- Back content here -->
-                
-                <p>Les transactions effectuées sur notre plateforme de gestion de chaîne de valeur des dattes grâce à la technologie blockchain sont instantanées, ce qui accélère le processus de gestion de la chaîne.</p>
+                </div>
+                <div class="flip-card-back">
+                  <!-- Back content here -->
+                  
+                  <p>Les transactions effectuées sur notre plateforme de gestion de chaîne de valeur des dattes grâce à la technologie blockchain sont instantanées, ce qui accélère le processus de gestion de la chaîne.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    
+    
     </div>
-    <div class="section d-flex" id="E-Hawiya"  >
-      <div class="content">
-      <h1 class="writing-effect">Notre application fonctionne en collaboration avec e-howeya.</h1>
 
-      <p>
-        Dans notre plateforme de gestion de chaîne de valeur des dattes, nous avons intégré la solution E-Hawiya de vérification d'identité numérique basée sur la technologie blockchain. Cette intégration permet de garantir l'identité des différents acteurs impliqués dans la chaîne de valeur des dattes, tels que les producteurs, les distributeurs, les transformateurs et les consommateurs. Les entreprises et les consommateurs peuvent ainsi utiliser leurs identités numériques vérifiées pour accéder à la plateforme et effectuer des transactions en toute sécurité et confidentialité. Cette intégration de la solution E-Hawiya dans notre plateforme de gestion de chaîne de valeur des dattes renforce ainsi la confiance et la transparence dans la gestion de la chaîne de valeur des dattes.    
-      </p>
-    </div>
-    </div>
-    <div class="section3container section" id="utilisationdelaplateforme">
-      <h1 class="writing-effect">Comment commencer à utiliser la plateforme</h1>
 
-    <div  id="section3" >
-      <div class="top-left  grid-item">
-        <img class="image" src="assets/loginPage.png" alt="Product Image">
-        </div>
-      <div class="top-right grid-item">
-        <h2 class="text-center">Signup</h2>
-        <p>Pour commencer à utiliser la plateforme, vous devrez d'abord vous inscrire en fournissant votre numéro CIN et le numéro de téléphone portable associé à votre CIN. Après avoir soumis ces informations, un code de vérification sera envoyé à votre téléphone portable. Saisissez ce code dans le champ prévu à cet effet pour confirmer votre identité.
+<div *ngIf="sectionService.showSectionApropos">
 
-          Nous utilisons les données de e-haweya pour vérifier votre identité et pour faciliter le processus d'inscription. Une fois que votre identité est vérifiée, vous serez invité à créer un compte sur la plateforme.</p>
-      </div >
-      <div class="bottom-left grid-item">
-        <h2 class="text-center">Login</h2>
-        <p>Une fois que vous avez créé votre compte, vous pourrez vous connecter à la plateforme en saisissant votre numéro CIN et le mot de passe qui vous a été envoyé précédemment. Si vous avez oublié votre mot de passe, vous pouvez cliquer sur le lien "Mot de passe oublié" et suivre les instructions pour le réinitialiser.
+  <div class="section d-flex espace image" id="E-Hawiya" style="background-image: url(./assets/home2.jpg); background-size:100%;
+  background-position: center;"   >
+   <div class="content">
+   <h1 class="writing-effect" style="margin-left: 70px;font-family: Roboto;">Notre application fonctionne en collaboration avec e-howeya.</h1>
+  <br>
+   <p style="margin:40px 70px 40px 70px;font-family: Roboto;line-height: 3;">
+     Dans notre plateforme de gestion de chaîne de valeur des dattes, nous avons intégré la solution E-Hawiya de vérification d'identité numérique basée sur la technologie blockchain. Cette intégration permet de garantir l'identité des différents acteurs impliqués dans la chaîne de valeur des dattes, tels que les producteurs, les distributeurs, les transformateurs et les consommateurs. Les entreprises et les consommateurs peuvent ainsi utiliser leurs identités numériques vérifiées pour accéder à la plateforme et effectuer des transactions en toute sécurité et confidentialité. Cette intégration de la solution E-Hawiya dans notre plateforme de gestion de chaîne de valeur des dattes renforce ainsi la confiance et la transparence dans la gestion de la chaîne de valeur des dattes.    
+   </p>
+ </div>
+ </div>
+ 
+ 
+   <div class="section3container ajnab section espace" id="utilisationdelaplateforme">
 
-          Une fois que vous êtes connecté, vous pouvez commencer à utiliser les fonctionnalités de la plateforme, notamment l'enregistrement des transactions, la vérification de l'historique des transactions et la gestion de votre compte utilisateur. N'oubliez pas de garder votre mot de passe en sécurité et de ne jamais le partager avec d'autres personnes. Si vous avez des problèmes pour vous connecter ou pour utiliser la plateforme, veuillez contacter notre équipe de support technique pour obtenir de l'aide.</p>
-      </div>
-      <div class="bottom-right grid-item">
-        <img  class="image" src="assets/registrePage.png" alt="Product Image">
-      </div>
-    </div>
-  </div>
-   
-      
-   
-      
+
+     <h1 class="writing-effect">Comment commencer à utiliser la plateforme</h1>
+
+     <div  id="section3" >
+       <div class="top-left  grid-item">
+         <img class="image" src="assets/registrePage.png" alt="Product Image">
+         </div>
+       <div class="top-right grid-item">
+         <h2 class="text-center"style="font-family:Roboto;">Signup</h2>
+         <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Pour commencer à utiliser la plateforme, vous devrez d'abord vous inscrire en fournissant votre numéro CIN et le numéro de téléphone portable associé à votre CIN. Après avoir soumis ces informations, un code de vérification sera envoyé à votre téléphone portable. Saisissez ce code dans le champ prévu à cet effet pour confirmer votre identité.
+ 
+           Nous utilisons les données de e-haweya pour vérifier votre identité et pour faciliter le processus d'inscription. Une fois que votre identité est vérifiée, vous serez invité à créer un compte sur la plateforme.</p>
+       </div >
+       <div class="bottom-left grid-item">
+         <h2 class="text-center" style="font-family:Roboto;">Login</h2>
+         <p style="font-family:Roboto;line-height: 2;margin:5px 10px 5px 10px;">Une fois que vous avez créé votre compte, vous pourrez vous connecter à la plateforme en saisissant votre numéro CIN et le mot de passe qui vous a été envoyé précédemment. Si vous avez oublié votre mot de passe, vous pouvez cliquer sur le lien "Mot de passe oublié" et suivre les instructions pour le réinitialiser.
+ 
+           Une fois que vous êtes connecté, vous pouvez commencer à utiliser les fonctionnalités de la plateforme, notamment l'enregistrement des transactions, la vérification de l'historique des transactions et la gestion de votre compte utilisateur. N'oubliez pas de garder votre mot de passe en sécurité et de ne jamais le partager avec d'autres personnes. Si vous avez des problèmes pour vous connecter ou pour utiliser la plateforme, veuillez contacter notre équipe de support technique pour obtenir de l'aide.</p>
+       </div>
+       <div class="bottom-right grid-item">
+         <img  class="image" src="assets/loginPage.png" alt="Product Image">
+       </div>
+     </div>
+   </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
   
