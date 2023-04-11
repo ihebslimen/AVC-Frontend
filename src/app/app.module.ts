@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ListOfUsersComponent } from './adminPages/list-of-users/list-of-users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
     AdminProfileComponent,
     PageNotFoundComponent,
     ListOfUsersComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,

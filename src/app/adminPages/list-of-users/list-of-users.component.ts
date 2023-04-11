@@ -18,10 +18,12 @@ numberOfPages!:number;
 public section: string = '';
 
 userType: string | null;
+userRole:string | null;
   
 constructor(private adminService:AmdminServiceService,private route: ActivatedRoute){
   //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
   this.userType=this.route.snapshot.queryParamMap.get('userType');
+  this.userRole=this.route.snapshot.queryParamMap.get('userRole');
   console.log("lmodel dhaher"+this.showModalFlag);
 }
 // users:User[]=[];
@@ -120,6 +122,7 @@ getPaginatedData() {
 
 showSectionInscription: boolean = false;
 showSectionGestionUtilisateur: boolean = true;
+
   toggleSection(sectionId: string,event:MouseEvent) {
     event.preventDefault();
     if (sectionId === 'utilisateur') {
@@ -131,12 +134,13 @@ showSectionGestionUtilisateur: boolean = true;
       this.showSectionInscription = true;
 
     } 
+
     // console.log(this.showSection);
   }
 //todo fazet ki tenzel 3al bouton yo5rjo informations
   selectedUser: any;
   showModalFlag = false; operation:string | undefined;
-
+showAboutUser=false;
   showModal(user: any,operation:string) {
     this.selectedUser = user;
     this.showModalFlag = true;
@@ -145,9 +149,11 @@ showSectionGestionUtilisateur: boolean = true;
     }
     if(operation==='delete'){
       this.operation="delete";
-    }
-
-    
+    }   
+    if(operation==='stats'){
+      this.operation="stats";
+    }   
+    console.log("operation=="+this.operation);
   }
 
   hideModal() {
@@ -155,6 +161,8 @@ showSectionGestionUtilisateur: boolean = true;
     this.showModalFlag = false;
   }
 
+  
+    
 //todo fonctions modifier et supprimer
 
 

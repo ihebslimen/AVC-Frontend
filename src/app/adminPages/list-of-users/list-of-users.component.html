@@ -7,6 +7,7 @@
               <h1 style="color: white;">Dashboard admin</h1><br><br>
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" href="#"><h6>&nbsp;Gestion utilisateur</h6></a><br>
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" href="#"><h6>&nbsp;Inscription</h6></a>
+
             </div>
           </div> 
         </div>
@@ -14,12 +15,17 @@
           <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
-             <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;tache 1</h6></a><br>
-             <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;tache 2</h6></a>
-           </div>
+             <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;consulter l'historique des accords</h6></a><br>
+             <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
+             <a  style="color: white;" class="dropdown-item"  href="#" *ngIf="userRole==='agriculteur'"><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  href="#" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;enregitrer les informations concernant l'achat</h6></a>
+
+
+            </div>
          </div> 
-       </div>    
-        
+       </div>  
+       
+       
 
     <div class="marget" id="utilisateur" [hidden]="!showSectionGestionUtilisateur">
      
@@ -46,13 +52,11 @@
     </thead>
     <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()" >
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
-        <td>
-
-        
+        <td (click)="showModal(user,'stats')">{{user.id}}</td>
+        <td (click)="showModal(user,'stats')">{{user.name}}</td>
+        <td (click)="showModal(user,'stats')">{{user.username}}</td>
+        <td (click)="showModal(user,'stats')">{{user.email}}</td>
+        <td class="actions">
           <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -63,7 +67,7 @@
         
         &nbsp;&nbsp;
         
-          <a class="btn btn-danger tooltips" data-placement="top" (click)="showModal(user,'delete')">
+          <a class="btn btn-danger tooltips" data-placement="top" (click)="showModal(user,'delete')" >
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M4 7l16 0"></path>
@@ -197,6 +201,7 @@
 
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
+    <div id="userDetails" *ngIf="operation!=='stats'">
     <div class="modal-header">
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
@@ -229,7 +234,42 @@
 
 
     <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser)">valider la modification</button>
+  </div>
+  <div id="aboutUser" *ngIf="operation==='stats'">
+    <div class="modal-header">
+      <h2>about user</h2>
+      <button class="close-btn" (click)="hideModal()">X</button>
+    </div>
   
+    <table class="user-details-table">
+      <tr>
+        <td>{{selectedUser?.id}}</td>
+      </tr>
+     
+        <tr>
+          <th>date d'Inscription:</th>
+    
+            <td ></td>
+          
+        </tr>
+        <tr>
+          <th>    valeur des transactions:
+          </th>
+          
+          <td ></td>
+        </tr>
+     <tr>
+      <th>    nombre des transactions:</th>
+      <td></td>
+     </tr>
+     <tr>
+      <th>    valeur:</th>
+      <td></td>
+     </tr> 
+     
+      
+    </table>
+</div>
 </div>
 </div>
 

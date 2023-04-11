@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { IsAdminRouteGuardService } from './services/routeGuardservices/is-admin-route-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationServiceService } from './services/authentication-service.service';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {path:"header",component:HeaderComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:"admin",component:AdminProfileComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"profile",component:ProfileComponent},
   {path:"listOfUsers",component:ListOfUsersComponent,canActivate:[IsAdminRouteGuardService]},
+  {path:"statistics",component:StatisticsComponent},
   {path:"**",component:PageNotFoundComponent},
   
 ];
