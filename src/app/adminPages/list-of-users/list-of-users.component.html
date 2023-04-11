@@ -233,7 +233,7 @@
     <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="onDeleteUser( selectedUser)">valider la suppression</button>
 
 
-    <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser)">valider la modification</button>
+    <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser.id)">valider la modification</button>
   </div>
   <div id="aboutUser" *ngIf="operation==='stats'">
     <div class="modal-header">

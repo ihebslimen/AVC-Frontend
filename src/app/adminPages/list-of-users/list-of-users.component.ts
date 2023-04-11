@@ -166,8 +166,8 @@ showAboutUser=false;
 //todo fonctions modifier et supprimer
 
 
-public onUpdateUser(user: User): void {
-  this.adminService.updateUser(user).subscribe(
+public onUpdateUser(user: User,id_user:number): void {
+  this.adminService.updateUser(user,id_user).subscribe(
     (response: User) => {
       console.log(response);
       this.getUsers();
