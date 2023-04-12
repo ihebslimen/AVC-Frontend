@@ -19,9 +19,8 @@ export class HomeComponent {
   //   const b = Math.floor(Math.random() * 256);
   //   return `rgb(${r}, ${g}, ${b})`;}
     ngOnInit(){
-    
+      
       const flipCards = document.querySelectorAll('.flip-card');
-      console.log(flipCards);
     flipCards.forEach(flipCard => {
     flipCard.addEventListener('click', function() {
       flipCard.classList.toggle('flipped');

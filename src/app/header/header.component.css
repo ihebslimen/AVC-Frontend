@@ -16,10 +16,7 @@ top:0; width:100%;
   transition: box-shadow 0.3s ease;
 }
 
-.navbar ul li:hover {
-  background-color: #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
+
 
 .navbar ul li {
   color:white;
@@ -28,13 +25,56 @@ top:0; width:100%;
   color:white;
 }
 
+/* .navbar ul li:hover {
+  background-color: #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
   .navbar ul li:hover a{
     color:rgb(0, 0, 255);}
   
  
 
-   
+    */
 
+
+    .navbar a {
+      position: relative;
+      text-decoration: none;
+    }
+    
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color:green;
+      transition: width 0.6s ease-in-out, transform 0.3s ease-in-out;
+      transform-origin: left;
+    }
+    
+    .navbar a:hover::after {
+      width: 100%;
+      transform: scaleX(1);
+    }
+
+    .navbar a:hover {
+      background-color: #eaeaea;
+      transition: background-color 0.2s ease-in-out;
+    }
+      
+
+
+
+
+
+
+
+
+
+
+    
       .transparentNavbar {
         background-color:rgba(255, 255, 255, 0.252)  ;
       }
@@ -51,6 +91,7 @@ top:0; width:100%;
 .form-select{
    width:100px;
 }
+
 
 
 
