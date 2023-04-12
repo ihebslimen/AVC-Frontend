@@ -1,0 +1,197 @@
+body{
+  margin:0 0 0 0; padding:0; 
+    height: 2035px;
+  }
+  .section{
+    height:1000px;  display: flex; align-items:center;
+     justify-content: center;
+     flex-direction: column; 
+     background-color: #C1DF9F;
+    padding:100px 0;
+   
+  }
+  .ajnab {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    background-image: url('src/assets/ajnab.jpg');
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position: center; 
+  }
+  
+  
+  .card {width:220px; height:220px; margin:100px;  text-align: center;font-family: Roboto;}
+  
+  .flip-card-inner {
+    background-color: #EBF4DF;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .section:nth-child(1){
+    padding-top: 50px;
+  }
+
+  .dragging {
+    opacity: 0.5;
+  }
+  .espace{
+    margin:0 0 0 0;
+  }
+
+  .back1{
+    background-image: url('src\assets\home.jpg');
+    background-repeat: no-repeat; background-size: cover;
+    background-position: center;
+    display: flex; justify-content: center; align-items: center;position:relative;
+  }
+.img-thumbnail{
+  height: 300px;
+  width: 450px;
+}
+ 
+#input1:hover + #label{
+  transform: translateY(50px);
+  background-color: red;
+}
+
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  transform: rotateY(0deg); text-align: center; display:flex; align-items: center;
+  justify-content:center /* Set the initial state of the front element */
+}
+.flip-card-back {
+  transform: rotateY(180deg); /* Set the initial state of the back element */
+}
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg); /* Flip the card by rotating the inner element 180 degrees on the Y axis */
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  width: 80%;
+  line-height: 1.5;
+}
+
+
+.drag-element {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  color: white;
+  cursor: move;
+  user-select: none;
+}
+
+#E-Hawiya{
+  font-size:30px; color: #333;text-align:center;
+  font-family: 'Roboto', cursive; flex-direction: column;
+ 
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1), 0px -8px 15px rgba(0, 0, 0, 0.1); 
+  height:1000px;
+}
+.writing-effect {
+  overflow: hidden;
+  border-right: 0.15em solid #333;
+  white-space: nowrap;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #333;
+  }
+}
+.image {
+  width: 100%; height:100%;
+  background-color: #ccc;
+
+  background-size: cover;
+  background-position: center;
+}
+#section3 div:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+}
+#section3 div {
+  height: 450px; width:600px;
+  flex-basis: 50%;
+  box-sizing: border-box;
+  /* background-color: rgba(255, 255, 0, 0.322); */
+  background-color: #EBF4DF;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  transform: perspective(1000px) rotateX(20deg) rotateY(10deg);
+  transition: all 0.3s ease-in-out;
+}
+.section3container{
+  display: flex; justify-content: center;
+  /* width:100%;height: 1000px; */
+}
+#section3{
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+    gap: 10px; 
+  }
+
+.containere {
+  position: absolute; 
+  display: flex;top: 0;
+  flex-direction: column; background-color: transparent;
+  box-shadow: 0 0 10px;
+  padding: 20px;backdrop-filter: blur(35px);height: 400px;width: 1650px;
+  margin-top: 10%;
+  border-radius: 2%;
+  left: 500px;
+}
+h6{
+  line-height: 2;
+  font-size: large;
+}
+.img-thumbnail {
+  border: 2px solid black;
+  box-shadow: 0 0 10px;
+  max-width: 100%;
+  height: auto;
+  }
+  .profile-info {
+  position: relative;
+  display: flex; 
+  align-items: center;
+  }
+  .personal-info {
+  width: 70%; 
+  }
