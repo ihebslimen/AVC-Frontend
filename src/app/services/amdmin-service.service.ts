@@ -15,15 +15,15 @@ export class AmdminServiceService {
   let users=this.http.get<any>("https://jsonplaceholder.typicode.com/users");
 return users;
   }
-  
+
   public getUserid(id_user:number):Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/users/${id_user}`);
+    return this.http.get<User>(`${this.apiServerUrl}/api/users/${id_user}`);
     } 
   public getUserss():Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiServerUrl}/users`);
+    return this.http.get<User[]>(`${this.apiServerUrl}/api/users`);
   }
   public addUsers(user:User):Observable<User>{
-  return this.http.post<User>(`${this.apiServerUrl}/users`,user);
+  return this.http.post<User>(`${this.apiServerUrl}/api/users`,user);
   }
   public deleteUser(userId: number): Observable<void> {
     console.log("user with the id "+userId+" has been removed" );
@@ -31,7 +31,7 @@ return users;
   }
   public updateUser(user: User,userId: number): Observable<User> {
     console.log("user with id "+user.id+" has been updated");
-    return this.http.put<User>(`${this.apiServerUrl}/users/${userId}`,user);
+    return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
   }
 
 }

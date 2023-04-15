@@ -27,11 +27,22 @@ export class HomeComponent {
     });
     }); 
     }
-    constructor(private router: Router ,public sectionService:AuthenticationServiceService) { }
+    constructor(private router: Router ) { }
 
     isDragging = false;
 
 
+    showSectionHome: boolean = true;
+    showSectionStarted: boolean =false;
+    
+    toggleSectionHome() {
+      this.showSectionHome = true;
+      this.showSectionStarted =false;
+    }  
+    showApropos() {
+      this.showSectionHome = false;
+      this.showSectionStarted = true;
+    }
 
 
 

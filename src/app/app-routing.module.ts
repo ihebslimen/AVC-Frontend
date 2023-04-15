@@ -11,6 +11,7 @@ import { IsAdminRouteGuardService } from './services/routeGuardservices/is-admin
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationServiceService } from './services/authentication-service.service';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { AproposComponent } from './apropos/apropos.component';
 
 const routes: Routes = [
   {path:"header",component:HeaderComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:"profile",component:ProfileComponent},
   {path:"listOfUsers",component:ListOfUsersComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"statistics",component:StatisticsComponent},
+  {path:"apropos",component:AproposComponent},
   {path:"**",component:PageNotFoundComponent},
   
 ];

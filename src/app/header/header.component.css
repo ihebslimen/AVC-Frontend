@@ -54,12 +54,12 @@ top:0; width:100%;
       transform-origin: left;
     }
     
-    .navbar a:hover::after {
+    .navbar ul a:hover::after {
       width: 100%;
       transform: scaleX(1);
     }
 
-    .navbar a:hover {
+    .navbar ul a:hover {
       background-color: #eaeaea;
       transition: background-color 0.2s ease-in-out;
     }

@@ -15,6 +15,7 @@ import { ListOfUsersComponent } from './adminPages/list-of-users/list-of-users.c
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { AproposComponent } from './apropos/apropos.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     PageNotFoundComponent,
     ListOfUsersComponent,
     StatisticsComponent,
+    AproposComponent,
   ],
   imports: [
     BrowserModule,

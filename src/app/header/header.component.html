@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  fixed-top"  #nav [ngClass]="{'transparentNavbar': routeUrl === '/'||routeUrl==='/home'||routeUrl==='/contact'||routeUrl==='/login' }">
+<nav class="navbar navbar-expand-lg  fixed-top"  #nav [ngClass]="{'transparentNavbar': routeUrl === '/'||routeUrl==='/home'||routeUrl==='/contact'||routeUrl==='/login'||routeUrl==='/apropos' }">
   <a class="navbar-brand"  href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -6,10 +6,10 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLinkActive="'active-link'" href="#" (click)="toggleSectionHome()" >Home<span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLinkActive="'active-link'" href="">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" routerLinkActive="'active-link'" href="#" (click)="toggleSectionApropos()" >À propos</a>
+        <a class="nav-link" routerLinkActive="'active-link'" href="/apropos" >À propos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/contact" routerLinkActive="'active-link'">Contact us</a>

@@ -40,22 +40,26 @@ export class AuthenticationServiceService {
   }
 
 
-  showSectionHome: boolean = true;
-  showSectionApropos: boolean = false;
+  // showSectionHome: boolean = true;
+  // showSectionApropos: boolean = false;
+  // showSectionStarted: boolean =false;
+  
+  // toggleSectionHome() {
+  //   this.showSectionHome = true;
+  //   this.showSectionApropos = false;
+  //   this.showSectionStarted =false;
+  // }
 
-  toggleSectionHome() {
-    this.showSectionHome = true;
-    this.showSectionApropos = false;
-  }
+  // toggleSectionApropos() {
+  //   this.showSectionHome = false;
+  //   this.showSectionApropos = true;
+  //   this.showSectionStarted =false;
+  // }
 
-  toggleSectionApropos() {
-    this.showSectionHome = false;
-    this.showSectionApropos = true;
-  }
-
-  showApropos() {
-    this.showSectionHome = false;
-    this.showSectionApropos = true;
-  }
+  // showApropos() {
+  //   this.showSectionHome = false;
+  //   this.showSectionApropos = false;
+  //   this.showSectionStarted = true;
+  // }
 
 }

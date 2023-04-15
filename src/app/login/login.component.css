@@ -3,11 +3,13 @@ body{
 background-image: url('src\assets\backgound.jpg'); 
 background-repeat: no-repeat; background-size: cover;
 background-position: center;
+padding-top: 150px;
+height: 100vh;
 }
-.transparent{
+/* .transparent{
   position: absolute; height:100%; width:100%; top:0; left:0; background-color:transparent;
   opacity: 0.9;
-}
+} */
 /* .container{
   position:absolute; top:150px;
 } */
@@ -169,8 +171,8 @@ transition: transform .5s ease-in-out;
     width: 400px;
     height: 60px; border-radius: 12px;
   }
-  input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+  
+  input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -178,8 +180,9 @@ input[type=number]::-webkit-outer-spin-button {
 
   .login-form button {
     width: 250px;
-    height: 60px; border-radius: 10px; background-color:
+    height: 60px; border-radius: 10px; 
   }
+
  .seConnecter{
     background-color: #2B968F;
     color:white; font-family: regular; font-size:24px; line-height: 48px;

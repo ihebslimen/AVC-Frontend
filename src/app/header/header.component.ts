@@ -12,7 +12,7 @@ showLoginButton=true; loggedIn=false; buttonText=''; role:string='';
   showScrollList:boolean; connected:boolean;   routeUrl: string;
 @ViewChild('dropdownButton') dropdownButton!: ElementRef;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
-constructor(private router:Router,private renderer: Renderer2,private sectionService:AuthenticationServiceService,private route: ActivatedRoute, public authenticationService:AuthenticationServiceService) {
+constructor(private router:Router,private renderer: Renderer2,private route: ActivatedRoute, public authenticationService:AuthenticationServiceService) {
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       this.routeUrl = event.url;
@@ -76,14 +76,7 @@ logout(): void {
 
 
  
-  
- toggleSectionHome() {
-  this.sectionService.toggleSectionHome();
-}
 
-toggleSectionApropos() {
-  this.sectionService.toggleSectionApropos();
-}
 
   // toggleDropdown() {
   //   this.showDropdown = !this.showDropdown;
