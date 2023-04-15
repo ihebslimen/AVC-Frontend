@@ -122,6 +122,8 @@ getPaginatedData() {
 
 showSectionInscription: boolean = false;
 showSectionGestionUtilisateur: boolean = true;
+showSectionFarmerStock:boolean =false;
+showReclamationSection:boolean=false;
 
   toggleSection(sectionId: string,event:MouseEvent) {
     event.preventDefault();
@@ -133,6 +135,18 @@ showSectionGestionUtilisateur: boolean = true;
       this.showSectionGestionUtilisateur = false;
       this.showSectionInscription = true;
 
+    } 
+    if (sectionId === 'farmerStock') {
+      this.showSectionFarmerStock = true;
+      this.showSectionInscription = false;
+      this.showSectionGestionUtilisateur = false;
+    } 
+
+    if (sectionId === 'reclamation') {
+      this.showSectionFarmerStock = false;
+      this.showSectionInscription = false;
+      this.showSectionGestionUtilisateur = false;
+      this.showReclamationSection=true;
     } 
 
     // console.log(this.showSection);
@@ -189,6 +203,42 @@ public onDeleteUser(userId: number): void {
     // }
   );
 }
+
+
+quantity:number; quality:string=null; price:number;
+
+  stock = [
+    { quality: 'High', quantity: 1000, price: 5.00 },
+    { quality: 'Medium', quantity: 500, price: 3.00 },
+    { quality: 'Low', quantity: 200, price: 1.50 }
+  ];
+
+
+    updateStock() {
+      if(this.quality !== null){
+      const index = this.stock.findIndex(item => item.quality === this.quality);
+      if (index !== -1) {
+        const item = this.stock[index];
+        if (this.quantity) {
+          item.quantity += this.quantity;
+        }
+        if (this.price) {
+          item.price = this.price;
+        }
+        console.log("item"+item.quality+"is now "+item.quantity+" abd price is ===="+item.price)
+
+      }
+     
+    }
+
+    }
+  
+
+
+
+
+
+
 
 
 //toDo

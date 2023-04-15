@@ -5,8 +5,8 @@
            <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br>
-              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" href="#"><h6>&nbsp;Gestion utilisateur</h6></a><br>
-              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" href="#"><h6>&nbsp;Inscription</h6></a>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" ><h6>&nbsp;Inscription</h6></a>
 
             </div>
           </div> 
@@ -16,8 +16,8 @@
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;consulter l'historique des accords</h6></a><br>
-             <a  style="color: white;" class="dropdown-item"  href="#"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
-             <a  style="color: white;" class="dropdown-item"  href="#" *ngIf="userRole==='agriculteur'"><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item" (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
+             <a  style="color: white;" class="dropdown-item" (click)="toggleSection('farmerStock',$event)" *ngIf="userRole==='agriculteur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
              <a  style="color: white;" class="dropdown-item"  href="#" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;enregitrer les informations concernant l'achat</h6></a>
 
 
@@ -27,7 +27,7 @@
        
        
 
-    <div class="marget" id="utilisateur" [hidden]="!showSectionGestionUtilisateur">
+    <div class="marget" id="utilisateur" [hidden]="!showSectionGestionUtilisateur || userType!=='admin'">
      
         <div class="col-md-12 s8ir">
 
@@ -132,7 +132,7 @@
 
 <!--INSCRIPTION -->
 
-<div class="marget" id="Inscription" [hidden]="!showSectionInscription">
+<div class="marget" id="Inscription" [hidden]="!showSectionInscription || userType!=='admin'">
 
 <app-header></app-header>
 <div class="margett" >
@@ -194,6 +194,92 @@
 
 
 </div>
+
+
+<!-- reclamation -->
+<section class="reclamation" id="reclamation" [hidden]="!showReclamationSection" >
+
+  <div class="platform-conditions ">
+    <h3>Conditions de la plateforme</h3>
+    <ul>
+      <li>Tous les utilisateurs doivent accepter nos termes et conditions avant d'utiliser la plateforme.</li>
+      <li>Les utilisateurs sont responsables de l'exactitude de leurs données et informations.</li>
+      <li>Nous nous réservons le droit de résilier l'accès de tout utilisateur à la plateforme à tout moment.</li>
+      <li>Les utilisateurs doivent se conformer à toutes les lois et réglementations applicables.</li>
+    </ul>
+  </div>
+
+  <h2>Reclamation Form</h2>
+  <form>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+
+<!-- farmerStock -->
+<section class="farmerStock"  [hidden]="!showSectionFarmerStock || userType!=='user' || userRole!=='agriculteur'">
+  <section class="agriculture">
+    <h2>Agriculture Data Value Chain Management Platform</h2>
+    <form (ngSubmit)="updateStock()" #stockForm="ngForm" ngForm>
+      <label for="product-quantity">Quantity (in kilograms):</label>
+    <div class="line">
+        <input type="number" id="product-quantity" name="product-quantity" min="1" ngModel name="quantity">
+    <!-- <button >ajouter</button> -->
+    </div>
+    
+  
+      <label for="product-quality">Quality:</label>
+      <select id="product-quality" name="product-quality" ngModel name="quality">
+      <option value="">--Select Quality--</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+      </select>
+    
+      <label for="product-price">Price (per kilogram):</label>
+    <div class="line">
+      <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel name="price">
+      <!-- <button >modifier</button> -->
+    </div>
+    <button type="submit" (click)="updateStock()">valider</button>
+    </form>
+    </section>
+    <table id="stock">
+  <thead>
+  <tr>
+    <th>Quality</th>
+    <th>Quantity in Stock</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  
+    <tr *ngFor="let item of stock">
+      <td>{{item.quality}}</td>
+      <td>{{item.quantity}} kg</td>
+      <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+    </tr>
+  </tbody>
+  </table>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--the end of the container-->
 </div>
 
 

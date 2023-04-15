@@ -17,6 +17,7 @@ table tr{
     margin-top: 0px;
     margin-left: 0px;
     text-align: center;
+    background-color: red;
   }
   .marget{
     left: 58%;
@@ -144,3 +145,173 @@ table tr{
 }
 
 
+
+
+/*agriculteur*/
+.farmerStock{
+  width:calc(100% - 500px);position:absolute; left:350px;
+ 
+
+}
+
+
+/* agriculture section */
+.agriculture {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+ 
+}
+
+.agriculture h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.agriculture form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border:1px solid black;
+}
+
+.agriculture label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.agriculture select, input[type="number"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.agriculture button {
+
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.agriculture button:hover {
+
+  background-color: #3e8e41;
+}
+
+#stock {
+border-collapse: collapse;
+width: 100%;
+}
+
+#stock  th, td {
+padding: 8px;
+text-align: left;
+border-bottom: 1px solid #ddd;
+}
+
+#stock th {
+background-color: #4CAF50;
+color: white;
+font-weight: bold;
+}
+
+#stock tr:nth-child(even) {
+background-color: #7d7f7f;
+}
+
+
+
+/* reclammation */
+
+.reclamation {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  width:calc(100% - 500px);position:absolute; left:350px;
+ 
+}
+
+.reclamation h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reclamation form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reclamation label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.reclamation input[type="text"], .reclamation input[type="email"], .reclamation textarea {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.reclamation textarea {
+  resize: vertical;
+  width:50%;
+}
+
+.reclamation button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reclamation button:hover {
+  background-color: #3e8e41;
+}
+
+
+
+.platform-conditions {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.platform-conditions h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.platform-conditions ul {
+  list-style-type: none;
+  margin-left: 20px;
+}
+
+.platform-conditions li {
+  margin-bottom: 10px;
+}
+
+
+.fancy-title {
+ 
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(to right, #4f7bbb, #a680b1, #d05f5f, #f8b74d, #71b280);
+
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+ 
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+.line{display: inline;}
