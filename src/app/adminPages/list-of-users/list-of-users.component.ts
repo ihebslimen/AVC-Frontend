@@ -180,8 +180,8 @@ showAboutUser=false;
 //todo fonctions modifier et supprimer
 
 
-public onUpdateUser(user: User): void {
-  this.adminService.updateUser(user).subscribe(
+public onUpdateUser(user: User,id_user:number): void {
+  this.adminService.updateUser(user,id_user).subscribe(
     (response: User) => {
       console.log(response);
       this.getUsers();
@@ -205,7 +205,7 @@ public onDeleteUser(userId: number): void {
 }
 
 
-quantity:number; quality:string=null; price:number;
+quantity:number; quality:string; price:number;
 
   stock = [
     { quality: 'High', quantity: 1000, price: 5.00 },

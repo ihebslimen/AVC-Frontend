@@ -1,12 +1,13 @@
 body{
   margin:0 0 0 0; padding:0; 
     height: 2035px;
+    background-color: #EBF4DF;
   }
   .section{
     height:1000px;  display: flex; align-items:center;
      justify-content: center;
      flex-direction: column; 
-     background-color: #C1DF9F;
+     /* background-color: #C1DF9F; */
     padding:100px 0;
    
   }
@@ -14,9 +15,9 @@ body{
     height: 1000px;  display: flex; align-items:center;
      justify-content: center;
      flex-direction: column; 
-     background-color: #C1DF9F;
+     /* background-color: #C1DF9F; */
      padding:100px 0;
-     
+     background-color: #EBF4DF;
   }
   .ajnab {
     display: flex;
@@ -69,8 +70,6 @@ body{
   transform: translateY(50px);
   background-color: red;
 }
-
-
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
@@ -88,10 +87,7 @@ body{
 }
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg); /* Flip the card by rotating the inner element 180 degrees on the Y axis */
-}
-
-
-.text {
+}.text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -132,13 +128,39 @@ body{
   height:1000px;
 }
 .writing-effect {
+  margin-left: 70px;
+  font-family: Roboto;
   overflow: hidden;
   border-right: 0.15em solid #333;
   white-space: nowrap;
   letter-spacing: 0.15em;
   animation: typing 3.5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
 }
-
+.pres{
+  margin:40px 70px 40px 70px;
+  font-family: Roboto;
+  line-height: 3;
+  text-align: justify;
+}
+.pres-m{
+  font-family: Roboto;
+  line-height: 3;
+  text-align: justify;
+}
+.pres-mm{
+  font-family:Roboto;
+  line-height: 2;
+  margin:5px 10px 5px 10px;
+  text-align: justify;
+}
+.roboto{
+  font-family: Roboto;
+}
+.baccard{
+  background-image: url(src/assets/home3.jpg); 
+  background-size:100%;
+  background-position: center;
+}
 
 @keyframes typing {
   from {
@@ -204,6 +226,11 @@ body{
 h6{
   line-height: 2;
   font-size: large;
+  font-family:Roboto; 
+  font-size: 22px;
+}
+h1{
+  font-family:Roboto;
 }
 .img-thumbnail {
   border: 2px solid black;
@@ -225,13 +252,21 @@ h6{
       height: 700px;
       margin-left: 100px;
       }
-  .profile-info {
-    
-    text-align: justify;
+      .Get{
+        background-image: url(src/assets/home2.jpg);
+        background-size:100%;
+        background-position: center;
+      }
+  .profile-info { 
+  text-align: justify;
   position: relative;
   display: flex; 
   align-items: center;
   }
-  .personal-info {
+  .personal-infoo {
   width: 70%; 
+  margin:20px 70px 40px 70px;
+  }
+  .personal-info{
+    width: 70%;
   }
