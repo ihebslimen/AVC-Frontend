@@ -157,7 +157,9 @@
     <td>{{user.username}}</td>
     <td>{{user.email}}</td>
     <td>
-      
+      <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
+        <svg  width="24" height="24" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M320 89.6h640v76.8H320V89.6z m0 768h640v76.8H320v-76.8z m-256-768h128v76.8H64V89.6z m256 384h640v76.8H320V473.6z m-256 0h128v76.8H64V473.6z m0 384h128v76.8H64v-76.8z" fill="#000000" /></svg>
+      </a>&nbsp;&nbsp;
         <a class="btn btn-primary tooltips" data-placement="top" data-original-title="Accepter" style="color:white;" >
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -287,7 +289,7 @@
 
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
-    <div id="userDetails" *ngIf="operation!=='stats'">
+    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails'" >
     <div class="modal-header">
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
@@ -321,6 +323,41 @@
 
     <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser.id_user)">valider la modification</button>
   </div>
+  <!-- todo -->
+
+  <div id="moreDetails" *ngIf="operation==='moreDetails'">
+    <div class="modal-header">
+      <h2>affecter un role pour lui dans la plateforme</h2>
+      <button class="close-btn" (click)="hideModal()">X</button>
+    </div>
+  
+    <table class="user-details-table">
+      
+     <tr>
+      <div class="dropdown" >
+        <td><button class="dropbtn">Select an option &#x25BC;</button></td>
+        <td>{{role}}</td>
+        <!-- <div class="dropdown-content" [(ngModel)]="selectedSection" (ngModelChange)="scrollToSection()">
+          <a href="#">Option 1</a>
+          <a href="#">Option 2</a>
+          <a href="#">Option 3</a>
+        </div> -->
+        <select class="form-select" [(ngModel)]="role" (ngModelChange)="affecterRole(role)">
+          <option value="agriculteur">agriculteur</option>
+          <option value="transporteur">transporteur</option>
+          <option value="exportateur">exportateur</option>
+          
+        </select>
+      </div>
+      
+     </tr> 
+     
+      
+    </table>
+  </div>
+
+
+
   <div id="aboutUser" *ngIf="operation==='stats'">
     <div class="modal-header">
       <h2>about user</h2>
@@ -358,6 +395,9 @@
 </div>
 </div>
 </div>
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
@@ -12,17 +12,24 @@ export class LoginComponent {
   showAlert !:boolean; showerrorMessage=false; showSuccessMessage=false;
   
 constructor(private router:Router,private authenticationService:AuthenticationServiceService){}
+ngOnInit(){
+  const pageHeight = document.documentElement.clientHeight;
+console.log(`The height of the page is ${pageHeight}px`);
+
+}
 goToSubscribe(): void {
   this.router.navigate(['subscribe']);
 }
-cin !: string; password:string=''; passwordError=false;
+password:string=''; passwordError=false;
   loginIsValid !: boolean; loginIsSubmitted:boolean=false;
   errorMessage !:string; 
+  cin : number; 
 onSubmitLogin(){
   console.log("submission ......");
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
-  this.loginIsValid = this.regex.test(this.cin);
+  // this.loginIsValid = this.regex.test(this.cin) ;
+  this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
   if(this.loginIsValid){
     this.showSuccessMessage = true;
 console.log("login valid")
@@ -34,7 +41,7 @@ console.log("login valid")
     console.log("login is not valid")
     this.showerrorMessage=true;
     setTimeout(() => {
-      this.loginIsValid=true;
+      // this.loginIsValid=true;
       this.showerrorMessage = false;
     }, 3000);
   }
@@ -89,16 +96,11 @@ else{console.log(this.cinRegisterIsValid);
   this.showerrorMessage=true;
   setTimeout(() => {
     this.showerrorMessage = false;
-  }, 3000);
+  }, 20000);
 }
 }
  codeRegisterIsValid !:boolean; codeSubmitted:boolean=false;
-  input1!: string;
-  input2!: string;
-  input3!: string;
-  input4!: string;
-  input5!: string;
-  input6!: string;
+ 
   @ViewChild('formCode') formCode!: NgForm;
   
 onSubmitCode(){
@@ -166,5 +168,56 @@ moveLoginForm(): void {
     this.bouttonVerifierIsClicked=!false;
     this.veriferOuEnvoyer="verifier";
   }
+
+
+  backToCinFunction(){
+    this.loginIsValid=false;
+    this.cinRegisterIsValid=false;
+  }
+
+
+  @ViewChild('input1', { static: true }) input1: ElementRef;
+  @ViewChild('input2', { static: true }) input2: ElementRef;
+  @ViewChild('input3', { static: true }) input3: ElementRef;
+  @ViewChild('input4', { static: true }) input4: ElementRef;
+  @ViewChild('input5', { static: true }) input5: ElementRef;
+  @ViewChild('input6', { static: true }) input6: ElementRef;
+
+  input1Value: string;
+  input2Value: string;
+  input3Value: string;
+  input4Value: string;
+  input5Value: string;
+  input6Value: string;
+
+  ngAfterViewInit() {
+    this.input1.nativeElement.focus();
+    this.input1.nativeElement.addEventListener('keyup', () => {
+      if (this.input1Value.length === 1) {
+        this.input2.nativeElement.focus();
+      }
+    });
+    this.input2.nativeElement.addEventListener('keyup', () => {
+      if (this.input2Value.length === 1) {
+        this.input3.nativeElement.focus();
+      }
+    });
+    this.input3.nativeElement.addEventListener('keyup', () => {
+      if (this.input3Value.length === 1) {
+        this.input4.nativeElement.focus();
+      }
+    });
+    this.input4.nativeElement.addEventListener('keyup', () => {
+      if (this.input4Value.length === 1) {
+        this.input5.nativeElement.focus();
+      }
+    });
+    this.input5.nativeElement.addEventListener('keyup', () => {
+      if (this.input5Value.length === 1) {
+        this.input6.nativeElement.focus();
+      }
+    });
+  }
+
 
 }

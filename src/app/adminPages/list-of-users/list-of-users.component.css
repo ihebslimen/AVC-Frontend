@@ -97,7 +97,7 @@ table tr{
   height: auto;
   max-width: 90%;
   max-height: 90%;
-  overflow: auto;
+  overflow:visible;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -208,7 +208,7 @@ width: 100%;
 
 #stock  th, td {
 padding: 8px;
-text-align: left;
+text-align: center;
 border-bottom: 1px solid #ddd;
 }
 
@@ -315,3 +315,43 @@ background-color: #7d7f7f;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 .line{display: inline;}
+
+
+
+
+
+/* Style the button that triggers the dropdown */
+.dropbtn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Position the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Style the dropdown content when the user hovers over it */
+.dropdown-content a:hover {
+  background-color: #2d5273;
+
+}
+
+/* Show the dropdown content when the user clicks on the button */
+.dropdown:hover .dropdown-content {
+  display: block;
+}

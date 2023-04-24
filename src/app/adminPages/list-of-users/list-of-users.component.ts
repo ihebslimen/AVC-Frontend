@@ -167,11 +167,15 @@ showAboutUser=false;
     if(operation==='stats'){
       this.operation="stats";
     }   
+    if(operation==='moreDetails'){
+      this.operation="moreDetails";
+    } 
     console.log("operation=="+this.operation);
   }
 
   hideModal() {
-    this.selectedUser = null;
+    if(this.selectedUser){
+    this.selectedUser = null;}
     this.showModalFlag = false;
   }
 
@@ -230,7 +234,12 @@ quantity:number; quality:string; price:number;
       }
      
     }
+  
 
+    }
+    role:string;
+    affecterRole(role:string){
+      this.role=role;
     }
   
 
