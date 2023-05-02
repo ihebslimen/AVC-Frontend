@@ -47,11 +47,13 @@ color:white;
   .navbar ul a:hover::after {
     width: 100%;
     transform: scaleX(1);
+   
   }
 
   .navbar ul a:hover {
     background-color: #eaeaea;
     transition: background-color 0.2s ease-in-out;
+    color: black;
   }
   
     .transparentNavbar {

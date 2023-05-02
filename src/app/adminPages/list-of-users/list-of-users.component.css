@@ -32,6 +32,21 @@ table tr{
     position: absolute;
     top: 100px;
   }
+  /* .margettes{
+    left:60%;
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  } */
+  .margette{
+    left:60%;
+    /* margin-left: 600px; */
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  }
   .taille{
     height: 100vh;
     top: 85px;
@@ -161,7 +176,12 @@ table tr{
   padding: 20px;
   margin: 20px 0;
   border-radius: 10px;
- 
+}
+.transformateur{
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
 }
 
 .agriculture h2 {
@@ -228,11 +248,11 @@ background-color: #7d7f7f;
 
 .reclamation {
   background-color: #f9f9f9;
-  padding: 20px;
+  /* padding: 20px;
   margin: 20px 0;
+  left:350px; */
   border-radius: 10px;
-  width:calc(100% - 500px);position:absolute; left:350px;
- 
+  width:calc(100% - 500px);position:absolute; 
 }
 
 .reclamation h2 {
@@ -276,7 +296,31 @@ background-color: #7d7f7f;
   background-color: #3e8e41;
 }
 
-
+#historique {
+  border-collapse: collapse;
+  width: 100%;
+  left:250px;
+    /* margin-left: 600px; */
+    width: 1550px;
+    position: absolute;
+    top: 100px; 
+  }
+  
+  #historique  th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  }
+  
+  #historique th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  }
+  
+  #historique tr:nth-child(even) {
+  background-color: #7d7f7f;
+  }
 
 .platform-conditions {
   background-color: #f5f5f5;

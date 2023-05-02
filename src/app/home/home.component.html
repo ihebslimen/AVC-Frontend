@@ -3,7 +3,7 @@
   <!--Navbar-->
   <app-header></app-header>
    <!--Home-->
-  <div [hidden]="!showSectionHome">
+  <div *ngIf="showSectionHome">
  
      <div class="section back1" >
       <section class="landing-section" >
@@ -73,35 +73,36 @@
 </div>
 
  
-<section style="background-color: green; background-color: #ebf4df;" >
+<section class="sizee" style="background-color: green; background-color: #ebf4df;" >
   <!-- Slideshow container -->
  <div class="slideshow-container">
  
+  <div class="mySlides cost">
+    <h1>Coûts Réduits</h1>   
+    <div ><br>
+     <p >L'utilisation de la technologie blockchain sur notre plateforme de gestion de chaîne de valeur 
+       des dattes permet une réduction significative des coûts de transaction grâce à l'absence
+        d'intermédiaires.</p>
+    </div>
+      </div>
    <!-- Full-width slides/quotes -->
-   <div class="mySlides " id="security">
+   <div class="mySlides sécurite"  id="security">
      
-     <h1>securité</h1>
+      <h1>Securité</h1>
      <!-- <img src="assets/security.jpg" alt=""> -->
-     <p >Notre plateforme assure la sécurité des transactions grâce aux protocoles de 
-     de consensus comme la preuve de travail ou la preuve d'enjeu garantissent que 
-      les transactions sont valides et légitimes avant d'être ajoutées à la blockchain. Les mécanismes 
-      de chiffrement sont également utilisés pour protéger les données stockées dans la blockchain. , 
-      et ainsi permet une gestion plus fiable et transparente des données de la chaîne de valeur des dattes.</p>
-     </div>
+    <p class="sec1">Notre plateforme assure la sécurité des transactions grâce aux protocoles de 
+      de consensus comme la preuve de travail ou la preuve d'enjeu garantissent que 
+       les transactions sont valides et légitimes avant d'être ajoutées à la blockchain. Les mécanismes 
+       de chiffrement sont également utilisés pour protéger les données stockées dans la blockchain. , 
+       et ainsi permet une gestion plus fiable et transparente des données de la chaîne de valeur des dattes.</p>
+  </div>
  
- 
-   <div class="mySlides">
- <h1>Coûts réduits</h1>   
-  <p >L'utilisation de la technologie blockchain sur notre plateforme de gestion de chaîne de valeur 
-    des dattes permet une réduction significative des coûts de transaction grâce à l'absence
-     d'intermédiaires.</p>
-   </div>
- 
-   <div class="mySlides" id="integrite">
- <h1>integrité</h1>  
- <p>La blockchain garantit l'intégrité des données sur notre plateforme de gestion de 
+   <div class="mySlides integrite" id="integrite">
+ <h1 >integrité</h1>  
+ <p class="sec1">La blockchain garantit l'intégrité des données sur notre plateforme de gestion de 
    chaîne de valeur des dattes grâce à un consensus distribué entre les participants. 
-   Les transactions sont validées avant d'être enregistrées sur la blockchain.</p>
+   Les transactions sont validées avant d'être enregistrées sur la blockchain.
+  </p>
    </div>
  
    <!-- Next/prev buttons -->
@@ -123,7 +124,7 @@
 
 <!-- Get Started-->
 
-<div [hidden]="!showSectionStarted">
+<div *ngIf="showSectionStarted">
 
   <div class="section d-flex espace image Get" id="E-Hawiya">
    <div class="content">

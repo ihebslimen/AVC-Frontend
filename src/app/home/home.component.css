@@ -266,27 +266,74 @@ h1{
   }
   .personal-infoo {
   width: 70%; 
-  margin:20px 70px 40px 70px;
+  margin:100px 70px 40px 70px;
   }
   .personal-info{
     width: 70%;
   }
-
+ .sizee{
+height:500px;
+ }
 
   .slideshow-container {
     position: relative;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1), 0px -8px 15px rgba(0, 0, 0, 0.1); 
-    height:500px;
+    height: 865px;
     
 
   }
-  
+  .sécurite{
+    background-image: url(src/assets/sécurite.jpg);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center; 
+  }
+  .cost{
+    background-image: url(src/assets/cost.jpg);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position: center; 
+  }
+  .integrite{
+    background-image: url(src/assets/integrite.jpg);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center; 
+  }
+  .sec p{
+    margin:15px 15px 30px 50px;margin-right: 70px;
+    text-align: justify;color: white;
+  }
+  .sec{
+    backdrop-filter: blur(15px);background-color: transparent;color: white;width: 100%;height: 100%;
+  }
+  .sec1{
+    color: white;backdrop-filter: blur(15px);
+  }
+  .slideshow-container :nth-child(1){
+    display: block;
+   }
   /* Slides */
   .mySlides {
     display: none;
     /* padding: 80px; */
     text-align: center;
- 
+    
   height:100%; 
   }
   
@@ -300,7 +347,7 @@ h1{
     margin-top: -30px;
     padding: 16px;
     color:black;
-    background-color: blue;
+    background-color: rgba(255, 191, 0, 0.218);
     font-weight: bold;
     font-size: 20px;
     border-radius: 0 3px 3px 0;
@@ -316,7 +363,7 @@ h1{
   
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: #6fee91;
+    background-color: #fdd804b5;
     color: white;
   }
   

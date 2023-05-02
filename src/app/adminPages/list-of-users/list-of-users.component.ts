@@ -120,10 +120,26 @@ getPaginatedData() {
   return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 }
 
+/** Inscription */
 showSectionInscription: boolean = false;
+/**Gestion Utilisateur */
 showSectionGestionUtilisateur: boolean = true;
+/**Gestion Stock */
 showSectionFarmerStock:boolean =false;
+showSectionTransformateurStock:boolean =false;
+showSectionExportateurStock:boolean =false;
+/** Vioalation*/
 showReclamationSection:boolean=false;
+/** historique */
+showhistoriqueAgricolteur:boolean=true;
+showhistoriqueTransformateur:boolean=true;
+showhistoriqueExportateur:boolean=true;
+/** Consuleter */
+showTransformateurs:boolean =false;
+showExportateurs:boolean =false;
+/** Offre */
+showOffreAgricoleur:boolean=false;
+showOffreTransformateur:boolean=false;
 
   toggleSection(sectionId: string,event:MouseEvent) {
     event.preventDefault();
@@ -136,18 +152,164 @@ showReclamationSection:boolean=false;
       this.showSectionInscription = true;
 
     } 
-    if (sectionId === 'farmerStock') {
-      this.showSectionFarmerStock = true;
-      this.showSectionInscription = false;
-      this.showSectionGestionUtilisateur = false;
-    } 
-
     if (sectionId === 'reclamation') {
+
+      /* show utilisateur */
+      this.showTransformateurs=false;
+      this.showExportateurs=false;
+      /* stock */
       this.showSectionFarmerStock = false;
-      this.showSectionInscription = false;
-      this.showSectionGestionUtilisateur = false;
+      this.showSectionTransformateurStock=false;
+      this.showSectionExportateurStock= false ;
+      /* Reclamation */
       this.showReclamationSection=true;
+      /* Historique */
+      this.showhistoriqueAgricolteur =false;
+      this.showhistoriqueTransformateur=false;
+      this.showhistoriqueExportateur= false ;
+      /* Appelle d'offre */
+      this.showOffreAgricoleur=false;
+      this.showOffreTransformateur=false;
+     
     } 
+    if(sectionId === 'historique'){
+      /* Show utilisateur */
+      this.showTransformateurs=false;
+      this.showExportateurs=false;
+      /* Stock */
+      this.showSectionFarmerStock = false;
+      this.showSectionTransformateurStock=false;
+      this.showSectionExportateurStock= false ;
+      /* Reclamation */
+      this.showReclamationSection=false;
+      /* Appelle d'offre */
+      this.showOffreAgricoleur=false;
+      this.showOffreTransformateur=false;
+              if(this.userRole==='agriculteur')
+              {
+                this.showhistoriqueAgricolteur =true;
+                this.showhistoriqueTransformateur=false;
+                this.showhistoriqueExportateur= false ;
+              }
+              if(this.userRole==='transformateur')
+              {
+                this.showhistoriqueAgricolteur =false ;
+                this.showhistoriqueTransformateur=true ;
+                this.showhistoriqueExportateur=false ;
+              }
+              if(this.userRole==='exportateur')
+              {
+                this.showhistoriqueAgricolteur  =false ;
+                this.showhistoriqueTransformateur=false ;
+                this.showhistoriqueExportateur=true;
+              }
+    }
+    if(sectionId === 'transformateurs'){
+   /* Show utilisateur */
+   this.showTransformateurs=true;
+   this.showExportateurs=false;
+   /* Stock */
+   this.showSectionFarmerStock = false;
+   this.showSectionTransformateurStock=false;
+   this.showSectionExportateurStock= false ;
+   /* Reclamation */
+   this.showReclamationSection=false;
+   /* Historique */
+   this.showhistoriqueAgricolteur =false;
+   this.showhistoriqueTransformateur=false;
+   this.showhistoriqueExportateur= false ;
+   /* Appelle d'offre */
+   this.showOffreAgricoleur=false;
+   this.showOffreTransformateur=false;
+    }
+    if(sectionId === 'exportateurs'){
+   /* show utilisateur */
+   this.showTransformateurs=false;
+   this.showExportateurs=true;
+   /* stock */
+   this.showSectionFarmerStock = false;
+   this.showSectionTransformateurStock=false;
+   this.showSectionExportateurStock= false ;
+   /* Reclamation */
+   this.showReclamationSection=false;
+   /* Historique */
+   this.showhistoriqueAgricolteur =false;
+   this.showhistoriqueTransformateur=false;
+   this.showhistoriqueExportateur= false ;
+   /* Appelle d'offre */
+   this.showOffreAgricoleur=false;
+   this.showOffreTransformateur=false;
+    }
+    if(sectionId === 'offretransformateur'){
+        /* show utilisateur */
+        this.showTransformateurs=false;
+        this.showExportateurs=false;
+        /* stock */
+        this.showSectionFarmerStock = false;
+        this.showSectionTransformateurStock=false;
+        this.showSectionExportateurStock= false ;
+        /* Reclamation */
+        this.showReclamationSection=false;
+        /* Historique */
+        this.showhistoriqueAgricolteur =false;
+        this.showhistoriqueTransformateur=false;
+        this.showhistoriqueExportateur= false ;
+        /* Appelle d'offre */
+        this.showOffreAgricoleur=false;
+        this.showOffreTransformateur=true;
+    }
+    if(sectionId === 'offreAgricolteur'){
+      /* show utilisateur */
+      this.showTransformateurs=false;
+      this.showExportateurs=false;
+      /* stock */
+      this.showSectionFarmerStock = false;
+      this.showSectionTransformateurStock=false;
+      this.showSectionExportateurStock= false ;
+      /* Reclamation */
+      this.showReclamationSection=false;
+      /* Historique */
+      this.showhistoriqueAgricolteur =false;
+      this.showhistoriqueTransformateur=false;
+      this.showhistoriqueExportateur= false ;
+      /* Appelle d'offre */
+      this.showOffreAgricoleur=true;
+      this.showOffreTransformateur=false;
+  }
+    if(sectionId === 'Stock'){
+        /* show utilisateur */
+        this.showTransformateurs=false;
+        this.showExportateurs=false;
+        /* Reclamation */
+        this.showReclamationSection=false;
+        /* Historique */
+        this.showhistoriqueAgricolteur =false;
+        this.showhistoriqueTransformateur=false;
+        this.showhistoriqueExportateur= false ;
+        /* Appelle d'offre */
+        this.showOffreAgricoleur=false;
+        this.showOffreTransformateur=true;
+                    if(this.userRole==='agriculteur')
+                    {
+                      this.showSectionFarmerStock =true;
+                      this.showSectionTransformateurStock=false;
+                      this.showSectionExportateurStock= false ;
+                    }
+                    if(this.userRole==='transformateur')
+                    {
+                      this.showSectionFarmerStock =false;
+                      this.showSectionTransformateurStock=true;
+                      this.showSectionExportateurStock= false ;
+                    }
+                    if(this.userRole==='exportateur')
+                    {
+                      this.showSectionFarmerStock =false;
+                      this.showSectionTransformateurStock=false;
+                      this.showSectionExportateurStock= true ;
+                    }
+
+    }
+
 
     // console.log(this.showSection);
   }

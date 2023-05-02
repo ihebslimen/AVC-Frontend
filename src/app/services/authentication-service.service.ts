@@ -21,7 +21,7 @@ export class AuthenticationServiceService {
       this.role='admin';
     }
     if(password==="userPass"){
-      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'agriculteur' } });
+      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'transformateur' } });
       this.loggedIn.next(true);
       this.connected=true; 
       this.role='user';
