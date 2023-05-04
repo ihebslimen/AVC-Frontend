@@ -16,6 +16,10 @@ export class AmdminServiceService {
 return users;
   }
 
+  public getU(){
+    return this.http.get<any>(`${this.apiServerUrl}/api/admin/users/`);
+  }
+
   public getUserid(id_user:number):Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/api/users/${id_user}`);
     } 

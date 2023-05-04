@@ -249,7 +249,7 @@
       <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel name="price">
       <!-- <button >modifier</button> -->
     </div>
-    <button type="submit" (click)="updateStock()">valider</button>
+    <button type="submit" class="btn btn-success" (click)="updateStock()">valider</button>
     </form>
     <br><br><br>
     <table id="stock">
@@ -298,7 +298,7 @@
       <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel name="price">
       <!-- <button >modifier</button> -->
     </div><br>
-    <button type="submit" (click)="updateStock()">valider</button>
+    <button type="submit" class="btn btn-success" (click)="updateStock()">valider</button>
     </form>
     <br><br><br>
     <table id="stock">
@@ -607,13 +607,13 @@
         <tr>
           <th>Name:</th>
           <ng-container *ngIf="selectedUser">
-            <td *ngIf="operation==='delete'">{{selectedUser?.name}}</td> 
+            <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.name}}</td> 
             <td *ngIf="operation==='edit'"><input style="width:300px;" type="text" value="{{selectedUser?.name}}"></td>
           </ng-container>
         </tr>
         <tr>
           <th>Email:</th>
-          <td *ngIf="operation==='delete'">{{selectedUser?.email}}</td> 
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.email}}</td> 
           <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.email}}"></td>
         </tr>
      

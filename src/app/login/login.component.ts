@@ -35,7 +35,7 @@ onSubmitLogin(){
 console.log("login valid")
     setTimeout(() => {
       this.showSuccessMessage = false;
-    }, 3000);
+    }, 1000);
   }
   else{
     console.log("login is not valid")
@@ -43,29 +43,8 @@ console.log("login valid")
     setTimeout(() => {
       // this.loginIsValid=true;
       this.showerrorMessage = false;
-    }, 3000);
+    }, 1000);
   }
-  //todo ki kenet submit bil cin wel password
-
-// if(this.password.length<6 || this.password.length>6){
-//   this.passwordError=true;
-//   console.log(this.passwordError,"ekteb kol chay",this.password,this.password.length);
-//   setTimeout(() => {
-//     this.passwordError = false;
-//   }, 3000); 
-// }
-//todo
-// if(this.password==="adminPass"){
-//   this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'admin' } });
-// }
-//todo ki kenet submit bil cin wel password
-// this.authenticationService.login(this.cin,this.password);
-//todo
-
-
-// if(this.password==="userPass"){
-//   this.router.navigate(['profile'],{ queryParams: { userType: 'user' } });
-// }
 
 }
 registerIsValid !: boolean; registerIsSubmitted:boolean=false;
@@ -87,7 +66,7 @@ if(this.cinRegisterIsValid){
   this.showSuccessMessage=true;
   setTimeout(() => {
     this.showSuccessMessage = false;
-  }, 3000);
+  }, 1000);
 }
 else{console.log(this.cinRegisterIsValid);
   event.preventDefault();
@@ -96,7 +75,7 @@ else{console.log(this.cinRegisterIsValid);
   this.showerrorMessage=true;
   setTimeout(() => {
     this.showerrorMessage = false;
-  }, 20000);
+  }, 1000);
 }
 }
  codeRegisterIsValid !:boolean; codeSubmitted:boolean=false;
@@ -112,7 +91,7 @@ onSubmitCode(){
   this.showSuccessMessage = true;
     setTimeout(() => {
       this.showSuccessMessage = false;
-    }, 3000);
+    }, 1000);
   }
   else{
     this.codeRegisterIsValid=false;
@@ -120,7 +99,7 @@ onSubmitCode(){
 this.showerrorMessage=true;
     setTimeout(() => {
       this.showerrorMessage = false;
-    }, 3000);
+    }, 1000);
   }
 }
 
