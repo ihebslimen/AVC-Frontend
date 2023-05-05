@@ -1,0 +1,75 @@
+<!-- <nav class="navbar navbar-expand-lg  fixed-top"  #nav [ngClass]="{'transparentNavbar': routeUrl === '/'||routeUrl==='/home'||routeUrl==='/contact'||routeUrl==='/login'||routeUrl==='/apropos' }">
+  <a class="navbar-brand"  href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLinkActive="'active-link'" href="">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLinkActive="'active-link'" href="/apropos" >À propos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact" routerLinkActive="'active-link'">Contact us</a>
+      </li>
+    </ul>
+    
+      
+
+
+<select class="form-select" *ngIf="showScrollList" [(ngModel)]="selectedSection" (ngModelChange)="scrollToSection()">
+  select a section to scroll to
+  <option value="welcometoourplateforme">welcome</option>
+  <option value="lesvaleursdenotrechaine">les valeurs de notre chaine</option>
+  <option value="E-Hawiya">E-Hawiya</option>
+  <option value="utilisationdelaplateforme">utilisation?</option>
+</select>
+      <div class="nav-item" id="loginButton">
+        <button class="btn btn-success" *ngIf="showLoginButton">
+          <a class="nav-link "style="color:white;font-family:roboto;" *ngIf="this.loggedIn" (click)="logout()" routerLink="/login">logout</a>
+          <a class="nav-link "style="color:white; font-family:roboto;" *ngIf="!this.loggedIn" routerLink="/login">login</a>  
+        </button>
+          &nbsp;
+      </div> 
+    </div>
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg  fixed-top"  #nav [ngClass]="{'transparentNavbar': routeUrl === '/'||routeUrl==='/home'||routeUrl==='/contact'||routeUrl==='/login'||routeUrl==='/apropos' }">
+    <a class="navbar-brand"  href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLinkActive="'active-link'" href="">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" routerLinkActive="'active-link'" href="/apropos" >À propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="'active-link'">Contact us</a>
+        </li>
+      </ul>
+      
+        
+  
+  
+  <select class="form-select" *ngIf="showScrollList" [(ngModel)]="selectedSection" (ngModelChange)="scrollToSection()">
+    select a section to scroll to
+    <option value="welcometoourplateforme">welcome</option>
+    <option value="lesvaleursdenotrechaine">les valeurs de notre chaine</option>
+    <option value="E-Hawiya">E-Hawiya</option>
+    <option value="utilisationdelaplateforme">utilisation?</option>
+  </select>
+        <div class="nav-item" id="loginButton">
+          <button class="btn btn-success" *ngIf="showLoginButton">
+            <a class="nav-link "style="color:white;font-family:roboto;" *ngIf="this.loggedIn" (click)="logout()" routerLink="/login">logout</a>
+            <a class="nav-link "style="color:white; font-family:roboto;" *ngIf="!this.loggedIn" routerLink="/login">login</a>  
+          </button>
+            &nbsp;
+        </div> 
+      </div>
+    </nav>

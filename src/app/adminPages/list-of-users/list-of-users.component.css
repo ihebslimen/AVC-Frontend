@@ -1,0 +1,401 @@
+table{
+    background-color: gray; color:white
+}
+table tr{
+  cursor: pointer; 
+}
+
+.arrow:active, .arrow:visited{
+    color:red;
+}
+.paginator{
+    position:absolute; right:50px;
+    display: flex; width: 150px;  justify-content: space-between;
+}
+
+.container{
+    margin-top: 0px;
+    margin-left: 0px;
+    text-align: center;
+    background-color: red;
+  }
+  .marget{
+    left: 58%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 150px;
+  }
+  .margett{
+    left:50%;
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  }
+  /* .margettes{
+    left:60%;
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  } */
+  .margette{
+    left:60%;
+    /* margin-left: 600px; */
+    width: 1550px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100px;
+  }
+  .taille{
+    height: 100vh;
+    top: 85px;
+    position: fixed;
+    
+  }
+  .s8ir
+  {
+    width: 1000px;
+  }
+  .functions a{
+    
+    transition: text-align 0.9s ease-in-out;
+    transform:all 0.5s ease-in-out;
+    transition: background-color 0.3s ease-in-out; padding:15px 5px;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0)
+    );
+  }
+.functions a:hover{
+  transform: scale(1.1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  position: relative;
+  background-color:#ccc;
+  padding: 20px;
+  width: 500px;
+  height: auto;
+  max-width: 90%;
+  max-height: 90%;
+  overflow:visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.user-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-details-table th,
+.user-details-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-details-table th {
+  background-color: blue;
+}
+
+
+
+
+/*agriculteur*/
+.farmerStock{
+  width:calc(100% - 500px);position:absolute; left:350px;
+ 
+
+}
+
+
+/* agriculture section */
+.agriculture {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+.transformateur{
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+.agriculture h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.agriculture form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border:1px solid black;
+}
+
+.agriculture label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.agriculture select, input[type="number"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.agriculture button {
+
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.agriculture button:hover {
+
+  background-color: #3e8e41;
+}
+
+#stock {
+border-collapse: collapse;
+width: 100%;
+}
+
+#stock  th, td {
+padding: 8px;
+text-align: center;
+border-bottom: 1px solid #ddd;
+}
+
+#stock th {
+background-color: #4CAF50;
+color: white;
+font-weight: bold;
+}
+
+#stock tr:nth-child(even) {
+background-color: #7d7f7f;
+}
+
+
+
+/* reclammation */
+
+.reclamation {
+  background-color: #f9f9f9;
+  /* padding: 20px;
+  margin: 20px 0;
+  left:350px; */
+  border-radius: 10px;
+  width:calc(100% - 500px);position:absolute; 
+}
+
+.reclamation h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reclamation form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reclamation label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.reclamation input[type="text"], .reclamation input[type="email"], .reclamation textarea {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.reclamation textarea {
+  resize: vertical;
+  width:50%;
+}
+
+.reclamation button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reclamation button:hover {
+  background-color: #3e8e41;
+}
+
+#historique {
+  border-collapse: collapse;
+  width: 100%;
+  left:250px;
+    /* margin-left: 600px; */
+    width: 1550px;
+    position: absolute;
+    top: 100px; 
+  }
+  
+  #historique  th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  }
+  
+  #historique th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  }
+  
+  #historique tr:nth-child(even) {
+  background-color: #7d7f7f;
+  }
+
+.platform-conditions {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.platform-conditions h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.platform-conditions ul {
+  list-style-type: none;
+  margin-left: 20px;
+}
+
+.platform-conditions li {
+  margin-bottom: 10px;
+}
+
+
+.fancy-title {
+ 
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(to right, #4f7bbb, #a680b1, #d05f5f, #f8b74d, #71b280);
+
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+ 
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+.line{display: inline;}
+
+
+
+
+
+/* Style the button that triggers the dropdown */
+.dropbtn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Position the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Style the dropdown content when the user hovers over it */
+.dropdown-content a:hover {
+  background-color: #2d5273;
+
+}
+
+/* Show the dropdown content when the user clicks on the button */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
