@@ -28,12 +28,18 @@ constructor(private adminService:AmdminServiceService,private route: ActivatedRo
   console.log("lmodel dhaher"+this.showModalFlag);
 }
 
-public users:User[]=[]; public originalTable!:User[];
+public users:User[]=[]; 
+public originalTable!:User[];
 ngOnInit(){
 
 this.getUsers();
 this.originalTable=[...this.users];
 this.getUsers2();
+
+
+let Farmers=this.adminService.getAgricoles();
+console.log("farmers ==============="+Farmers);
+console.log(this.getAgricoles());
 }
 getUsers(){
   this.adminService.getUsers().subscribe(result=>{
@@ -42,11 +48,11 @@ getUsers(){
 //  console.log("les utilisateurs li raj3o"+ness+ " type mte3o "+typeof(ness));
   });
 
-  console.log("haw inchallah temchi"+this.authenticationService.temchiBidhnallah());
+  console.log("haw inchallah temchi"+this.adminService.temchiBidhnallah());
 }
 
 getUsers2() {
-  this.authenticationService.temchiBidhnallah2().subscribe(
+  this.adminService.temchiBidhnallah2().subscribe(
     (users) => {
       this.users = users;
       console.log("from temchiBidhnallah2()"+ users)
@@ -378,17 +384,17 @@ public onUpdateUser(user: User,id_user:number): void {
   );
 }
 
-public onDeleteUser(userId: number): void {
-  this.adminService.deleteUser(userId).subscribe(
-    (response: void) => {
-      console.log(response);
-      this.getUsers();
-    },
-    // (error: HttpErrorResponse) => {
-    //   alert(error.message);
-    // }
-  );
-}
+// public onDeleteUser(userId: number): void {
+//   this.adminService.deleteUser(userId).subscribe(
+//     (response: void) => {
+//       console.log(response);
+//       this.getUsers();
+//     },
+
+//   );
+// }
+
+
 
 
 quantity:number; quality:string; price:number;
@@ -431,18 +437,56 @@ quantity:number; quality:string; price:number;
 
 
 
+ajouterUtilisateur(){
+this.adminService.ajouterUtilisateur();
+}
 
-//toDo
+Farmers=this.adminService.getAllFarmers();
 
-// moveLeft(){
-//   this.start=this.start-5;
-//   console.log(this.start)
-// } 
-// moveRight(){
-// this.start=this.start+this.selectedLength;
+public agricols: agricole[] = [];
 
-// console.log(this.start)
-// }
+getAgricoles(): void {
+  this.adminService.getAgricoles().subscribe(
+    (response) => {
+      console.log("hay mchet getAgricoles");
+      console.log(response);
+      this.agricols = response.agricoles;
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+}
+
+
+deleteAgricole(id:string){
+  this.adminService.deleteAgricole(id);
+}
+deleteUser(id:string){
+  console.log("id = "+id);
+this.adminService.deleteUser(id);
+}
+
+
+deleteUser2(id: string): void {
+  const url = `http://localhost:5000/api/admin/users/${id}`;
+  
+  this.adminService.deleteUser2(id).subscribe(
+    (response) => {
+      console.log('User deleted successfully');
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+}
+
+updatedName:string; type:string;
+updateUser(){
+  console.log("this is update function");
+  console.log(this.updatedName);
+  console.log(this.type);
+}
 
 }
 export interface User {
@@ -452,6 +496,12 @@ export interface User {
   name: string;
   phone: string;
   role: "admin" | "user";
+  type:"agriculteur" | "transformateur" | "exportateur";
 }
+export interface agricole {
+  _id: string;
+  localisation: string;
+}
+
 
 

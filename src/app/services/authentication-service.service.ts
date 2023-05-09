@@ -22,7 +22,7 @@ export class AuthenticationServiceService {
       this.role='admin';
     }
     if(password==="userPass"){
-      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'transformateur' } });
+      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'agriculteur' } });
       this.loggedIn.next(true);
       this.connected=true; 
       this.role='user';
@@ -125,41 +125,7 @@ cnx5() {
   );
 }
 
-public temchiBidhnallah(){
-  this.http.get('http://localhost:5000/api/admin/users').subscribe(
-    (response) => {
-      let text = JSON.stringify(response);
-      let users = JSON.parse(text); // convert string response to JSON object
 
-console.log(users[0])
-      console.log(users[0].name); // logs "iheb"
-console.log(users[1].name); // logs "yassine"
-
-      
-      // extract values of specific fields
-      // let cins = users.map((user: { cin: any; }) => user.cin); 
-      // let names = users.map((user: { name: any; }) => user.name); 
-      let names = users.map((user:any) => user.name);
-      
-      // console.log(cins); // log array of cins
-      console.log(names); // log array of names
-      return users;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-}
-
-
-
-
-public temchiBidhnallah2(): Observable<User[]> {
-  return this.http.get<User[]>('http://localhost:5000/api/admin/users').pipe(
-    map((response) => response.map((user) => ({ ...user, role: user.role as "admin" | "user" }))),
-    
-  );
-}
 
 
 

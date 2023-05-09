@@ -47,20 +47,25 @@
         <tr>
             <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
             <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-            <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-            <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+            <!-- <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th> -->
+            <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('email','des')">▼</span></th>
+            <th>phone&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
+            <th>type&nbsp;<span class="arrow" (click)="sortTableArrows('type','asc')">▲</span><span class="arrow" (click)="sortTableArrows('type','des')">▼</span></th>
+
             <th colspan="2">Action</th>
           </tr>
     </thead>
     <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()" >
         <td (click)="showModal(user,'stats')">{{user._id}}</td>
-        <td (click)="showModal(user,'stats')">{{user.cin}}</td>
-        <td (click)="showModal(user,'stats')">{{user.email}}</td>
+        <!-- <td (click)="showModal(user,'stats')">{{user.cin}}</td> -->
         <td (click)="showModal(user,'stats')">{{user.name}}</td>
+        <td (click)="showModal(user,'stats')">{{user.email}}</td>
         <td (click)="showModal(user,'stats')">{{user.phone}}</td>
-        <td (click)="showModal(user,'stats')">{{user.role}}</td>
-        <td class="actions">
+        <td (click)="showModal(user,'stats')">{{user.type}}</td>
+        <td class="actions" colspan="2">
+          /*todo*/
+
           <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -93,8 +98,11 @@
       <tr>
         <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
         <th>Name<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-        <th>Username<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-        <th>Email<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+        <!-- <th>Username<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th> -->
+        <th>Email<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('email','des')">▼</span></th>
+        <th>phone<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
+        <th>type<span class="arrow" (click)="sortTableArrows('role','asc')">▲</span><span class="arrow" (click)="sortTableArrows('role','des')">▼</span></th>
+
         <th colspan="2">Action</th>
       </tr>
     </thead>
@@ -102,11 +110,10 @@
       
     <tr *ngFor="let user of filtredUsers " >
         <td>{{user._id}}</td>
-        <td>{{user.cin}}</td>
-        <td>{{user.email}}</td>
         <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
-        <td>{{user.role}}</td>
+        <td>{{user.type}}</td>
 
         <td>
           <a class="btn btn-primary tooltips" (click)="showModal(user,'edit')" data-placement="top" data-original-title="Edit" style="color:white;" >
@@ -150,8 +157,10 @@
     
       <th>ID</th>
       <th>Name&nbsp;</th>
-      <th>Username&nbsp;</th>
+      <!-- <th>Username&nbsp;</th> -->
       <th>Email&nbsp;</th>
+      <th>phone</th>
+      <th>cin</th>
       <th colspan="2">Action</th>
 </tr>
 
@@ -161,13 +170,16 @@
   <tr *ngFor="let user of getPaginatedData()" >
     <td>{{user._id}}</td>
     <td>{{user.name}}</td>
-    
     <td>{{user.email}}</td>
-    <td>
+    <!-- <td>{{user.email}}</td> -->
+    <td>{{user.phone}}</td>
+    <td>{{user.cin}}</td>
+
+    <td colspan="2">
       <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
         <svg  width="24" height="24" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M320 89.6h640v76.8H320V89.6z m0 768h640v76.8H320v-76.8z m-256-768h128v76.8H64V89.6z m256 384h640v76.8H320V473.6z m-256 0h128v76.8H64V473.6z m0 384h128v76.8H64v-76.8z" fill="#000000" /></svg>
       </a>&nbsp;&nbsp;
-        <a class="btn btn-primary tooltips" data-placement="top" data-original-title="Accepter" style="color:white;" >
+        <a class="btn btn-primary tooltips" (click)="ajouterUtilisateur()"  data-placement="top" data-original-title="Accepter" style="color:white;" >
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M5 12l5 5l10 -10"></path>
@@ -340,8 +352,10 @@
           
             <th>ID</th>
             <th>Name&nbsp;</th>
-            <th>Username&nbsp;</th>
+            <!-- <th>Username&nbsp;</th> -->
             <th>Email&nbsp;</th>
+            <th>cin&nbsp;</th>
+
             <th colspan="2">Action</th>
       </tr>
       
@@ -351,9 +365,9 @@
         <tr *ngFor="let user of getPaginatedData()" >
           <td>{{user._id}}</td>
           <td>{{user.name}}</td>
-          
           <td>{{user.email}}</td>
-          <td>
+          <td>{{user.cin}}</td>
+          <td colspan="2">
             <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
               <svg  width="24" height="24" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M320 89.6h640v76.8H320V89.6z m0 768h640v76.8H320v-76.8z m-256-768h128v76.8H64V89.6z m256 384h640v76.8H320V473.6z m-256 0h128v76.8H64V473.6z m0 384h128v76.8H64v-76.8z" fill="#000000" /></svg>
             </a>&nbsp;&nbsp;
@@ -462,18 +476,23 @@
     <table id="historique">
       <thead>
       <tr>
-        <th>Quality agriculteur</th>
-        <th>Quantity in Stock</th>
-        <th>Price</th>
+        <th>id de l'agriculteur
+        <th>localisation de l'agriculteur
       </tr>
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of stock">
+        <!-- <tr *ngFor="let item of stock">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+        </tr> -->
+        <tr *ngFor="let farmer of agricols">
+          <td>{{farmer._id}}</td>
+          <td>{{farmer.localisation}} kg</td>
+         
         </tr>
+        
       </tbody>
       </table>
   </section>
@@ -609,6 +628,7 @@
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
     </div>
+    <form (ngSubmit)="updateUser()" #updateForm="ngForm">
     <table class="user-details-table">
       <tr>
         <th>ID:</th>
@@ -619,26 +639,50 @@
           <th>Name:</th>
           <ng-container *ngIf="selectedUser">
             <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.name}}</td> 
-            <td *ngIf="operation==='edit'"><input style="width:300px;" type="text" value="{{selectedUser?.name}}"></td>
+            <td *ngIf="operation==='edit'"><input style="width:300px;" type="text" value="{{selectedUser?.name}}" placeholder="{{selectedUser?.name}}" [(ngModel)]="updatedName" name="updatedNameField"></td>
           </ng-container>
+        </tr>
+        <tr>
+          <th>CIN:</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.cin}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="number" value="{{selectedUser?.cin}}" ></td>
         </tr>
         <tr>
           <th>Email:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.email}}</td> 
           <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.email}}"></td>
         </tr>
-     
-        
-     
-      
+        <tr>
+          <th>phone:</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.phone}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="phone" value="{{selectedUser?.phone}}"></td>
+        </tr>
+        <tr>
+          <th>role:</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.role}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.role}}"></td>
+        </tr>
+        <tr>
+          <th>actorInfoJson</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.actorInfoJson}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.actorInfoJson}}"></td>
+        </tr>
+        <tr>
+          <th>type:</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.type}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}"></td>
+        </tr> 
     </table>
+
       <br>
-    <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="onDeleteUser( selectedUser)">valider la suppression</button>
+    <!-- <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="onDeleteUser( selectedUser)">valider la suppression</button> -->
+    <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="deleteUser2( selectedUser._id)">valider la suppression</button>
 
 
-    <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser._id)">valider la modification</button>
+    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser._id)">valider la modification</button>
+  </form>
   </div>
-  <!-- todo -->
+ 
 
   <div id="moreDetails" *ngIf="operation==='moreDetails'">
     <div class="modal-header">

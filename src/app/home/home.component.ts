@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import { agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 
 
@@ -9,40 +10,35 @@ import { AuthenticationServiceService } from '../services/authentication-service
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
-  constructor(private router: Router,private service:AuthenticationServiceService ) { }
 
-  users=[];
+ 
+
     ngOnInit(){
       
-  
-
-    // this.service.cnx();
-
-    this.service.cnx3();
-    let usersTable=this.service.cnn4();
-    // console.log("users table "+ usersTable)
-
-    // console.log("type mil ts=="+typeof(usersTable))
-
-    this.service.cnx5();
-
-    //  console.log("l 'users *********************"+this.service.hetlusers());
-this.service.temchiBidhnallah();
-
-
-    // this.service.getUsers().subscribe(data => {
-    //   this.users = data;
-    //   let ness=JSON.stringify(this.users);
- 
-    //   console.log(ness);
-
-    // });
+      const flipCards = document.querySelectorAll('.flip-card');
+    flipCards.forEach(flipCard => {
+    flipCard.addEventListener('click', function() {
+      flipCard.classList.toggle('flipped');
+    });
+    this.showSlides(this.slideIndex);
+    }); 
 
   }
-  
+  constructor(private router: Router, private authenticationService:AuthenticationServiceService) { }
 
+  isDragging = false;
+
+
+   
+  
+    
     slideIndex = 1;
 
+  
+
+     
+    
+  
     plusSlides(n: number) {
       this.showSlides(this.slideIndex += n);
     }

@@ -21,15 +21,16 @@ goToSubscribe(): void {
   this.router.navigate(['subscribe']);
 }
 password:string=''; passwordError=false;
-  loginIsValid !: boolean; loginIsSubmitted:boolean=false;
+  loginIsValid : boolean=true; loginIsSubmitted:boolean=false;
   errorMessage !:string; 
+  
   cin : number; 
 onSubmitLogin(){
   console.log("submission ......");
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
   // this.loginIsValid = this.regex.test(this.cin) ;
-  this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
+  // this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
   if(this.loginIsValid){
     this.showSuccessMessage = true;
 console.log("login valid")
