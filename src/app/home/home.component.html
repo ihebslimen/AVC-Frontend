@@ -13,6 +13,10 @@
                 <div class="row">
             <div class="col-md-12 ">
               <h1>Welcome to our plateforme</h1>
+
+            <tr *ngFor="let user of agricoles ">
+              <td>{{user.localisation}}</td>
+            </tr>
               <h6>Cette plateforme permettra des résoudre plusieurs problèmes notamment la traçabilité
                  puisque tout les transactions effectués seront enregistré dans des registres immuables et sécurisés,
                   ce qui permet de tracer la provenance des produits et en plus assurer la sécurité des données et réduire 
@@ -49,17 +53,16 @@
 <div class="content profile-info ">
 <div  class="personal-infoo">
  <br><br>
- <h1  class="roboto">Deglet Nour </h1>
+ <h1  class="roboto">Les oasis tunisiennes et leur richesse en variétés de dattes</h1>
  <br>
   <p class="pres-m">
-    Les oasis du grand Sud tunisien, de Tozeur à Nefta, donnent l'impression d'être des mirages.
-     Ces lieux sont réputés pour leur culture de la Deglet Nour, la variété de dattes la plus prestigieuse 
-     et la plus exportée de Tunisie. Cette variété est appelée les « doigts de lumière » en raison de sa presque
-      transparence qui permet de voir son noyau. Bien qu'elle possède des qualités exceptionnelles, 
-      la Deglet Nour est une variété capricieuse qui nécessite beaucoup d'attention lors de sa culture.
-       Il existe également d'autres variétés de dattes, plus précoces ou plus tardives, avec plus de 250 cultivars en Tunisie 
-       de tailles très variables. Elles ont souvent une forme oblongue ou sphérique et une large gamme de couleurs 
-       allant du jaune au presque noir, en passant par toutes les nuances de l'ambre rouge ou brun.
+    Les oasis du grand Sud tunisien, de Tozeur à Nefta, offrent un spectacle époustouflant qui semble irréel.
+     Outre la culture de la fameuse Deglet Nour, la variété de dattes la plus prestigieuse et exportée de Tunisie, 
+     on y trouve une grande variété d'autres cultivars de dattes. Avec plus de 250 variétés disponibles, chacune ayant des tailles,
+      des formes et des couleurs différentes, la Tunisie est un véritable paradis pour les amateurs de dattes. 
+      Certaines de ces variétés sont plus précoces ou plus tardives que la Deglet Nour,
+       mais toutes ont des qualités remarquables qui justifient l'attention particulière qu'elles reçoivent de la part des producteurs. 
+       Qu'elles soient oblongues ou sphériques, jaunes ou noires, rouges ou brunes, ces dattes sont toutes des trésors du terroir tunisien.
 
     </p>
    <br><br>
@@ -164,14 +167,5 @@
      </div>
    </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 </body>

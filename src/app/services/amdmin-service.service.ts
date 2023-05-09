@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
-import { Observable } from 'rxjs';
+import { Observable, map, toArray } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,6 +15,31 @@ export class AmdminServiceService {
   let users=this.http.get<any>("https://jsonplaceholder.typicode.com/users");
 return users;
   }
+
+  // getUsersTemchi(): Observable<User[]> {
+  //   const userArray: User[] = [];
+  //   return this.http.get('http://localhost:5000/api/admin/users', { responseType: 'text' })
+  //     .pipe(
+  //       map((response: string) => {
+  //         const jsonArray = JSON.parse(response);
+  //         for (let i = 0; i < jsonArray.length; i++) {
+  //           const user: User = {
+  //             _id: jsonArray[i]._id,
+  //             cin: jsonArray[i].cin,
+  //             email: jsonArray[i].email,
+  //             name: jsonArray[i].name,
+  //             phone: jsonArray[i].phone,
+  //             role: jsonArray[i].role
+  //           };
+  //           userArray.push(user);
+  //         }
+  //         return userArray;
+  //       })
+  //     );
+  // }
+
+
+ 
 
   public getU(){
     return this.http.get<any>(`${this.apiServerUrl}/api/admin/users/`);
@@ -34,7 +59,7 @@ return users;
     return this.http.delete<void>(`${this.apiServerUrl}/api/users/${userId}`);
   }
   public updateUser(user: User,userId: number): Observable<User> {
-    console.log("user with id "+user.id+" has been updated");
+    console.log("user with id "+user._id+" has been updated");
     return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
   }
 

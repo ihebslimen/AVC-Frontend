@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/amdmin-service.service';
 import { NgModule } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
+import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 
 
 @Component({
@@ -20,24 +21,46 @@ public section: string = '';
 userType: string | null;
 userRole:string | null;
   
-constructor(private adminService:AmdminServiceService,private route: ActivatedRoute){
+constructor(private adminService:AmdminServiceService,private route: ActivatedRoute, private authenticationService:AuthenticationServiceService){
   //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
   this.userType=this.route.snapshot.queryParamMap.get('userType');
   this.userRole=this.route.snapshot.queryParamMap.get('userRole');
   console.log("lmodel dhaher"+this.showModalFlag);
 }
-// users:User[]=[];
-public users:User[]=[]; public originalTable!:User[];
+
+public users:User[]=[];
+
+public originalTable!:User[];
 ngOnInit(){
 
 this.getUsers();
 this.originalTable=[...this.users];
+this.getUsers2();
 }
 getUsers(){
-  this.adminService.getUsers().subscribe(result=>{
-this.users=result; console.log(this.users);
+  this.authenticationService.authorisation().subscribe(result=>{
+// this.users=result;
+// let ness=this.adminService.getUsersTemchi();
+//  console.log("les utilisateurs li raj3o"+ness+ " type mte3o "+typeof(ness));
   });
+
+  // console.log("haw inchallah temchi"+this.authenticationService.temchiBidhnallah());
 }
+
+getUsers2() {
+  this.authenticationService.authorisation().subscribe(
+    (users) => {
+      this.users = users;
+      // console.log(users)
+      // console.log("from temchiBidhnallah2()"+ users)
+      // console.log(users[0].role)
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+}
+
 filterValue:string='';
 // filterName:string=""; filterUsername:string=""; filterEmail:string=""; filteredUsers = this.users;
 sortValue: string = '';
@@ -58,7 +81,7 @@ sortTableArrows(param:string,order:string) {
     }
     if (param === 'username') {
       this.users= this.users.slice().sort(
-        (a, b) => a.username.localeCompare(b.name)
+        (a, b) => a.name.localeCompare(b.name)
       );
       }
       if (param === 'email') {
@@ -75,7 +98,7 @@ sortTableArrows(param:string,order:string) {
       }
       if (param === 'username') {
         this.users= this.users.slice().sort(
-          (a, b) => a.username.localeCompare(b.name)
+          (a, b) => a.name.localeCompare(b.name)
         ).reverse();
         }
         if (param === 'email') {
@@ -91,7 +114,7 @@ if(this.filterValue.length>0){
   
   this.filtredUsers = this.users.filter(user =>
     user.name.toLowerCase().includes(this.filterValue.toLowerCase()) ||
-    user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+    // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
     user.email.toLowerCase().includes(this.filterValue.toLowerCase())
   );
 }
@@ -426,26 +449,15 @@ quantity:number; quality:string; price:number;
 
 }
 export interface User {
-  id: number;
-  name: string;
-  username: string;
+  _id: string;
+  cin: string;
   email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    }
-  };
+  name: string;
   phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
+  role: "admin" | "user";
+}
+export interface agricole {
+  _id: string;
+  localisation: string;
 }
 

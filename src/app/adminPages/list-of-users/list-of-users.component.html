@@ -54,10 +54,12 @@
     </thead>
     <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()" >
-        <td (click)="showModal(user,'stats')">{{user.id}}</td>
-        <td (click)="showModal(user,'stats')">{{user.name}}</td>
-        <td (click)="showModal(user,'stats')">{{user.username}}</td>
+        <td (click)="showModal(user,'stats')">{{user._id}}</td>
+        <td (click)="showModal(user,'stats')">{{user.cin}}</td>
         <td (click)="showModal(user,'stats')">{{user.email}}</td>
+        <td (click)="showModal(user,'stats')">{{user.name}}</td>
+        <td (click)="showModal(user,'stats')">{{user.phone}}</td>
+        <td (click)="showModal(user,'stats')">{{user.role}}</td>
         <td class="actions">
           <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -99,10 +101,13 @@
     <tbody class="table-light">
       
     <tr *ngFor="let user of filtredUsers " >
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
+        <td>{{user._id}}</td>
+        <td>{{user.cin}}</td>
         <td>{{user.email}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.role}}</td>
+
         <td>
           <a class="btn btn-primary tooltips" (click)="showModal(user,'edit')" data-placement="top" data-original-title="Edit" style="color:white;" >
             <i class="fa fa-pencil"></i> Edit
@@ -154,9 +159,9 @@
 <tbody class="table-light">
 
   <tr *ngFor="let user of getPaginatedData()" >
-    <td>{{user.id}}</td>
+    <td>{{user._id}}</td>
     <td>{{user.name}}</td>
-    <td>{{user.username}}</td>
+    
     <td>{{user.email}}</td>
     <td>
       <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
@@ -344,9 +349,9 @@
       <tbody class="table-light">
       
         <tr *ngFor="let user of getPaginatedData()" >
-          <td>{{user.id}}</td>
+          <td>{{user._id}}</td>
           <td>{{user.name}}</td>
-          <td>{{user.username}}</td>
+          
           <td>{{user.email}}</td>
           <td>
             <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
@@ -403,10 +408,13 @@
     </thead>
     <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()" >
-        <td (click)="showModal(user,'stats')">{{user.id}}</td>
-        <td (click)="showModal(user,'stats')">{{user.name}}</td>
-        <td (click)="showModal(user,'stats')">{{user.username}}</td>
+        <td (click)="showModal(user,'stats')">{{user._id}}</td>
+        <td (click)="showModal(user,'stats')">{{user.cin}}</td>
         <td (click)="showModal(user,'stats')">{{user.email}}</td>
+        <td (click)="showModal(user,'stats')">{{user.name}}</td>
+        <td (click)="showModal(user,'stats')">{{user.phone}}</td>
+        <td (click)="showModal(user,'stats')">{{user.role}}</td>
+
         <td class="actions">
           <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -546,10 +554,13 @@
       </thead>
       <tbody class="table-light">
       <tr *ngFor="let user of getPaginatedData()" >
-          <td (click)="showModal(user,'stats')">{{user.id}}</td>
-          <td (click)="showModal(user,'stats')">{{user.name}}</td>
-          <td (click)="showModal(user,'stats')">{{user.username}}</td>
+          <td (click)="showModal(user,'stats')">{{user._id}}</td>
+          <td (click)="showModal(user,'stats')">{{user.cin}}</td>
           <td (click)="showModal(user,'stats')">{{user.email}}</td>
+          <td (click)="showModal(user,'stats')">{{user.name}}</td>
+          <td (click)="showModal(user,'stats')">{{user.phone}}</td>
+          <td (click)="showModal(user,'stats')">{{user.role}}</td>
+
           <td class="actions">
             <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -625,7 +636,7 @@
     <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="onDeleteUser( selectedUser)">valider la suppression</button>
 
 
-    <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser.id_user)">valider la modification</button>
+    <button class="btn btn-primary" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser._id)">valider la modification</button>
   </div>
   <!-- todo -->
 

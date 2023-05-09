@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import { agricole } from '../adminPages/list-of-users/list-of-users.component';
+import { AuthenticationServiceService } from '../services/authentication-service.service';
 
 
 @Component({
@@ -8,6 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
+
  
 
     ngOnInit(){
@@ -21,7 +24,7 @@ export class HomeComponent  {
     }); 
 
   }
-  constructor(private router: Router ) { }
+  constructor(private router: Router, private authenticationService:AuthenticationServiceService) { }
 
   isDragging = false;
 
@@ -32,7 +35,19 @@ export class HomeComponent  {
     slideIndex = 1;
 
   
-   
+    public agricoles:agricole[]=[];
+    public getagricole() {
+      this.authenticationService.agricole().subscribe(
+        (agricole) => {
+          this.agricoles = agricole;
+    console.log(this.agricoles);
+    console.log("za3ma chnouwa prob");
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
      
     
   
