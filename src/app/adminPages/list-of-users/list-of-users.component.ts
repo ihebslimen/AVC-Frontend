@@ -30,6 +30,7 @@ constructor(private adminService:AmdminServiceService,private route: ActivatedRo
 
 public users:User[]=[]; 
 public originalTable!:User[];
+public offers:Offer[]=[];
 ngOnInit(){
 
 this.getUsers();
@@ -372,17 +373,17 @@ showAboutUser=false;
 //todo fonctions modifier et supprimer
 
 
-public onUpdateUser(user: User,id_user:number): void {
-  this.adminService.updateUser(user,id_user).subscribe(
-    (response: User) => {
-      console.log(response);
-      this.getUsers();
-    },
+// public onUpdateUser(user: User,id_user:number): void {
+//   this.adminService.updateUser(user,id_user).subscribe(
+//     (response: User) => {
+//       console.log(response);
+//       this.getUsers();
+//     },
     // (error: HttpErrorResponse) => {
     //   alert(error.message);
     // }
-  );
-}
+//   );
+// }
 
 // public onDeleteUser(userId: number): void {
 //   this.adminService.deleteUser(userId).subscribe(
@@ -481,11 +482,58 @@ deleteUser2(id: string): void {
   );
 }
 
-updatedName:string; type:string;
-updateUser(){
+updatedName:string;  updatedCin:string; updatedEmail:string;
+updatedPhone:string; updatedRole:string; updatedType:string; updatedState:string;
+updateUserValues(){
   console.log("this is update function");
   console.log(this.updatedName);
-  console.log(this.type);
+  console.log(this.updatedCin);
+  console.log(this.updatedPhone);
+  console.log(this.updatedRole);
+  console.log(this.updatedEmail);
+  console.log(this.updatedType);
+  console.log(this. updatedState)
+}
+
+
+updateUser(userId:string) {
+ 
+  const payload = {
+    cin: this.updatedCin,
+    name: this.updatedName,
+    email: this.updatedEmail,
+    phone: this.updatedPhone,
+    role: this.updatedRole,
+    type: this.updatedType,
+    state:this.updatedState
+  };
+
+  this.adminService.updateUser(userId, payload)
+    .subscribe(
+      response => {
+      
+        console.log('Update request successful', response);
+        // Perform further actions if needed
+      },
+      error => {
+        console.error('Update request error', error);
+        // Handle error scenarios if needed
+      }
+    );
+}
+
+getAllOffers(){
+  this.adminService.getAllOffers().subscribe(
+(response)=>{
+
+console.log(response);
+console.log("type = "+typeof(response))
+
+},
+(error)=>{
+console.log(error);
+}
+  );
 }
 
 }
@@ -497,11 +545,25 @@ export interface User {
   phone: string;
   role: "admin" | "user";
   type:"agriculteur" | "transformateur" | "exportateur";
+  state:"approved" | "waiting"
 }
 export interface agricole {
   _id: string;
   localisation: string;
 }
+
+export interface Offer {
+  _id: string;
+  type: string;
+  quantity: number;
+  quality: string;
+  priceUnit: number;
+  unit: string;
+  state: string;
+  actorType: string;
+  actorRef: string;
+}
+
 
 
 

@@ -628,7 +628,7 @@
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
     </div>
-    <form (ngSubmit)="updateUser()" #updateForm="ngForm">
+    <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm">
     <table class="user-details-table">
       <tr>
         <th>ID:</th>
@@ -645,22 +645,22 @@
         <tr>
           <th>CIN:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.cin}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="number" value="{{selectedUser?.cin}}" ></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="number" value="{{selectedUser?.cin}}" placeholder="{{selectedUser?.cin}}" [(ngModel)]="updatedCin" name="updatedCinField"></td>
         </tr>
         <tr>
           <th>Email:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.email}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.email}}"></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.email}}" placeholder="{{selectedUser?.email}}" [(ngModel)]="updatedEmail" name="updatedEmailField"></td>
         </tr>
         <tr>
           <th>phone:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.phone}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="phone" value="{{selectedUser?.phone}}"></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="phone" value="{{selectedUser?.phone}}" placeholder="{{selectedUser?.phone}}" [(ngModel)]="updatedPhone" name="updatedPhoneField"></td>
         </tr>
         <tr>
           <th>role:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.role}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.role}}"></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.role}}" placeholder="{{selectedUser?.role}}" [(ngModel)]="updatedRole" name="updatedRoleField"></td>
         </tr>
         <tr>
           <th>actorInfoJson</th>
@@ -670,7 +670,13 @@
         <tr>
           <th>type:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.type}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}"></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}" [(ngModel)]="updatedType" name="updatedTypeField"></td>
+        </tr> 
+
+        <tr>
+          <th>state:</th>
+          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.state}}</td> 
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.state}}" [(ngModel)]="updatedState" name="updatedStateField"></td>
         </tr> 
     </table>
 
@@ -679,7 +685,7 @@
     <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="deleteUser2( selectedUser._id)">valider la suppression</button>
 
 
-    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="onUpdateUser( selectedUser,selectedUser._id)">valider la modification</button>
+    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id);updateUserValues()">valider la modification</button>
   </form>
   </div>
  
@@ -725,30 +731,27 @@
   
     <table class="user-details-table">
       <tr>
-        <td>{{selectedUser?.id}}</td>
+        <th>id</th>
+        <td>{{selectedUser?._id}}</td>
       </tr>
      
         <tr>
-          <th>date d'Inscription:</th>
-    
-            <td ></td>
-          
+          <th>name</th>
+         <td >{{selectedUser.name}}</td>
         </tr>
         <tr>
-          <th>    valeur des transactions:
-          </th>
-          
-          <td ></td>
+          <th>cin</th>
+         <td >{{selectedUser.cin}}</td>
+         <tr>
+          <th>cin</th>
+         <td >{{selectedUser.cin}}</td>
         </tr>
-     <tr>
-      <th>    nombre des transactions:</th>
-      <td></td>
-     </tr>
-     <tr>
-      <th>    valeur:</th>
-      <td></td>
-     </tr> 
-     
+        <tr>
+          <tr>
+            <th>email</th>
+           <td >{{selectedUser.email}}</td>
+          </tr>
+          <tr>
       
     </table>
 </div>
