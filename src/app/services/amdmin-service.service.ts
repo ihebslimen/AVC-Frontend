@@ -58,10 +58,10 @@ return users;
   //   console.log("user with the id "+userId+" has been removed" );
   //   return this.http.delete<void>(`${this.apiServerUrl}/api/users/${userId}`);
   // }
-  public updateUser(user: User,userId: number): Observable<User> {
-    console.log("user with id "+user._id+" has been updated");
-    return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
-  }
+  // public updateUser(user: User,userId: number): Observable<User> {
+  //   console.log("user with id "+user._id+" has been updated");
+  //   return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
+  // }
 
 
 
@@ -127,9 +127,6 @@ console.log("user added")
 farmers:any=[];
   getAllFarmers(){
     this.http.get('localhost:5000/api/admin/agricoles');
-  
- 
-      
   }
 
 
@@ -145,7 +142,6 @@ farmers:any=[];
   }
   
   deleteUser(id:string){
-
     const url = `localhost:5000/api/admin/users/${id}`;
     return this.http.delete(url);
   }
@@ -156,6 +152,19 @@ farmers:any=[];
     return this.http.delete(url);
   }
 
+  updateUser(userId: string, payload: any) {
+    const url = `http://localhost:5000/api/admin/users/${userId}`;
+    return this.http.put(url, payload);
+  }
 
 
+
+  getAllOffers(){
+    const url="http://localhost:5000/api/user/offers";
+    return this.http.get(url);
+  }
 }
+
+
+
+
