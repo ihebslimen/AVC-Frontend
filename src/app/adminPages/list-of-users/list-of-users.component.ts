@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/amdmin-service.service';
 import { NgModule } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -18,6 +19,7 @@ currentPage: number = 1;
 numberOfPages!:number;
 public section: string = '';
 
+
 userType: string | null;
 userRole:string | null;
   
@@ -30,7 +32,7 @@ constructor(private adminService:AmdminServiceService,private route: ActivatedRo
 
 public users:User[]=[]; 
 public originalTable!:User[];
-public offers:Offer[]=[];
+
 ngOnInit(){
 
 this.getUsers();
@@ -41,6 +43,7 @@ this.getUsers2();
 let Farmers=this.adminService.getAgricoles();
 console.log("farmers ==============="+Farmers);
 console.log(this.getAgricoles());
+this.getAllOffers()
 }
 getUsers(){
   this.adminService.getUsers().subscribe(result=>{
@@ -51,6 +54,9 @@ getUsers(){
 
   console.log("haw inchallah temchi"+this.adminService.temchiBidhnallah());
 }
+
+
+
 
 getUsers2() {
   this.adminService.temchiBidhnallah2().subscribe(
@@ -341,7 +347,7 @@ showOffreTransformateur:boolean=false;
     // console.log(this.showSection);
   }
 //todo fazet ki tenzel 3al bouton yo5rjo informations
-  selectedUser: any;
+  selectedUser: any;    selectedOffer:any;
   showModalFlag = false; operation:string | undefined;
 showAboutUser=false;
   showModal(user: any,operation:string) {
@@ -360,6 +366,11 @@ showAboutUser=false;
       this.operation="moreDetails";
     } 
     console.log("operation=="+this.operation);
+  }
+updateStockMode:boolean=false;
+  showUpdateStock(){
+this.showModalFlag=true;
+this.updateStockMode=true;
   }
 
   hideModal() {
@@ -406,24 +417,31 @@ quantity:number; quality:string; price:number;
     { quality: 'Low', quantity: 200, price: 1.50 }
   ];
 
-
-    updateStock() {
-      if(this.quality !== null){
-      const index = this.stock.findIndex(item => item.quality === this.quality);
-      if (index !== -1) {
-        const item = this.stock[index];
-        if (this.quantity) {
-          item.quantity += this.quantity;
-        }
-        if (this.price) {
-          item.price = this.price;
-        }
-        console.log("item"+item.quality+"is now "+item.quantity+" abd price is ===="+item.price)
-
-      }
-     
+  @ViewChild('UpdateStockForm', { static: false }) UpdateStockForm: NgForm;
+    updateStock(offerId:string) {
+    const requestBody={
+    updatedQuantity:this.UpdateStockForm.value['product-quantity'],
+    Quality: this.UpdateStockForm.value['product-quality'],
+    Price: this.UpdateStockForm.value['product-price'],
+    Unit: this.UpdateStockForm.value['product-unit'],
+    updatedState:this.UpdateStockForm.value['state'],
+    Actor_Type: this.UpdateStockForm.value['actor-type'],
+    updatedRef:this.UpdateStockForm.value['actor-ref'],
     }
-  
+
+    this.adminService.updateOffer(offerId, requestBody)
+    .subscribe(
+      response => {
+      
+        console.log('Update request successful', response);
+        // Perform further actions if needed
+      },
+      error => {
+        console.error('Update request error', error);
+        // Handle error scenarios if needed
+      }
+    );   
+
 
     }
     role:string;
@@ -431,7 +449,14 @@ quantity:number; quality:string; price:number;
       this.role=role;
     }
   
-
+    @ViewChild('UpdatestockForm', { static: false }) UpdatestockForm: NgForm;
+    showUpdateStockValues(){
+      console.log('Quantity:', this.UpdatestockForm.value['product-quantity']);
+      console.log('Quality:', this.UpdatestockForm.value['product-quality']);
+      console.log('Price:', this.UpdatestockForm.value['product-price']);
+      console.log('Unit:', this.UpdatestockForm.value['product-unit']);
+      console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
+    }
 
 
 
@@ -522,18 +547,35 @@ updateUser(userId:string) {
     );
 }
 
+offers: Offer[];
+
 getAllOffers(){
   this.adminService.getAllOffers().subscribe(
 (response)=>{
-
 console.log(response);
 console.log("type = "+typeof(response))
-
+this.offers=response.offers;
+console.log("iterable object===" + this.offers);
 },
 (error)=>{
 console.log(error);
 }
   );
+}
+@ViewChild('stockForm', { static: false }) stockForm: NgForm;
+ajouterAuStock(){
+  console.log('Quantity:', this.stockForm.value['product-quantity']);
+  console.log('Quality:', this.stockForm.value['product-quality']);
+  console.log('Price:', this.stockForm.value['product-price']);
+  console.log('Unit:', this.stockForm.value['product-unit']);
+  console.log('Actor Type:', this.stockForm.value['actor-type']);
+}
+
+
+
+selectOffer(offer:Offer){
+this.selectedOffer=offer;
+console.log(this.selectedOffer);
 }
 
 }

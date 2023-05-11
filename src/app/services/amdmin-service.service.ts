@@ -159,9 +159,20 @@ farmers:any=[];
 
 
 
-  getAllOffers(){
-    const url="http://localhost:5000/api/user/offers";
-    return this.http.get(url);
+  updateOffer(offerId: string, payload: any) {
+    const url = `http://localhost:5000/api/admin/users/offers/${offerId}`;
+    return this.http.put(url, payload);
+  }
+
+
+
+  getAllOffers(): Observable<any> {
+    const url = "http://localhost:5000/api/user/offers";
+    return this.http.get(url).pipe(
+      map(response => {
+        return response;
+      })
+    );
   }
 }
 

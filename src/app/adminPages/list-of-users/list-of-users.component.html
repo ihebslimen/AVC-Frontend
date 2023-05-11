@@ -247,14 +247,14 @@
  
   <section class="agriculture" *ngIf="userRole ==='agriculteur'&& showSectionFarmerStock">
     <h2>Agriculture Data Value Chain Management Platform</h2><br>
-    <form (ngSubmit)="updateStock()" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)=" ajouterAuStock()" #stockForm="ngForm" ngForm>
       <label for="product-quantity">Quantity (in kilograms):</label>
     <div class="line">
-        <input type="number" id="product-quantity" name="product-quantity" min="1" ngModel name="quantity">
+        <input type="number" id="product-quantity" name="product-quantity" min="1" ngModel >
     <!-- <button >ajouter</button> -->
     </div>
       <label for="product-quality">Quality:</label>
-      <select id="product-quality" name="product-quality" ngModel name="quality">
+      <select id="product-quality" name="product-quality" ngModel >
       <option value="">--Select Quality--</option>
       <option value="high">High</option>
       <option value="medium">Medium</option>
@@ -263,10 +263,26 @@
     
       <label for="product-price">Price (per kilogram):</label>
     <div class="line">
-      <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel name="price">
+      <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel >
       <!-- <button >modifier</button> -->
     </div>
-    <button type="submit" class="btn btn-success" (click)="updateStock()">valider</button>
+    <label for="product-unit">unit :</label>
+    <div class="line">
+      <input type="number" id="product-unit" name="product-unit"  ngModel >
+      <!-- <button >modifier</button> -->
+    </div>
+
+    <label for="actor-type">actor type:</label>
+    <select id="actor-type" name="actor-type" ngModel >
+    <option value="">--Select actor type--</option>
+    <option value="Agriculteur">Agriculteur</option>
+    <option value="transformateur">transformateur</option>
+    <option value="exportateur">exportateur</option>
+    </select>
+
+
+
+    <button type="submit" class="btn btn-success" (click)="ajouterAuStock();">valider</button>
     </form>
     <br><br><br>
     <table id="stock">
@@ -275,15 +291,38 @@
         <th>Quality</th>
         <th>Quantity in Stock</th>
         <th>Price</th>
+        <th colspan="2">actions</th>
       </tr>
       </thead>
       <tbody>
-      
-        <tr *ngFor="let item of stock">
+        <tr *ngFor="let item of offers" (click)="selectOffer(item)">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
-          <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+          <td>{{'$' + item.priceUnit + '/kg'}}</td>
+          <td>
+            <a class="btn btn-primary tooltips" data-placement="top" (click)="selectOffer(item);showUpdateStock()"> 
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                <path d="M13.5 6.5l4 4"></path>
+             </svg>          
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-danger tooltips" data-placement="top"  >
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 7l16 0"></path>
+                <path d="M10 11l0 6"></path>
+                <path d="M14 11l0 6"></path>
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+             </svg>  
+            </a>
+          </td>
         </tr>
+      
+    
       </tbody>
       </table>
       
@@ -294,7 +333,7 @@
 
   <section class="transformateur" *ngIf="userRole ==='transformateur'&& showSectionTransformateurStock" >
     <h2>Transformateur Data Value Chain Management Platform</h2><br>
-    <form (ngSubmit)="updateStock()" #stockForm="ngForm" ngForm>
+    <form  #stockForm="ngForm" ngForm>
       <label for="product-quantity">Quantity (in kilograms):</label>&nbsp;&nbsp;
     <div class="line">
         <input type="number" id="product-quantity" name="product-quantity" min="1" ngModel name="quantity">
@@ -315,7 +354,7 @@
       <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel name="price">
       <!-- <button >modifier</button> -->
     </div><br>
-    <button type="submit" class="btn btn-success" (click)="updateStock()">valider</button>
+    <button type="submit" class="btn btn-success" >valider</button>
     </form>
     <br><br><br>
     <table id="stock">
@@ -528,10 +567,10 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of stock">
+      <tr *ngFor="let item of offers">
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+        <td>{{'$' + item.priceUnit+ '/kg'}}</td>
       </tr>
     </tbody>
     </table>
@@ -623,7 +662,7 @@
 
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
-    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails'" >
+    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin'  "  >
     <div class="modal-header">
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
@@ -685,7 +724,7 @@
     <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="deleteUser2( selectedUser._id)">valider la suppression</button>
 
 
-    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id);updateUserValues()">valider la modification</button>
+    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id);updateUserValues(); ">valider la modification</button>
   </form>
   </div>
  
@@ -755,6 +794,61 @@
       
     </table>
 </div>
+
+
+<div class="updateStock" *ngIf="updateStockMode">
+  <button class="close-btn" (click)="hideModal()">X</button>
+  <form  #UpdatestockForm="ngForm" ngForm (ngSubmit)="showUpdateStockValues(); updateStock(selectedOffer.id); ">
+    <label for="product-quantity">Quantity (in kilograms):</label>
+  <div class="line">
+      <input type="number" id="product-quantity" name="product-quantity" min="1" ngModel >
+  <!-- <button >ajouter</button> -->
+  </div>
+    <label for="product-quality">Quality:</label>
+    <select id="product-quality" name="product-quality" ngModel >
+    <option value="">--Select Quality--</option>
+    <option value="high">High</option>
+    <option value="medium">Medium</option>
+    <option value="low">Low</option>
+    </select>
+  
+    <label for="product-price">Price (per kilogram):</label>
+  <div class="line">
+    <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel >
+    <!-- <button >modifier</button> -->
+  </div>
+  <label for="product-unit">unit :</label>
+  <div class="line">
+    <input type="number" id="product-unit" name="product-unit"  ngModel >
+    <!-- <button >modifier</button> -->
+  </div>
+
+  <label for="actor-type">actor type:</label>
+  <select id="actor-type" name="actor-type" ngModel >
+  <option value="">--Select actor type--</option>
+  <option value="Agriculteur">Agriculteur</option>
+  <option value="transformateur">transformateur</option>
+  <option value="exportateur">exportateur</option>
+  </select>
+
+  <label for="actor-ref">refernce:</label>
+  <div class="line">
+    <input type="text" id="actor-ref" name="actor-ref"  ngModel >
+    <!-- <button >modifier</button> -->
+  </div>
+
+  <label for="state">state :</label>
+  <div class="line">
+    <input type="state" id="state" name="state"  ngModel >
+    <!-- <button >modifier</button> -->
+  </div>
+
+<button class="btn btn-success" type="submit">appliquer la modification</button>
+</form>
+</div>
+
+
+
 </div>
 </div>
 
