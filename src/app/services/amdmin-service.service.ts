@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
-import { Observable, map, toArray } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,70 @@ export class AmdminServiceService {
  
   private apiServerUrl = environment.apiServerUrl;
   constructor(private http:HttpClient) { }
+
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'
+    })
+  };
+  public temchiBidhnallah3(): Observable<User[]>{
+    return this.http.get<User[]>('http://localhost:5000/api/admin/users', this.httpOptions);
+  }
+  public temchiBidhnallah2(){
+    this.http.get('http://localhost:5000/api/admin/users',this.httpOptions).subscribe(
+      (response) => {
+        let text = JSON.stringify(response);
+        let users = JSON.parse(text); // convert string response to JSON object
+       console.log(users);
+        return users;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  public temchiBidhnallah(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiServerUrl}/api/admin/users`,this.httpOptions).pipe(
+      map((users: any) => users.map((user: any) => ({ ...user, role: user.role as "admin" | "user" })))
+    );
+  }
+
+
+
+  private getHeaders(): HttpHeaders {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'; // Remplacez par votre jeton d'autorisation
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
+  }
+
+  public getData(): Observable<any> {
+    const url = `${this.apiServerUrl}/api/admin/users`;
+
+    return this.http.get<any>(url, { headers: this.getHeaders() });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   public getUsers(){
   let users=this.http.get<any>("https://jsonplaceholder.typicode.com/users");
 return users;
@@ -65,41 +131,9 @@ return users;
 
 
 
-  public temchiBidhnallah(){
-    this.http.get('http://localhost:5000/api/admin/users').subscribe(
-      (response) => {
-        let text = JSON.stringify(response);
-        let users = JSON.parse(text); // convert string response to JSON object
+ 
   
-  console.log(users[0])
-        console.log(users[0].name); // logs "iheb"
-  console.log(users[1].name); // logs "yassine"
-  
-        
-        // extract values of specific fields
-        // let cins = users.map((user: { cin: any; }) => user.cin); 
-        // let names = users.map((user: { name: any; }) => user.name); 
-        let names = users.map((user:any) => user.name);
-        
-        // console.log(cins); // log array of cins
-        console.log(names); // log array of names
-        return users;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-  
-  
-  
-  
-  public temchiBidhnallah2(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/admin/users').pipe(
-      map((response) => response.map((user) => ({ ...user, role: user.role as "admin" | "user" }))),
-      
-    );
-  }
+
 
    requestBody = {
     "cin": "099",
@@ -149,12 +183,12 @@ farmers:any=[];
 
   deleteUser2(id: string): Observable<any> {
     const url = `http://localhost:5000/api/admin/users/${id}`;
-    return this.http.delete(url);
+    return this.http.delete(url,this.httpOptions);
   }
 
   updateUser(userId: string, payload: any) {
     const url = `http://localhost:5000/api/admin/users/${userId}`;
-    return this.http.put(url, payload);
+    return this.http.put(url, payload,this.httpOptions);
   }
 
 

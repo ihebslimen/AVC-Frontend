@@ -7,7 +7,6 @@
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" ><h6>&nbsp;Inscription</h6></a>
-
             </div>
           </div> 
         </div>
@@ -64,7 +63,6 @@
         <td (click)="showModal(user,'stats')">{{user.phone}}</td>
         <td (click)="showModal(user,'stats')">{{user.type}}</td>
         <td class="actions" colspan="2">
-          /*todo*/
 
           <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -659,7 +657,7 @@
       
   </section>
 
-
+<!-- <ng-template *ngIf="showUpdateUserForm"> -->
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
     <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin'  "  >
@@ -667,7 +665,7 @@
       <h2>User Details</h2>
       <button class="close-btn" (click)="hideModal()">X</button>
     </div>
-    <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm">
+    <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm" >
     <table class="user-details-table">
       <tr>
         <th>ID:</th>
@@ -712,11 +710,6 @@
           <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}" [(ngModel)]="updatedType" name="updatedTypeField"></td>
         </tr> 
 
-        <tr>
-          <th>state:</th>
-          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.state}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.state}}" [(ngModel)]="updatedState" name="updatedStateField"></td>
-        </tr> 
     </table>
 
       <br>
@@ -851,8 +844,23 @@
 
 </div>
 </div>
+<!-- </ng-template> -->
 
 
+
+
+
+<div class="success" *ngIf="validationMessage">
+  <div class="icon">
+    <svg fill="white" width="100" height="100" viewBox="0 0 24 24" id="verified" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color">
+      <polyline fill="none" id="secondary" points="8 12 11 15 16 10" style="fill: none; stroke: green; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline>
+      <path fill="none" id="primary" d="M21.37,12c0,1-.86,1.79-1.14,2.67s-.1,2.08-.65,2.83-1.73.94-2.5,1.49-1.28,1.62-2.18,1.92S13,20.65,12,20.65s-2,.55-2.9.27S7.67,19.55,6.92,19,5,18.28,4.42,17.51s-.35-1.92-.65-2.83S2.63,13,2.63,12s.86-1.8,1.14-2.68.1-2.08.65-2.83S6.15,5.56,6.92,5,8.2,3.39,9.1,3.09s1.93.27,2.9.27,2-.55,2.9-.27S16.33,4.46,17.08,5s1.94.72,2.5,1.49.35,1.92.65,2.83S21.37,11,21.37,12Z" style="stroke: green; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+    </svg>
+  </div>    
+  <div class="message success" >the verification message</div>
+   <!-- <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div> -->
+
+</div> 
 
 
 
