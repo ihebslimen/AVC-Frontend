@@ -405,20 +405,17 @@ background-color: #7d7f7f;
 .message.success{
   z-index: 1000;
   position:absolute; top:150px; left:50%; height:88px; width:100%; transform: translateX(-50%);
-   color:black; display:flex; justify-content: center;
-   border-bottom:2px solid black;
+  color:black; display:flex; justify-content: center; align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+   text-align: center;
   background-color: white;
-}.success{
+}
+.success{
   position:absolute; top:88px; left:50%; height: 150px; width:15%; transform: translateX(-50%);
-  background-color:white; padding:25px;
+  background-color:white; 
   z-index: 1000;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  
 }
 .success .icon{
-position: absolute; left:50%;transform: translateX(-50%);
-}
-.icon{
   position: absolute; left:50%;transform: translateX(-50%);
-
 }
