@@ -178,14 +178,35 @@ transition: transform .5s ease-in-out;
   
 
   .login-form button {
-    width: 250px;
-    height: 60px; border-radius: 10px; 
+    width: 150px;
+    height: 45px; border-radius: 10px; 
   }
 
- .seConnecter{
+ /* .seConnecter{
+    background-color: #2B968F; margin-top: 50px;
+    color:white; font-family: regular; font-size:16px; line-height: 24px;width: 50px;height: 20px;
+  } */
+  .seConnecter {
     background-color: #2B968F;
-    color:white; font-family: regular; font-size:24px; line-height: 48px;
+    color: white;
+    font-family: Roboto;
+    font-size:17px;
+    line-height: 24px;
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-top: 35px; /* Ajustez les marges supérieure et inférieure, ainsi que les marges gauche et droite selon vos préférences */
   }
+  /* .seConnecter {
+    background-color: #2B968F;
+    margin-top: 50px;
+    color: white;
+    font-family: regular;
+    font-size: 14px; 
+    line-height: 20px;
+    width: 80px; 
+    height: 30px; 
+  } */
   .carre{
     width:60px; height:6Opx; background-color: #698d5d;
   }
@@ -294,7 +315,7 @@ width:100%;
 }
 
 
-.form-button{
+/* .form-button{
   display: inline-block;
       padding: 10px 20px;
       font-size: 16px;
@@ -306,8 +327,18 @@ width:100%;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease;   width: auto; font-size: 25px;
+      width:10px;
+}
+.form-button[data-content="envoyer password"]{
+  font-size: 25px; padding:0;
 }
 .form-button:hover {
   background-color: #45a049;
+}
+ .formBtn{
+  margin-top: 70px; height: 20px;width:50px;
+} */
+.sinup{
+  width:300px;
 }

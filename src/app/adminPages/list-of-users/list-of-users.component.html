@@ -44,7 +44,7 @@
 <table class="table" *ngIf=" filterValue ==='' ">
     <thead>
         <tr>
-            <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
+            <th>CIN<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
             <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
             <!-- <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th> -->
             <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('email','des')">▼</span></th>
@@ -56,7 +56,7 @@
     </thead>
     <tbody class="table-light">
     <tr *ngFor="let user of getPaginatedData()" >
-        <td (click)="showModal(user,'stats')">{{user._id}}</td>
+        <td (click)="showModal(user,'stats')">{{user.cin}}</td>
         <!-- <td (click)="showModal(user,'stats')">{{user.cin}}</td> -->
         <td (click)="showModal(user,'stats')">{{user.name}}</td>
         <td (click)="showModal(user,'stats')">{{user.email}}</td>
@@ -94,7 +94,7 @@
   <table class="table" *ngIf=" filterValue.length > 0">
     <thead>
       <tr>
-        <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
+        <th>CIN<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
         <th>Name<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
         <!-- <th>Username<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th> -->
         <th>Email<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('email','des')">▼</span></th>
@@ -107,7 +107,7 @@
     <tbody class="table-light">
       
     <tr *ngFor="let user of filtredUsers " >
-        <td>{{user._id}}</td>
+        <td>{{user.cin}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
@@ -153,12 +153,11 @@
 <thead>
 <tr>
     
-      <th>ID</th>
+      <th>CIN</th>
       <th>Name&nbsp;</th>
       <!-- <th>Username&nbsp;</th> -->
       <th>Email&nbsp;</th>
       <th>phone</th>
-      <th>cin</th>
       <th colspan="2">Action</th>
 </tr>
 
@@ -166,12 +165,12 @@
 <tbody class="table-light">
 
   <tr *ngFor="let user of getPaginatedData()" >
-    <td>{{user._id}}</td>
+    <td>{{user.cin}}</td>
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
     <!-- <td>{{user.email}}</td> -->
     <td>{{user.phone}}</td>
-    <td>{{user.cin}}</td>
+   
 
     <td colspan="2">
       <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
@@ -762,10 +761,10 @@
     </div>
   
     <table class="user-details-table">
-      <tr>
+      <!-- <tr>
         <th>id</th>
         <td>{{selectedUser?._id}}</td>
-      </tr>
+      </tr> -->
      
         <tr>
           <th>name</th>
@@ -774,10 +773,10 @@
         <tr>
           <th>cin</th>
          <td >{{selectedUser.cin}}</td>
-         <tr>
+         <!-- <tr>
           <th>cin</th>
          <td >{{selectedUser.cin}}</td>
-        </tr>
+        </tr> -->
         <tr>
           <tr>
             <th>email</th>
