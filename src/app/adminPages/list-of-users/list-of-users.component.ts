@@ -40,13 +40,18 @@ export class ListOfUsersComponent implements OnInit {
 
     // this.getUsers();
     this.originalTable = [...this.users];
+  
     this.getUsers2();
+  //  this.users=this.getUsers2();
+  
 
-
-    let Farmers = this.adminService.getAgricoles();
-    console.log("farmers ===============" + Farmers);
-    console.log(this.getAgricoles());
+    // let Farmers = this.adminService.getAgricoles();
+    // console.log("farmers ===============" + Farmers);
+    // console.log("agricoles==="+this.getAgricoles());
     this.getAllOffers()
+    this.filterUsers()
+    console.log("users en attente::::::::");
+    console.log(this.waitingUsers);
   }
   //  getUsers2() {
   // //   this.adminService.getData().subscribe(result => {
@@ -75,8 +80,10 @@ export class ListOfUsersComponent implements OnInit {
       (response) => {
         let text = JSON.stringify(response);
         let users = JSON.parse(text); // convert string response to JSON object
+        console.log("this is from getUsers2")
        console.log(users.data);
        this.users=users.data;
+      
         return users;
       },
       (error) => {
@@ -486,9 +493,9 @@ export class ListOfUsersComponent implements OnInit {
 
 
 
-  ajouterUtilisateur() {
-    this.adminService.ajouterUtilisateur();
-  }
+  // ajouterUtilisateur() {
+  //   this.adminService.ajouterUtilisateur();
+  // }
 
   Farmers = this.adminService.getAllFarmers();
 
@@ -579,15 +586,39 @@ export class ListOfUsersComponent implements OnInit {
       );
   }
 
+
+  accepterUser(userId:any){
+    const updateData={
+      "state":"approved"
+    }
+    this.adminService.updateUser(userId, updateData).subscribe(
+      (response) => {
+        console.log('User updated');
+      },
+      (error) => {
+        console.error('An error occurred', error);
+      }
+    );
+  }
+  
+
+  // accepterUtilisateur(id:string){
+  //   const accepterutilisateurBodyrequest={
+  //     "state":"approved"
+  //   }
+  //   console.log("accepter clicked")
+  //   console.log(id);
+  //   this.adminService.updateUser(id,accepterutilisateurBodyrequest)
+  // }
+
   offers: Offer[];
 
   getAllOffers() {
     this.adminService.getAllOffers().subscribe(
       (response) => {
+        console.log("----------getAllusers----------")
         console.log(response);
-        console.log("type = " + typeof (response))
-        this.offers = response.offers;
-        console.log("iterable object===" + this.offers);
+        this.offers=response.data;
       },
       (error) => {
         console.log(error);
@@ -609,6 +640,29 @@ export class ListOfUsersComponent implements OnInit {
     this.selectedOffer = offer;
     console.log(this.selectedOffer);
   }
+
+waitingUsers:User[];
+  filterUsers() {
+    const state = 'waiting';
+console.log("filter users funct:::::")
+    this.adminService.filterUsers(state).subscribe(
+      (response) => {
+        console.log("=======from filtred users-----------")
+        console.log('Filtered users:', response);
+        console.log("ba3d el response");
+        this.waitingUsers=response.data;
+        console.log("waiting users="+this.waitingUsers);
+        // Handle the response data
+      },
+      (error) => {
+        console.error('An error occurred', error);
+        // Handle the error
+      }
+    );
+  }
+
+
+
 
 }
 export interface User {

@@ -164,7 +164,7 @@
 </thead>
 <tbody class="table-light">
 
-  <tr *ngFor="let user of getPaginatedData()" >
+  <tr *ngFor="let user of waitingUsers" >
     <td>{{user.cin}}</td>
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
@@ -176,7 +176,9 @@
       <a class="btn btn-primary tooltips" (click)="showModal(user,'moreDetails')" data-placement="top" data-original-title="Accepter" style="color:white;" >
         <svg  width="24" height="24" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M320 89.6h640v76.8H320V89.6z m0 768h640v76.8H320v-76.8z m-256-768h128v76.8H64V89.6z m256 384h640v76.8H320V473.6z m-256 0h128v76.8H64V473.6z m0 384h128v76.8H64v-76.8z" fill="#000000" /></svg>
       </a>&nbsp;&nbsp;
-        <a class="btn btn-primary tooltips" (click)="ajouterUtilisateur()"  data-placement="top" data-original-title="Accepter" style="color:white;" >
+        <!-- <a class="btn btn-primary tooltips" (click)="ajouterUtilisateur()"  data-placement="top" data-original-title="Accepter" style="color:white;" > -->
+        <a class="btn btn-primary tooltips"   data-placement="top" data-original-title="Accepter" style="color:white;" (click)="accepterUser(user._id)">
+
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M5 12l5 5l10 -10"></path>
@@ -364,10 +366,10 @@
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of stock">
+        <tr *ngFor="let item of offers">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
-          <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+          <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
         </tr>
       </tbody>
       </table>
@@ -544,10 +546,10 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of stock">
+      <tr *ngFor="let item of offers">
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+        <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr>
     </tbody>
     </table>
@@ -586,10 +588,10 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of stock">
+      <tr *ngFor="let item of offers">
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.price.toFixed(2) + '/kg'}}</td>
+        <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr>
     </tbody>
     </table>
@@ -862,6 +864,9 @@
 </div> 
 
 
+<div class="alert no-waiting" *ngIf="waitingUsers.length == 0">
+  <span class="message">No users waiting for approval</span>
+</div>
 
 
 </body>
