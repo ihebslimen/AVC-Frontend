@@ -175,8 +175,8 @@ table tr{
   background-color: #f9f9f9;
   padding: 20px;
   margin: 20px 0;
-  border-radius: 10px;
-}
+  border-radius: 10px; display: flex; flex-direction: column; align-items: center;
+ }
 .transformateur{
   background-color: #f9f9f9;
   padding: 20px;
@@ -191,9 +191,17 @@ table tr{
 
 .agriculture form {
   display: flex;
-  flex-direction: column;
+  flex-direction:row;
   align-items: center;
-  border:1px solid black;
+  justify-content: center;
+  height:400px; width:500px;
+  gap: 25px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.agriculture .column{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
 }
 
 .agriculture label {
@@ -201,20 +209,22 @@ table tr{
   margin-bottom: 10px;
 }
 
-.agriculture select, input[type="number"] {
+.agriculture select, input[type="number"],input[type="text"] {
   padding: 8px;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
 }
-.agriculture button {
+.agriculture .butt{
 
-  padding: 10px 20px;
+  position:absolute;  top:500px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: block;
+  
 }
 .agriculture button:hover {
 
@@ -224,6 +234,8 @@ table tr{
 #stock {
 border-collapse: collapse;
 width: 100%;
+background-color:white;
+color:black;
 }
 
 #stock  th, td {
@@ -233,14 +245,14 @@ border-bottom: 1px solid #ddd;
 }
 
 #stock th {
-background-color: #4CAF50;
+background-color:#808080;
 color: white;
 font-weight: bold;
 }
 
-#stock tr:nth-child(even) {
+/* #stock tr:nth-child(even) {
 background-color: #7d7f7f;
-}
+} */
 
 
 
@@ -299,11 +311,11 @@ background-color: #7d7f7f;
 #historique {
   border-collapse: collapse;
   width: 100%;
-  left:250px;
+  left:200px;
     /* margin-left: 600px; */
-    width: 1550px;
+   width:1550px;
     position: absolute;
-    top: 100px; 
+    top: 120px; 
   }
   
   #historique  th, td {
@@ -311,9 +323,9 @@ background-color: #7d7f7f;
   text-align: center;
   border-bottom: 1px solid #ddd;
   }
-  
+#historique td{color:black; background-color: white;}  
   #historique th {
-  background-color: #4CAF50;
+  background-color: #808080;
   color: white;
   font-weight: bold;
   }
@@ -451,7 +463,8 @@ notification for no user waiting for approval */
   font-family: Arial, sans-serif;
   font-size: 16px;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 10px;width: 500px; height:100px;
+  position: absolute; top: 300px; left:calc(50% - 250px);
 }
 
 .alert.no-waiting {
@@ -462,4 +475,13 @@ notification for no user waiting for approval */
 
 .alert .message {
   margin: 0;
+}
+
+
+/* tayaht fil table bech mayratich 3lih l filtre */
+#showOffreTransformateur{
+  margin-top: 100px;
+}
+#showExportateurs{
+  margin-top: 100px; 
 }

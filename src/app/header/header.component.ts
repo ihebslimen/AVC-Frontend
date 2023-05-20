@@ -30,7 +30,8 @@ constructor(private router:Router,private renderer: Renderer2,private route: Act
 
   ngAfterViewInit() {
     if(this.myElement){
-    console.log(`height is${this.myElement.nativeElement.offsetHeight}`);}
+    // console.log(`height is${this.myElement.nativeElement.offsetHeight}`);
+    }
     else{
       console.log("inexistant");
     }
@@ -55,7 +56,6 @@ isLoggedIn$ = this.authenticationService.isLoggedIn();
     this.role=this.role;
     
   });
-  console.log("connecté? =>"+this.connected);
 }
 
 logout(): void {

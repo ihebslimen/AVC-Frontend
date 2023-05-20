@@ -167,7 +167,7 @@ transition: transform .5s ease-in-out;
   .login-form input[type="password"],
   .login-form input[type="submit"]
   {
-    width: 400px;
+    width: 400px; 
     height: 60px; border-radius: 12px;
   }
   

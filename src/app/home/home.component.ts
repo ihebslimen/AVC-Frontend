@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import { agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
+import { AmdminServiceService } from '../services/amdmin-service.service';
 
 
 @Component({
@@ -23,8 +24,10 @@ export class HomeComponent  {
     this.showSlides(this.slideIndex);
     }); 
 
+    this.getAllOffers()
+
   }
-  constructor(private router: Router, private authenticationService:AuthenticationServiceService) { }
+  constructor(private router: Router, private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService) { }
 
   isDragging = false;
 
@@ -93,6 +96,26 @@ export class HomeComponent  {
       this.showSectionHome = false;
       this.showSectionStarted = true;
     }
+
+
+
+
+    getAllOffers() {
+      this.adminService.getAllOffers().subscribe(
+        (response) => {
+          console.log("----------getAllusers----------")
+          console.log(response);
+          console.log("type = " + typeof (response))
+        console.log("--------------nos offres--------------------")
+          console.log("iterable object===" + response.offers);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+
 
 }
 

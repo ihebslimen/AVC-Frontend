@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
@@ -10,7 +10,13 @@ import { User } from '../adminPages/list-of-users/list-of-users.component';
 export class AuthenticationServiceService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   connected=false; role:string;
+  userTypeUpdated: EventEmitter<string> = new EventEmitter<string>();
+
+
   constructor(private http:HttpClient,private router: Router) { }
+  setUserType(userType: string) {
+    this.userTypeUpdated.emit(userType);
+  }
   
   login(password:string){
     if(password==="adminPass"){
@@ -22,13 +28,17 @@ export class AuthenticationServiceService {
       this.role='admin';
     }
     if(password==="userPass"){
+      // this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'agriculteur' } });
       this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'transformateur' } });
+
       this.loggedIn.next(true);
       this.connected=true; 
       this.role='user';
     }
     
   }
+
+
   logout(): void {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);

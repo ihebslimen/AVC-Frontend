@@ -19,6 +19,8 @@ export class ListOfUsersComponent implements OnInit {
   numberOfPages!: number;
   public section: string = '';
 
+  filtrage:boolean;
+
 
 
   validationMessage:boolean=false;   showUpdateUserForm:boolean=true;
@@ -30,43 +32,58 @@ export class ListOfUsersComponent implements OnInit {
     //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
     this.userType = this.route.snapshot.queryParamMap.get('userType');
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
-    console.log("lmodel dhaher" + this.showModalFlag);
   }
 
   public users: User[] = [];
   public originalTable!: User[];
 
   ngOnInit() {
-
-    // this.getUsers();
     this.originalTable = [...this.users];
-  
     this.getUsers2();
-  //  this.users=this.getUsers2();
-  
-
-    // let Farmers = this.adminService.getAgricoles();
-    // console.log("farmers ===============" + Farmers);
-    // console.log("agricoles==="+this.getAgricoles());
     this.getAllOffers()
     this.filterUsers()
-    console.log("users en attente::::::::");
-    console.log(this.waitingUsers);
-  }
-  //  getUsers2() {
-  // //   this.adminService.getData().subscribe(result => {
-  // //     this.users=result;
-     
-  // //     console.log(this.users);
-  // //   });
-  // this.adminService.temchiBidhnallah2();
-  //  console.log("haw inchallah temchi" + this.adminService.temchiBidhnallah());
-  //  }
-  // getUsers() {
-  //   console.log("fi wist getusers2");
-  //   this.adminService.temchiBidhnallah2();
+    console.log("approved users ::::::"+this.approvedUsers);
+     console.log("hné")
+   this.getUserHavingOffer("64662677013ecbe516a36fec")
+   console.log("hné")
+  // this.consulterUserByType();
+  this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
+    // Handle the updated userType value
+    console.log("Received userType in Dashboard:",userRole);
+    this.userRole=userRole;
+    // Perform any necessary actions based on userType (e.g., displaying specific content)
+    console.log("user type mte3o howa:======>"+this.userRole)
+   
 
+  });
+this.checkUserRole();
+console.log("trns bool::::"+this.transformateur)
+  }
+  transformateur:boolean;
+  checkUserRole() {
+    // Use the updated userRole value for any necessary logic
+    if (this.userRole === 'agriculteur') {
+      
+    } else if (this.userRole === 'transformateur') {
+      this.transformateur=true;
+      // Do something specific for 'transformateur'
+    } else if (this.userRole === 'exportateur') {
+      // Do something specific for 'exportateur'
+    }
+  }
+  // assignRole(){
+  //     if (this.userRole === 'admin') {
+  //       // Assign items for admin user
+  //       this.userItems = this.adminItems;
+  //     } else if (this.userRole === 'user') {
+  //       // Assign items for regular user
+  //       this.userItems = this.userItems;
+  //     } else {
+  //       // Assign items for other user roles
+  //       this.userItems = this.otherItems;
+  //     }
   // }
+ 
   private httpOptions = {
     headers: new HttpHeaders({
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'
@@ -90,24 +107,13 @@ export class ListOfUsersComponent implements OnInit {
         console.error(error);
       }
     );
-    // .subscribe(
-    //   (response) => {
-    //     let text = JSON.stringify(response);
-    //     let users = JSON.parse(text); // convert string response to JSON object
-    //    console.log(users);
-    //    this.users = users;
-    //     return users;
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //   }
-    // );
+  
   }
 
   filterValue: string = '';
   // filterName:string=""; filterUsername:string=""; filterEmail:string=""; filteredUsers = this.users;
   sortValue: string = '';
-  // sortedUsers=this.users.slice();
+
   sortTable() {
     if (this.sortValue === 'name') {
       this.users = this.users.slice().sort(
@@ -151,15 +157,38 @@ export class ListOfUsersComponent implements OnInit {
       }
     }
   }
-  filtredUsers: User[] = [];
+  filtredUsers: User[] = []; filtredOffers:Offer[]; 
+  filtredUsersByType: User[] = [];
   applyFilter() {
     if (this.filterValue.length > 0) {
 
-      this.filtredUsers = this.users.filter(user =>
+      this.filtredUsers = this.approvedUsers.filter(user =>
         user.name.toLowerCase().includes(this.filterValue.toLowerCase()) ||
         // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
         user.email.toLowerCase().includes(this.filterValue.toLowerCase())
       );
+      this.filtredOffers = this.offers.filter(offer =>
+        offer.quality.toString() === this.filterValue 
+        // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+        // offer.email.toLowerCase().includes(this.filterValue.toLowerCase())
+      );
+      this.filtredUsersByType=this.usersByType.filter(user =>
+        user.name.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+        // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+        user.email.toLowerCase().includes(this.filterValue.toLowerCase())
+      );
+    }
+
+  }
+  applyFilterUsersDashbord(){
+    if (this.filterValue.length > 0) {
+console.log(this.offers)
+      this.filtredOffers = this.offers.filter(offer =>
+        offer.quality.toString() === this.filterValue 
+        // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+        // offer.email.toLowerCase().includes(this.filterValue.toLowerCase())
+      );
+      console.log(this.filtredOffers)
     }
   }
 
@@ -183,15 +212,18 @@ export class ListOfUsersComponent implements OnInit {
 
   getPaginatedData() {
     const startIndex = (this.currentPage - 1) * this.selectedLength;
-    this.numberOfPages = this.users.length / this.selectedLength;
-    console.log(this.numberOfPages)
-    return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
+    this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+    console.log("number of pages"+this.numberOfPages)
+    // return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
+    return this.approvedUsers.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
+
   }
 
   /** Inscription */
   showSectionInscription: boolean = false;
   /**Gestion Utilisateur */
   showSectionGestionUtilisateur: boolean = true;
+ 
   /**Gestion Stock */
   showSectionFarmerStock: boolean = false;
   showSectionTransformateurStock: boolean = false;
@@ -208,6 +240,7 @@ export class ListOfUsersComponent implements OnInit {
   /** Offre */
   showOffreAgricoleur: boolean = false;
   showOffreTransformateur: boolean = false;
+
 
   toggleSection(sectionId: string, event: MouseEvent) {
     event.preventDefault();
@@ -238,6 +271,7 @@ export class ListOfUsersComponent implements OnInit {
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = false;
+      this.filtrage=false;
 
     }
     if (sectionId === 'historique') {
@@ -253,10 +287,14 @@ export class ListOfUsersComponent implements OnInit {
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = false;
+      this.filtrage=true;
+
+    
       if (this.userRole === 'agriculteur') {
         this.showhistoriqueAgricolteur = true;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
+        console.log("filtrage yemchi ?"+this.filtrage)
       }
       if (this.userRole === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
@@ -267,43 +305,54 @@ export class ListOfUsersComponent implements OnInit {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = true;
+       
+
       }
     }
     if (sectionId === 'transformateurs') {
       /* Show utilisateur */
       this.showTransformateurs = true;
       this.showExportateurs = false;
+      this.filtrage=true;
       /* Stock */
       this.showSectionFarmerStock = false;
       this.showSectionTransformateurStock = false;
       this.showSectionExportateurStock = false;
+      this.filtrage=true;
       /* Reclamation */
       this.showReclamationSection = false;
       /* Historique */
       this.showhistoriqueAgricolteur = false;
       this.showhistoriqueTransformateur = false;
       this.showhistoriqueExportateur = false;
+      
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = false;
+      this.filtrage=false;
     }
     if (sectionId === 'exportateurs') {
       /* show utilisateur */
       this.showTransformateurs = false;
       this.showExportateurs = true;
+     this.filtrage=true;
       /* stock */
       this.showSectionFarmerStock = false;
       this.showSectionTransformateurStock = false;
       this.showSectionExportateurStock = false;
+    
       /* Reclamation */
       this.showReclamationSection = false;
+      
       /* Historique */
       this.showhistoriqueAgricolteur = false;
       this.showhistoriqueTransformateur = false;
       this.showhistoriqueExportateur = false;
+      
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = false;
+      
     }
     if (sectionId === 'offretransformateur') {
       /* show utilisateur */
@@ -322,6 +371,8 @@ export class ListOfUsersComponent implements OnInit {
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = true;
+
+      this.filtrage=true;
     }
     if (sectionId === 'offreAgricolteur') {
       /* show utilisateur */
@@ -339,7 +390,8 @@ export class ListOfUsersComponent implements OnInit {
       this.showhistoriqueExportateur = false;
       /* Appelle d'offre */
       this.showOffreAgricoleur = true;
-      this.showOffreTransformateur = false;
+      this.showOffreTransformateur = false; 
+      this.filtrage=true;
     }
     if (sectionId === 'Stock') {
       /* show utilisateur */
@@ -354,6 +406,7 @@ export class ListOfUsersComponent implements OnInit {
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = true;
+      this.filtrage=false;
       if (this.userRole === 'agriculteur') {
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
@@ -486,6 +539,7 @@ export class ListOfUsersComponent implements OnInit {
     console.log('Price:', this.UpdatestockForm.value['product-price']);
     console.log('Unit:', this.UpdatestockForm.value['product-unit']);
     console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
+
   }
 
 
@@ -526,7 +580,7 @@ export class ListOfUsersComponent implements OnInit {
 
   deleteUser2(id: string): void {
     const url = `http://localhost:5000/api/admin/users/${id}`;
-
+console.log("id to delete----->"+id);
     this.adminService.deleteUser2(id).subscribe(
       (response) => {
         console.log('User deleted successfully');
@@ -602,28 +656,56 @@ export class ListOfUsersComponent implements OnInit {
   }
   
 
-  // accepterUtilisateur(id:string){
-  //   const accepterutilisateurBodyrequest={
-  //     "state":"approved"
-  //   }
-  //   console.log("accepter clicked")
-  //   console.log(id);
-  //   this.adminService.updateUser(id,accepterutilisateurBodyrequest)
-  // }
 
-  offers: Offer[];
 
+  offers: Offer[];  usersHavingOffers:User;
   getAllOffers() {
     this.adminService.getAllOffers().subscribe(
       (response) => {
-        console.log("----------getAllusers----------")
-        console.log(response);
+        console.log("----------getAllOffers----------")
         this.offers=response.data;
+        
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+  getUserHavingOffer(actorRef:string){
+    // this.adminService.filterUsers(actorRef).subscribe(
+    //   (response) => {
+    //     return response.data[0];
+    
+    //     // Handle the response data
+    //   },
+    //   (error) => {
+    //     console.error('An error occurred', error);
+    //     // Handle the error
+    //   }
+    // );
+    this.adminService.temchiBidhnallah3()
+    .subscribe(
+      (response) => {
+        let text = JSON.stringify(response);
+        let users = JSON.parse(text); // convert string response to JSON object
+        console.log("this is from getUsers2")
+       console.log(users.data);
+       this.usersHavingOffers=users.data;
+       console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+       // this.usersHavingOffers=this.users.filter(user=>user._id.toString() === actorRef)[0];
+      
+      // console.log("users having ooffer"+this.usersHavingOffers)   
+        return this.usersHavingOffers;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    // this.usersHavingOffers=this.users.filter(user=>user._id.toString() === actorRef)[0];
+   
+   console.log("users having ooffer"+this.usersHavingOffers)
+   
   }
   @ViewChild('stockForm', { static: false }) stockForm: NgForm;
   ajouterAuStock() {
@@ -631,7 +713,25 @@ export class ListOfUsersComponent implements OnInit {
     console.log('Quality:', this.stockForm.value['product-quality']);
     console.log('Price:', this.stockForm.value['product-price']);
     console.log('Unit:', this.stockForm.value['product-unit']);
+    console.log('state:', this.stockForm.value['product-state']);
+
     console.log('Actor Type:', this.stockForm.value['actor-type']);
+  }
+
+  ajouterOffreAgriculteur(){
+    this.adminService.ajouterOffreAgriculteur(this.stockForm).subscribe(
+        (response) => {
+          // Handle success response
+          
+          console.log('Offer added successfully:', response);
+          // Reset the form if needed
+        },
+        (error) => {
+          // Handle error response
+          console.error('Error adding offer:', error);
+        }
+      );
+  
   }
 
 
@@ -640,18 +740,33 @@ export class ListOfUsersComponent implements OnInit {
     this.selectedOffer = offer;
     console.log(this.selectedOffer);
   }
+  selectUser(id: any) {
+    // this.selectedUser = user;
+    console.log("id mta3 l user li theb tnahih"+id);
+  }
 
-waitingUsers:User[];
+waitingUsers:User[]; approvedUsers:User[];
   filterUsers() {
     const state = 'waiting';
-console.log("filter users funct:::::")
     this.adminService.filterUsers(state).subscribe(
       (response) => {
         console.log("=======from filtred users-----------")
         console.log('Filtered users:', response);
-        console.log("ba3d el response");
         this.waitingUsers=response.data;
-        console.log("waiting users="+this.waitingUsers);
+    
+        // Handle the response data
+      },
+      (error) => {
+        console.error('An error occurred', error);
+        // Handle the error
+      }
+    );
+    
+    this.adminService.filterUsers("approved").subscribe(
+      (response) => {
+        console.log("=======from filtred users-----------")
+        console.log('Filtered users:', response);
+        this.approvedUsers=response.data;
         // Handle the response data
       },
       (error) => {
@@ -660,8 +775,25 @@ console.log("filter users funct:::::")
       }
     );
   }
-
-
+usersByType:User[];
+  consulterUserByType(userType:string){
+    // let userType="transformateur";
+    this.adminService.getUserByType(userType).subscribe(
+      (response) => {
+        // Handle the response here
+        console.log("users filtred by type")
+        console.log(response);
+        this.usersByType=response.data;
+        // this.usersByType=response.data;
+        // return response;
+      },
+      (error) => {
+        // Handle errors here
+        console.log("fama mochkel fil transformateurs")
+        console.error(error);
+      }
+    );
+    }
 
 
 }
@@ -674,12 +806,15 @@ export interface User {
   role: "admin" | "user";
   type:"agriculteur" | "transformateur" | "exportateur";
   // state:"approved" | "waiting"
-
   public_key: string;
   // role: string;
   // type: string;
-
 }
+
+
+
+
+
 export interface agricole {
   _id: string;
   localisation: string;
