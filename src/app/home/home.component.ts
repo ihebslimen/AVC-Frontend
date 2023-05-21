@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import { agricole } from '../adminPages/list-of-users/list-of-users.component';
+import { User, agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 import { AmdminServiceService } from '../services/amdmin-service.service';
 
@@ -25,6 +25,7 @@ export class HomeComponent  {
     }); 
 
     this.getAllOffers()
+    console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("64662677013ecbe516a36fec"));
 
   }
   constructor(private router: Router, private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService) { }
@@ -111,6 +112,25 @@ export class HomeComponent  {
         },
         (error) => {
           console.log(error);
+        }
+      );
+    }
+
+    usersHavingOffers:User[];
+    getUserByReference(reference:string){
+      this.adminService.getUserByReference(reference).subscribe(
+        (response) => {
+          // Handle the response here
+          console.log("users filtred by type")
+          console.log(response);
+          this.usersHavingOffers=response.data;
+          // this.usersByType=response.data;
+          // return response;
+        },
+        (error) => {
+          // Handle errors here
+          console.log("fama mochkel fil transformateurs")
+          console.error(error);
         }
       );
     }

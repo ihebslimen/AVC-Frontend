@@ -54,7 +54,7 @@ export class ListOfUsersComponent implements OnInit {
     // Perform any necessary actions based on userType (e.g., displaying specific content)
     console.log("user type mte3o howa:======>"+this.userRole)
    
-
+console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("64662677013ecbe516a36fec"));
   });
 this.checkUserRole();
 console.log("trns bool::::"+this.transformateur)
@@ -731,7 +731,6 @@ console.log("id to delete----->"+id);
           console.error('Error adding offer:', error);
         }
       );
-  
   }
 
 
@@ -753,7 +752,6 @@ waitingUsers:User[]; approvedUsers:User[];
         console.log("=======from filtred users-----------")
         console.log('Filtered users:', response);
         this.waitingUsers=response.data;
-    
         // Handle the response data
       },
       (error) => {
@@ -794,7 +792,23 @@ usersByType:User[];
       }
     );
     }
-
+    getUserByReference(reference:string){
+      this.adminService.getUserByReference(reference).subscribe(
+        (response) => {
+          // Handle the response here
+          console.log("users filtred by type")
+          console.log(response);
+          this.usersHavingOffers=response.data;
+          // this.usersByType=response.data;
+          // return response;
+        },
+        (error) => {
+          // Handle errors here
+          console.log("fama mochkel fil transformateurs")
+          console.error(error);
+        }
+      );
+    }
 
 }
 export interface User {
