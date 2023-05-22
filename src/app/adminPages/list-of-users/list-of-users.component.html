@@ -300,7 +300,7 @@
         <th>Quality</th>
         <th>Quantity in Stock</th>
         <th>Price</th>
-      
+      <th>actions</th>
       </tr>
       </thead>
       <tbody>
@@ -308,7 +308,30 @@
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'$' + item.priceUnit + '/kg'}}</td>
-         
+          <td class="actions" colspan="2">
+
+            <a class="btn btn-primary tooltips" data-placement="top" > 
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                <path d="M13.5 6.5l4 4"></path>
+             </svg>          
+            </a>
+          
+          &nbsp;&nbsp;
+          
+            <a class="btn btn-danger tooltips" data-placement="top"  >
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 7l16 0"></path>
+                <path d="M10 11l0 6"></path>
+                <path d="M14 11l0 6"></path>
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+             </svg>  
+            </a>
+    
+          </td>
        
         </tr>
       
@@ -377,6 +400,7 @@
         <th>Quality</th>
         <th>Quantity in Stock</th>
         <th>Price</th>
+        <th>actions</th>
       </tr>
       </thead>
       <tbody>
@@ -385,6 +409,30 @@
           <td>{{item.quality}}</td>
           <td>{{item.quantityInStock}} kg</td>
           <td>{{'dt' + item.price.toFixed(2) + '/kg'}}</td>
+          <td class="actions" colspan="2">
+
+            <a class="btn btn-primary tooltips" data-placement="top" > 
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                <path d="M13.5 6.5l4 4"></path>
+             </svg>          
+            </a>
+          
+          &nbsp;&nbsp;
+          
+            <a class="btn btn-danger tooltips" data-placement="top"  >
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 7l16 0"></path>
+                <path d="M10 11l0 6"></path>
+                <path d="M14 11l0 6"></path>
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+             </svg>  
+            </a>
+    
+          </td>
         </tr>
       </tbody>
       </table>
