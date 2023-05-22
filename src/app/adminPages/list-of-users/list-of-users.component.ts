@@ -424,8 +424,6 @@ console.log(this.offers)
       }
 
     }
-
-
     // console.log(this.showSection);
   }
   //todo fazet ki tenzel 3al bouton yo5rjo informations
@@ -447,8 +445,8 @@ console.log(this.offers)
     if (operation === 'moreDetails') {
       this.operation = "moreDetails";
     }
-    console.log("operation==" + this.operation);
   }
+ 
   updateStockMode: boolean = false;
   showUpdateStock() {
     this.showModalFlag = true;
@@ -460,6 +458,7 @@ console.log(this.offers)
       this.selectedUser = null;
     }
     this.showModalFlag = false;
+   
   }
 
 
@@ -499,24 +498,29 @@ console.log(this.offers)
     { quality: 'Medium', quantity: 500, price: 3.00 },
     { quality: 'Low', quantity: 200, price: 1.50 }
   ];
-
+  updatedQuantity:string; 
   @ViewChild('UpdateStockForm', { static: false }) UpdateStockForm: NgForm;
+  productQuantity: number;
+  productQuality: string;
+  productPrice: number;
+  productUnit: number;
+  actorType: string;
+  state: string;
   updateStock(offerId: string) {
-    const requestBody = {
-      updatedQuantity: this.UpdateStockForm.value['product-quantity'],
-      Quality: this.UpdateStockForm.value['product-quality'],
-      Price: this.UpdateStockForm.value['product-price'],
-      Unit: this.UpdateStockForm.value['product-unit'],
-      updatedState: this.UpdateStockForm.value['state'],
-      Actor_Type: this.UpdateStockForm.value['actor-type'],
-      updatedRef: this.UpdateStockForm.value['actor-ref'],
-    }
+    console.log("id to upd"+offerId)
+    const formValues = {
+      quantity: this.productQuantity,
+      // quality: this.productQuality,
+      // price: this.productPrice,
+      // unit: this.productUnit,
+      // actorType: this.actorType,
+      // state: this.state
+    };   console.log("form update offer+"+formValues.quantity);
 
-    this.adminService.updateOffer(offerId, requestBody)
+    this.adminService.updateOffer(offerId, formValues)
       .subscribe(
         response => {
-
-          console.log('Update request successful', response);
+console.log('Update request successful', response);
           // Perform further actions if needed
         },
         error => {
@@ -524,9 +528,41 @@ console.log(this.offers)
           // Handle error scenarios if needed
         }
       );
+      
 
+    console.log('Quantity:', this.UpdatestockForm.value['product-quantity']);
+    console.log('Quality:', this.UpdatestockForm.value['product-quality']);
+    console.log('Price:', this.UpdatestockForm.value['product-price']);
+    console.log('Unit:', this.UpdatestockForm.value['product-unit']);
+    console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
+
+  
+// console.log("quan"+formValues.quantity);
 
   }
+  // updateOfferQuantity(offerId:string){
+  //   const url = `http://localhost:5000/api/user/offers/${offerId}`;
+  //   const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //     'Content-Type': 'application/json'
+  //   });
+  // console.log("id off"+offerId)
+  //   const payload = { "quantity": this.productQuantity};
+  
+  //   this.http.put(url, payload, { headers }).subscribe(
+  //     (response) => {
+  //       console.log('Update offer quantity successful', response);
+  //       // Handle success scenario if needed
+  //     },
+  //     (error) => {
+  //       console.error('Update offer quantity error', error);
+  //       // Handle error scenario if needed
+  //     }
+  //   );
+  // }
+  
+
   role: string;
   affecterRole(role: string) {
     this.role = role;
@@ -671,6 +707,21 @@ console.log("id to delete----->"+id);
       }
     );
   }
+
+  deleteOffer(id:string){
+   console.log("id=="+id)
+    this.adminService.deleteOffer(id).subscribe(
+    (Response) =>{
+      console.log("tfas5et yé rojla");
+      this.getAllOffers();
+    },
+    (error) => {
+      console.log(error);
+    }
+    )
+    this.getAllOffers()
+  }
+
   getUserHavingOffer(actorRef:string){
     // this.adminService.filterUsers(actorRef).subscribe(
     //   (response) => {
@@ -722,7 +773,7 @@ console.log("id to delete----->"+id);
     this.adminService.ajouterOffreAgriculteur(this.stockForm).subscribe(
         (response) => {
           // Handle success response
-          
+          this.getAllOffers();
           console.log('Offer added successfully:', response);
           // Reset the form if needed
         },
@@ -735,9 +786,10 @@ console.log("id to delete----->"+id);
 
 
 
-  selectOffer(offer: Offer) {
+  selectOffer(offer: any) {
     this.selectedOffer = offer;
-    console.log(this.selectedOffer);
+    console.log("selected Offer quantity"+this.selectedOffer.quantity);
+    console.log("selected Offer2"+this.selectedOffer);
   }
   selectUser(id: any) {
     // this.selectedUser = user;

@@ -110,10 +110,6 @@ return users;
   // }
 
 ajouterOffreAgriculteur(stockForm: any): Observable<any> {
-    // Get form values from formData object
-    // const { quantity, quality, priceUnit, unit, state, actorType } = formData;
-  
-    // Prepare the payload
     const payload = {
       quantity: stockForm.value['product-quantity'],
       quality: stockForm.value['product-quality'],
@@ -127,27 +123,24 @@ ajouterOffreAgriculteur(stockForm: any): Observable<any> {
 
     // Set the headers with authorization token
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"
+      }`
     });
-  
-    // Make the API call
-
-    return this.http.post('http://localhost:5000/api/user/offers', payload, { headers });
-      // .subscribe(
-      //   response => {
-      //     // Handle success response
-      //     console.log('Offer added successfully:', response);
-      //     // Reset the form if needed
-      //   },
-      //   error => {
-      //     // Handle error response
-      //     console.error('Error adding offer:', error);
-      //   }
-      // );
-  
-  
+    return this.http.post('http://localhost:5000/api/user/offers', payload, { headers }); 
 }
 
+updateOffer(offerId: string, payload: any) {
+  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+  // Set the headers with authorization token
+  const headers = new HttpHeaders({
+      'Authorization': `Bearer ${
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"
+      }`
+    });
+  const url = `http://localhost:5000/api/user/offers/${offerId}`;
+  return this.http.put(url, payload,{headers});
+}
  
   
 
@@ -234,10 +227,7 @@ farmers:any=[];
 
 
 
-  updateOffer(offerId: string, payload: any) {
-    const url = `http://localhost:5000/api/admin/users/offers/${offerId}`;
-    return this.http.put(url, payload);
-  }
+  
 adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc'
 
   userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8';
@@ -252,6 +242,17 @@ adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI
         return response;
       })
     );
+  }
+
+  deleteOffer(offerId: string) {
+    // Set the headers with authorization token
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"       
+ }`
+      });
+    const url = `http://localhost:5000/api/user/offers/${offerId}`;
+    return this.http.delete(url,{headers});
   }
 
 

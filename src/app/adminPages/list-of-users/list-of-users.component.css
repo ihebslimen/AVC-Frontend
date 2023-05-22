@@ -543,3 +543,10 @@ notification for no user waiting for approval */
 #showExportateurs{
   margin-top: 100px; 
 }
+.updateStock{
+width:500px; height:500px;
+}
+.updateStock form{
+  display: flex; flex-direction: column; align-items: center;
+ 
+}
