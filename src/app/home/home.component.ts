@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import { User, agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
-import { AmdminServiceService } from '../services/amdmin-service.service';
+import { AmdminServiceService } from '../services/admin-service.service';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -27,8 +28,21 @@ export class HomeComponent  {
     this.getAllOffers()
     console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("64662677013ecbe516a36fec"));
 
+
+    document.cookie = "cookieName=cookieloula; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";
+    const cookies = document.cookie.split(';');
+for (let i = 0; i < cookies.length; i++) {
+  const cookie = cookies[i].trim();
+  if (cookie.startsWith('cookieName=')) {
+    const cookieValue = cookie.substring('cookieName='.length);
+    console.log(cookieValue);
+    break;
   }
-  constructor(private router: Router, private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService) { }
+}
+
+
+  }
+  constructor(private router: Router, private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService,private http:HttpHeaders) { }
 
   isDragging = false;
 
@@ -135,6 +149,8 @@ export class HomeComponent  {
       );
     }
 
+   
+ 
 
 
 }

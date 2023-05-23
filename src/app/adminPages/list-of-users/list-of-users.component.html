@@ -400,10 +400,10 @@
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of quantiteTransformateur">
+        <tr *ngFor="let item of filterOffers2('transformateur')">
           <td>{{item.quality}}</td>
-          <td>{{item.quantityInStock}} kg</td>
-          <td>{{'dt' + item.price.toFixed(2) + '/kg'}}</td>
+          <td>{{item.quantity}} kg</td>
+          <td>{{'dt' + item.priceUnit + '/kg'}}</td>
           <td class="actions" colspan="2">
 
             <a class="btn btn-primary tooltips" data-placement="top" > 
@@ -567,6 +567,7 @@
     <table id="historique">
       <thead>
       <tr>
+        <th>date</th>
         <th>nom</th>
         <th>télephone</th>
         <th>prix</th>
@@ -580,6 +581,7 @@
           <td>{{farmer.localisation}} kg</td>        
         </tr> -->
         <tr *ngFor="let accord of AccordsAgriculteurs">
+          <td></td>
           <td>{{accord.nom}}</td>
           <td>{{accord.telephone}} </td>
           <td>{{'dt' + accord.prix.toFixed(2) + '/kg'}}</td>
@@ -594,6 +596,7 @@
   <table id="historique">
     <thead>
     <tr>
+      <th>date</th>
       <th>nom de l'achetetur</th>
       <th>télephone</th>
       <th>Prix</th>
@@ -604,6 +607,7 @@
     <tbody>
     
       <tr *ngFor="let item of listeAccords">
+        <td></td>
         <td>{{item.nom}}</td>
         <td>{{item.telephone}} </td>
         <td>{{'dt' + item.prix.toFixed(2) + '/kg'}}</td>
@@ -676,12 +680,12 @@
         <td>{{item.quantity}} kg</td>
         <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr> -->
-      <tr *ngFor="let item of offreAgriculteurs">
-        <td>{{item.name }} </td>
-        <td>{{item.telephone}}</td>
+      <tr *ngFor="let item of filtredOffersByActor">
+        <td></td>
+        <td></td>
         <td>{{item.quality}}</td>
-        <td>{{item.quantityInStock}} kg</td>
-        <td>{{'dt' + item.price + '/kg'}}</td>
+        <td>{{item.quantity}} kg</td>
+        <td>{{'dt' + item.priceUnit + '/kg'}}</td>
         <td class="actions" colspan="2">
           <button class="btn btn-success">acheter</button>
          </td>
@@ -693,24 +697,34 @@
 <!-- Offre transformateur -->
   <section class="margette" *ngIf="showOffreTransformateur && userType ==='user' && userRole ==='exportateur' " id="showOffreTransformateur">
     <table class="table" *ngIf="filterValue === ''">
-      <thead>
+      <thead >
           <tr>
               <th style="text-align: center;">ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
               <th style="text-align: center;">cin<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
-              <th style="text-align: center;">Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th style="text-align: center;">Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th style="text-align: center;">phone&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
+              <th style="text-align: center;">quantité&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+              <th style="text-align: center;">qualité&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+              <th style="text-align: center;">prix&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
 
               <th colspan="2" style="text-align: center;">Action</th>
             </tr>
       </thead>
       <tbody class="table-light">
-      <tr *ngFor="let user of usersByType" >
+      <!-- <tr *ngFor="let user of usersByType" >
           <td (click)="showModal(user,'stats')">{{user._id}}</td>
           <td (click)="showModal(user,'stats')">{{user.cin}}</td>
           <td (click)="showModal(user,'stats')">{{user.name}}</td>
           <td (click)="showModal(user,'stats')">{{user.email}}</td>
           <td (click)="showModal(user,'stats')">{{user.phone}}</td>
+          <td class="actions" colspan="2">
+           <button class="btn btn-success">acheter</button>
+          </td>
+        </tr> -->
+        <tr *ngFor="let offer of filterOffers2('transformateur')" >
+          <td (click)="showModal(offer,'stats')">offer1</td>
+          <td (click)="showModal(offer,'stats')">offer2</td>
+          <td (click)="showModal(offer,'stats')">{{offer.quantity}}</td>
+          <td (click)="showModal(offer,'stats')">{{offer.quality}}</td>
+          <td (click)="showModal(offer,'stats')">{{offer.priceUnit}}</td>
           <td class="actions" colspan="2">
            <button class="btn btn-success">acheter</button>
           </td>
@@ -729,13 +743,13 @@
             </tr>
       </thead>
       <tbody class="table-light">
-      <tr *ngFor="let user of filtredUsers" >
-          <td (click)="showModal(user,'stats')">{{user._id}}</td>
-          <td (click)="showModal(user,'stats')">{{user.cin}}</td>
-          <td (click)="showModal(user,'stats')">{{user.email}}</td>
-          <td (click)="showModal(user,'stats')">{{user.name}}</td>
-          <td (click)="showModal(user,'stats')">{{user.phone}}</td>
-          <td (click)="showModal(user,'stats')">{{user.role}}</td>
+      <tr *ngFor="let user of filtredOffers" >
+          <td (click)="showModal(user,'stats')"></td>
+          <td (click)="showModal(user,'stats')"></td>
+          <td (click)="showModal(user,'stats')">{{user.quantity}}</td>
+          <td (click)="showModal(user,'stats')">{{user.quality}}/td>
+          <td (click)="showModal(user,'stats')">{{user.priceUnit}}</td>
+          <td (click)="showModal(user,'stats')"></td>
 
           <td class="actions">
             <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 

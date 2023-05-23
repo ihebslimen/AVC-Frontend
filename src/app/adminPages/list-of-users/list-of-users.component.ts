@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AmdminServiceService } from 'src/app/services/amdmin-service.service';
+import { AmdminServiceService } from 'src/app/services/admin-service.service';
 import { NgModule } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
@@ -42,6 +42,7 @@ export class ListOfUsersComponent implements OnInit {
     this.getUsers2();
     this.getAllOffers()
     this.filterUsers()
+    console.log("agricoles offers::::::::::::::::::>>"+this.filterOffers2("agricole"));
     console.log("approved users ::::::"+this.approvedUsers);
      console.log("hné")
    this.getUserHavingOffer("64662677013ecbe516a36fec")
@@ -313,7 +314,7 @@ console.log(this.offers)
       /* Show utilisateur */
       this.showTransformateurs = true;
       this.showExportateurs = false;
-      this.filtrage=true;
+    
       /* Stock */
       this.showSectionFarmerStock = false;
       this.showSectionTransformateurStock = false;
@@ -329,7 +330,7 @@ console.log(this.offers)
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = false;
-      this.filtrage=false;
+      
     }
     if (sectionId === 'exportateurs') {
       /* show utilisateur */
@@ -861,6 +862,10 @@ usersByType:User[];
         }
       );
     }
+
+
+
+    
 // todo
 //placeholder w bara
     offreAgriculteurs = [
@@ -1014,6 +1019,22 @@ AccordsAgriculteurs=[
     prix: 65,
   },
 ];
+filtredOffersByActor:Offer[];
+filterOffers2(condition:string):Offer[]{
+  this.adminService.filterOffers2(condition)
+  .subscribe(response => {
+    // Handle the response data here
+    console.log("les offres de l'agric "+condition);
+    console.log(response);
+    this.filtredOffersByActor=response.data;
+    console.log("filtred offers by actor   "+this.filtredOffersByActor[0]._id)
+    
+  }, error => {
+    // Handle any errors here
+    console.error(error);
+  });
+  return this.filtredOffersByActor;
+}
 
 
 }

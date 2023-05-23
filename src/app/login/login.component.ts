@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
-import { AmdminServiceService } from '../services/amdmin-service.service';
+import { AmdminServiceService } from '../services/admin-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,6 +17,11 @@ ngOnInit(){
   const pageHeight = document.documentElement.clientHeight;
 // console.log(`The height of the page is ${pageHeight}px`);
 // this.verifierUserType(this.cin);
+console.log("users===="+this.users)
+this.getUsers2();
+this.getUser("645e7a488b96b66d55bde08e");
+console.log("users===="+this.users)
+
 }
 goToSubscribe(): void {
   this.router.navigate(['subscribe']);
@@ -208,10 +213,9 @@ moveLoginForm(): void {
  
 
 
-
   ajouterUtilisateur() {
     const requestBody = {
-      "cin": this.cinRegister,
+      "cin": this.cinRegister.toString(),
       "name":this.nomSignup,
       "email": this.emailSignup,
       "phone":this.phoneSignup,
@@ -317,9 +321,46 @@ console.log("type de user------------------------//>>"+this.userType);
 console.log(this.cin)
     }
 
+
+    getUser(id:any){
+  this.authenticationService.getUserById(id).subscribe(
+    (Response)=>{
+console.log(Response);
+    },
+    (error)=>{
+console.log(error);
+    }
+  )
+    }
+    users:User[]; user:any;
+    public getUsers2(){
+      this.adminService.temchiBidhnallah3()
+      .subscribe(
+        (response) => {
+          let text = JSON.stringify(response);
+          let users = JSON.parse(text); // convert string response to JSON object
+          console.log("this is from getUsers2")
+         console.log(users.data);
+  this.users=users.data;
+  const id="645e7a488b96b66d55bde08e";
+  this.user=this.users.filter(user=>user._id==id)[0]
+        console.log("user li tlawej 3lih"+this.user.name);
+          return users;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );}
+
+
+
+      
   
 
 }
+
+
+
 
 
 export interface User {
