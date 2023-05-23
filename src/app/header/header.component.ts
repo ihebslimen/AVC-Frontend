@@ -75,20 +75,6 @@ logout(): void {
  }
 
 
- 
-
-
-  // toggleDropdown() {
-  //   this.showDropdown = !this.showDropdown;
-  //   if (this.showDropdown) {
-  //     this.renderer.addClass(this.dropdownButton.nativeElement, 'active');
-  //     this.renderer.addClass(this.dropdownMenu.nativeElement, 'show');
-  //   } else {
-  //     this.renderer.removeClass(this.dropdownButton.nativeElement, 'active');
-  //     this.renderer.removeClass(this.dropdownMenu.nativeElement, 'show');
-  //   }
-  // }
-  
 
 
   sectionNumber!: number;
@@ -96,26 +82,6 @@ logout(): void {
   @ViewChild('section2') section2!: ElementRef;
   @ViewChild('section3') section3!: ElementRef;
   @ViewChild('section4') section4!: ElementRef;
-  // scrollToSection() {
-  // let section: ElementRef<HTMLDivElement>;
-  //   switch (this.sectionNumber) {
-  //     case 1:
-  //       section = this.section1;
-  //       break;
-  //     case 2:
-  //       section = this.section2;
-  //       break;
-  //     case 3:
-  //       section = this.section3;
-  //       break;
-  //     case 4:
-  //       section = this.section4;
-  //       break;
-      
-  //   }
-
-  //     section!.nativeElement.scrollIntoView({ behavior: 'smooth' }); 
-  // }
   selectedSection!: string;
 
   scrollToSection(){

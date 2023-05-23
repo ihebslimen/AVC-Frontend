@@ -8,15 +8,13 @@ body{
     height:1000px;  display: flex; align-items:center;
      justify-content: center;
      flex-direction: column; 
-     /* background-color: #C1DF9F; */
-    padding:100px 0;
+     padding:100px 0;
    
   }
   .sectione{
     height: 1000px;  display: flex; align-items:center;
      justify-content: center;
      flex-direction: column; 
-     /* background-color: #C1DF9F; */
      padding:100px 0;
      background-color: #EBF4DF;
   }
@@ -31,20 +29,6 @@ body{
     background-position: center; 
   }
   
-  
-  .card {width:250px; height:250px; margin:20px 100px;  text-align: center;font-family: Roboto;}
-  
-  .flip-card-inner {
-    background-color: #EBF4DF;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-
-
-
   .section:nth-child(1){
     padding-top: 50px;
   }
@@ -71,24 +55,7 @@ body{
   transform: translateY(50px);
   background-color: red;
 }
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-
-.flip-card-front {
-  transform: rotateY(0deg); text-align: center; display:flex; align-items: center;
-  justify-content:center /* Set the initial state of the front element */
-}
-.flip-card-back {
-  transform: rotateY(180deg);  display:flex; align-items: center;
-  justify-content:center; text-align: justify;   /* Set the initial state of the back element */
-}
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg); /* Flip the card by rotating the inner element 180 degrees on the Y axis */
-}.text {
+.text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -157,11 +124,7 @@ body{
 .roboto{
   font-family: Roboto;
 }
-.baccard{
-  background-image: url(src/assets/home3.jpg); 
-  background-size:100%;
-  background-position: center;
-}
+
 
 @keyframes typing {
   from {
@@ -197,7 +160,6 @@ body{
   height: 450px; width:600px;
   flex-basis: 50%;
   box-sizing: border-box;
-  /* background-color: rgba(255, 255, 0, 0.322); */
   background-color: #EBF4DF;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   transform: perspective(1000px) rotateX(20deg) rotateY(10deg);
@@ -205,7 +167,7 @@ body{
 }
 .section3container{
   display: flex; justify-content: center;
-  /* width:100%;height: 1000px; */
+
 }
 #section3{
   display: grid; 
@@ -394,22 +356,6 @@ height:500px;
   /* Add an italic font style to all quotes */
   q {font-style: italic;}
   
-  /* Add a blue color to the author */
-
-
-  /* #security{
-    background-image:  url('src/assets/security.jpg') ;
-    
-  background-position: center;
-  color: blue;
-  position: relative; 
-
-
-  }
-  #security p{ position:absolute; height:100% ;width:100%; left:0;
-     top:38px; backdrop-filter: opacity(0.4); color:rgb(80, 213, 102); font-size:36px;
-    mix-blend-mode: difference;} */
-
  .mySlides h1{
 background-color:#f3e5ab; border-radius: 0 0 15px 25px;
 font-size:60px; font-family:Arial, Helvetica, sans-serif; 

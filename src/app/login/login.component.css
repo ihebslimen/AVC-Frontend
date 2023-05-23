@@ -6,21 +6,6 @@ background-position: center;
 
 height: 100vh;
 }
-/* .transparent{
-  position: absolute; height:100%; width:100%; top:0; left:0; background-color:transparent;
-  opacity: 0.9;
-} */
-/* .container{
-  position:absolute; top:150px;
-} */
-/* .moveHorizentally{
-  position:absolute; top:50%; right:5%;
-} */
-/* .animate-left {
-  
-  left: 0;
-
-} */
 .moved {
   animation: moveLeft 15s ease-in-out;
 }
@@ -74,14 +59,6 @@ height: 100vh;
       100%{transform:translateX(0px);opacity: 1;}
 }
 
-
-/* .animate-left.animate {
-  left: -50%;
-} 
-
-/* .animate-right.animate {
-  left: 50%;
-} */
 .container{
    position:relative;
   /* position: absolute;  */ 
@@ -109,9 +86,6 @@ height: 100vh;
 h1{text-align:center;}
 .slideWelcome{
 width:500px; height:700px;background-color:transparent; backdrop-filter: blur(20px);
-/* animation: slideWelcomeAnimation 15s ease-in-out;
-animation-fill-mode: forwards;
-animation-delay: 1s;  */
 border-radius: 8px; color:black;
 position:absolute; left:calc(calc(50% - 250px) + 520px);box-shadow: 0 0 5px 2px black;
 display: flex; align-items: center; justify-content: center;
@@ -130,7 +104,6 @@ display: flex; align-items: center; justify-content: center;
   transform:translateX(550px);
   transition: transform .5s ease-in-out;
 }
-
 .hidden {
   opacity: 0;
   height: 0;
@@ -144,13 +117,6 @@ display: flex; align-items: center; justify-content: center;
   position: absolute; top:20px; right:20px;  
    padding:10px 20px; cursor: pointer; 
 }
-/* @keyframes slideWelcomeAnimation{
-  0%{transform:translateX(0px);
-  opacity: 0;}
-  50%{transform:translateX(600px); opacity:1;
-    }
-    100%{transform:translateX(0px);opacity: 0;}
-} */
 .login-form {
   z-index:2; position: absolute; 
     width: 500px; height:700px;  background-color:transparent; 
@@ -175,17 +141,10 @@ transition: transform .5s ease-in-out;
   -webkit-appearance: none;
   margin: 0;
 }
-  
-
   .login-form button {
     width: 150px;
     height: 45px; border-radius: 10px; 
   }
-
- /* .seConnecter{
-    background-color: #2B968F; margin-top: 50px;
-    color:white; font-family: regular; font-size:16px; line-height: 24px;width: 50px;height: 20px;
-  } */
   .seConnecter {
     background-color: #2B968F;
     color: white;
@@ -197,16 +156,7 @@ transition: transform .5s ease-in-out;
     border-radius: 4px;
     margin-top: 35px; /* Ajustez les marges supérieure et inférieure, ainsi que les marges gauche et droite selon vos préférences */
   }
-  /* .seConnecter {
-    background-color: #2B968F;
-    margin-top: 50px;
-    color: white;
-    font-family: regular;
-    font-size: 14px; 
-    line-height: 20px;
-    width: 80px; 
-    height: 30px; 
-  } */
+
   .carre{
     width:60px; height:6Opx; background-color: #698d5d;
   }
@@ -302,7 +252,6 @@ width:100%;
   100%{width:0;}
 }
 
-
 .flou{
   position: fixed;
     top: 0;
@@ -314,31 +263,6 @@ width:100%;
     z-index: 10;
 }
 
-
-/* .form-button{
-  display: inline-block;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;   width: auto; font-size: 25px;
-      width:10px;
-}
-.form-button[data-content="envoyer password"]{
-  font-size: 25px; padding:0;
-}
-.form-button:hover {
-  background-color: #45a049;
-}
- .formBtn{
-  margin-top: 70px; height: 20px;width:50px;
-} */
 .sinup{
   width:300px;
 }

@@ -580,14 +580,21 @@
           <td>{{farmer._id}}</td>
           <td>{{farmer.localisation}} kg</td>        
         </tr> -->
-        <tr *ngFor="let accord of AccordsAgriculteurs">
+
+
+
+
+
+        <!-- El Commentaire <tr *ngFor="let accord of AccordsAgriculteurs">
           <td></td>
           <td>{{accord.nom}}</td>
           <td>{{accord.telephone}} </td>
           <td>{{'dt' + accord.prix.toFixed(2) + '/kg'}}</td>
           <td>{{accord.quantite}}</td>
           <td>{{accord.qualite}}</td>
-        </tr>      
+        </tr>  -->
+        
+        
       </tbody>
       </table>
   </section>
@@ -606,14 +613,14 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of listeAccords">
+      <!-- El Commentaire <tr *ngFor="let item of listeAccords">
         <td></td>
         <td>{{item.nom}}</td>
         <td>{{item.telephone}} </td>
         <td>{{'dt' + item.prix.toFixed(2) + '/kg'}}</td>
         <td>{{item.quantite}}</td>
         <td>{{item.qualite}}</td>
-      </tr>
+      </tr> -->
     </tbody>
     </table>
 </section>
