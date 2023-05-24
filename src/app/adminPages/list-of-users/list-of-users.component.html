@@ -20,6 +20,7 @@
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+
              <!-- <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offre',$event)" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;Lancer un appelle d'offre </h6></a> -->
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -320,7 +321,7 @@
           
           &nbsp;&nbsp;
           
-            <a class="btn btn-danger tooltips" data-placement="top"  (click)="showUpdateStock('effacer')">
+            <a class="btn btn-danger tooltips" data-placement="top"  (click)="selectOffer(item); showUpdateStock('effacer')">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M4 7l16 0"></path>
@@ -406,7 +407,7 @@
           <td>{{'dt' + item.priceUnit + '/kg'}}</td>
           <td class="actions" colspan="2">
 
-            <a class="btn btn-primary tooltips" data-placement="top" > 
+            <a class="btn btn-primary tooltips" data-placement="top" (click)="selectOffer(item); showUpdateStock('modifier')"> 
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -416,7 +417,7 @@
           
           &nbsp;&nbsp;
           
-            <a class="btn btn-danger tooltips" data-placement="top"  >
+            <a class="btn btn-danger tooltips" data-placement="top"  (click)="selectOffer(item); showUpdateStock('effacer')">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M4 7l16 0"></path>
@@ -925,8 +926,8 @@
 </div>
 
 <div class="updateStock" *ngIf="updateStockMode">
-  <button (click)="hideModal()">X</button>
-<form #UpdatestockForm="ngForm" (ngSubmit)="showUpdateStockValues(); updateStock(selectedOffer._id);">
+  <button class="btn btn-danger" (click)="hideModal()">X</button>
+<form #UpdatestockForm="ngForm" >
   <label for="product-quantity">Quantity (in kilograms):</label>
   <input type="number" id="product-quantity" *ngIf="!deleteOfferBoolean" name="product-quantity" min="1" [(ngModel)]="productQuantity">
 <input type="text" value="{{selectedOffer._id}}"  *ngIf="deleteOfferBoolean" readonly>
@@ -954,9 +955,9 @@
   <label for="state">State:</label>
   <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>
-  <button class="btn btn-success" type="submit">Appliquer la modification</button>
+  <button class="btn btn-success" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
+  <button class="btn btn-success" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
 </form>
-<p *ngIf="deleteOfferBoolean">delete</p>
 </div>
 
 </div>

@@ -44,12 +44,11 @@ export class ListOfUsersComponent implements OnInit {
     this.getUsers2();
     this.getAllOffers()
     this.filterUsers()
+    console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("6447b2929f05ced8e2fbcdfa"));
     this.getUsersByRef('646c718c579242140bffa439');
     console.log("agricoles offers::::::::::::::::::>>"+this.filterOffers2("agricole"));
-    console.log("approved users ::::::"+this.approvedUsers);
-     console.log("hné")
-   this.getUserHavingOffer("64662677013ecbe516a36fec")
-   console.log("hné")
+ 
+   
   // this.consulterUserByType();
   this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
     // Handle the updated userType value
@@ -58,22 +57,11 @@ export class ListOfUsersComponent implements OnInit {
     // Perform any necessary actions based on userType (e.g., displaying specific content)
     console.log("user type mte3o howa:======>"+this.userRole)
   });
-console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("6447b2929f05ced8e2fbcdfa"));
-this.checkUserRole();
-console.log("trns bool::::"+this.transformateur)
+
+
   }
-  transformateur:boolean;
-  checkUserRole() {
-    // Use the updated userRole value for any necessary logic
-    if (this.userRole === 'agriculteur') {
-      
-    } else if (this.userRole === 'transformateur') {
-      this.transformateur=true;
-      // Do something specific for 'transformateur'
-    } else if (this.userRole === 'exportateur') {
-      // Do something specific for 'exportateur'
-    }
-  }
+  
+
   // assignRole(){
   //     if (this.userRole === 'admin') {
   //       // Assign items for admin user
@@ -825,6 +813,7 @@ console.log("id to delete----->"+id);
   }
 
 waitingUsers:User[]; approvedUsers:User[];
+
   filterUsers() {
     const state = 'waiting';
     this.adminService.filterUsers(state).subscribe(
@@ -873,19 +862,21 @@ usersByType:User[];
     );
     }
     getUserByReference(reference:string){
-      this.adminService.getUserByReference(reference).subscribe(
-        (response) => {
-          console.log("users filtred by type")
-          console.log(response);
-          this.usersHavingOffers=response.data;
-          // this.usersByType=response.data;
-          // return response;
-        },
-        (error) => {
-          console.log("fama mochkel fil transformateurs")
-          console.error(error);
-        }
-      );
+       
+        this.adminService.filterUsers(reference).subscribe(
+          (response) => {
+            console.log("=======from filtred users-----------")
+            console.log('user for this offer:', response);
+            this.usersHavingOffers=response.data;
+            console.log("user having this ref:::::nksl&ns&hsilji&j");
+            console.log(this.usersHavingOffers)
+            // Handle the response data
+          },
+          (error) => {
+            console.error('An error occurred', error);
+            // Handle the error
+          }
+        );
     }
 
 
