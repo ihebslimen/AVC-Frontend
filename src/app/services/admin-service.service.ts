@@ -13,11 +13,13 @@ export class AmdminServiceService {
  
   private apiServerUrl = environment.apiServerUrl;
   constructor(private http:HttpClient) { }
+  adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
+  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.1a1Zh3Sytae2rvaFeXQkJ6eCe6XyETLZAS-2mwfQM58';
 
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'
+      'Authorization': `Bearer ${this.adminToken}`
     })
   };
   public temchiBidhnallah3(): Observable<User[]>{
@@ -65,10 +67,6 @@ export class AmdminServiceService {
 
 
 
-  public getUsers(){
-  let users=this.http.get<any>("https://jsonplaceholder.typicode.com/users");
-return users;
-  }
 
   // getUsersTemchi(): Observable<User[]> {
   //   const userArray: User[] = [];
@@ -119,12 +117,12 @@ ajouterOffreAgriculteur(stockForm: any): Observable<any> {
       actorType: stockForm.value['actor-type'],
       actorRef:"64662677013ecbe516a36fec"
     };
-    const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+    // const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
 
     // Set the headers with authorization token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"
+        this.userToken
       }`
     });
     return this.http.post('http://localhost:5000/api/user/offers', payload, { headers }); 
@@ -135,7 +133,7 @@ updateOffer(offerId: string, payload: any) {
   // Set the headers with authorization token
   const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"
+        this.userToken
       }`
     });
   const url = `http://localhost:5000/api/user/offers/${offerId}`;
@@ -160,9 +158,9 @@ updateOffer(offerId: string, payload: any) {
 
 
   ajouterUtilisateur(requestBodyFromForm:any): Observable<any> {
-    const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+    // const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${this.adminToken}`
     });
     return this.http.post('http://localhost:5000/api/admin/users',requestBodyFromForm, { headers });
 
@@ -214,23 +212,16 @@ farmers:any=[];
   // }
   updateUser(userId: string, updateData: any) {
   const url = `http://localhost:5000/api/admin/users/${userId}`;
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+  // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
 
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${this.adminToken}`
   });
 
   return this.http.put(url, updateData, { headers });
 }
 
   
-
-
-
-  
-adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc'
-
-  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8';
 
   getAllOffers(): Observable<any> {
     const url = "http://localhost:5000/api/user/offers";
@@ -248,7 +239,7 @@ adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI
     // Set the headers with authorization token
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8"       
+          this.userToken
  }`
       });
     const url = `http://localhost:5000/api/user/offers/${offerId}`;
@@ -282,13 +273,15 @@ console.log("filtred offers from service");
 
   filterOffers2(actorType: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8'}`
+      'Authorization': `Bearer ${
+        this.userToken
+      }`
     });
 
     const url = 'http://localhost:5000/api/user/filter_offers';
     const body = { actorType };
 
-    return this.http.post(url, body, { headers });
+    return this.http.post(url, body,{headers});
   }
 
  

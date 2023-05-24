@@ -451,7 +451,7 @@ console.log(this.offers)
   //todo fazet ki tenzel 3al bouton yo5rjo informations
   selectedUser: any; selectedOffer: any;
   showModalFlag = false; operation: string | undefined;
-  showAboutUser = false;
+  showAboutUser = false;   deleteOfferBoolean:boolean| undefined;
   showModal(user: any, operation: string) {
     this.selectedUser = user;
     this.showModalFlag = true;
@@ -470,7 +470,13 @@ console.log(this.offers)
   }
  
   updateStockMode: boolean = false;
-  showUpdateStock() {
+  showUpdateStock(mode:string) {
+    if(mode === 'effacer'){
+      this.deleteOfferBoolean=true;
+    }
+    if(mode === 'modifier'){
+      this.deleteOfferBoolean=false;
+    }
     this.showModalFlag = true;
     this.updateStockMode = true;
   }

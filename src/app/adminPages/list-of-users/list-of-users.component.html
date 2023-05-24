@@ -19,7 +19,7 @@
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole')"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
              <!-- <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offre',$event)" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;Lancer un appelle d'offre </h6></a> -->
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -310,7 +310,7 @@
           <td>{{'$' + item.priceUnit + '/kg'}}</td>
           <td class="actions" colspan="2">
 
-            <a class="btn btn-primary tooltips" data-placement="top" (click)="selectOffer(item);  showUpdateStock()"> 
+            <a class="btn btn-primary tooltips" data-placement="top" (click)="selectOffer(item); showUpdateStock('modifier')"> 
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -320,7 +320,7 @@
           
           &nbsp;&nbsp;
           
-            <a class="btn btn-danger tooltips" data-placement="top"  (click)="deleteOffer(item._id)">
+            <a class="btn btn-danger tooltips" data-placement="top"  (click)="showUpdateStock('effacer')">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M4 7l16 0"></path>
@@ -924,37 +924,39 @@
     </table>
 </div>
 
-<div class="updateStock">
+<div class="updateStock" *ngIf="updateStockMode">
   <button (click)="hideModal()">X</button>
-<form #UpdatestockForm="ngForm" (ngSubmit)="showUpdateStockValues(); updateStock(selectedOffer._id)">
+<form #UpdatestockForm="ngForm" (ngSubmit)="showUpdateStockValues(); updateStock(selectedOffer._id);">
   <label for="product-quantity">Quantity (in kilograms):</label>
-  <input type="number" id="product-quantity" name="product-quantity" min="1" [(ngModel)]="productQuantity">
-
-  <label for="product-quality">Quality:</label>
-  <select id="product-quality" name="product-quality" [(ngModel)]="productQuality">
+  <input type="number" id="product-quantity" *ngIf="!deleteOfferBoolean" name="product-quantity" min="1" [(ngModel)]="productQuantity">
+<input type="text" value="{{selectedOffer._id}}"  *ngIf="deleteOfferBoolean" readonly>
+  <label for="product-quality" >Quality:</label>
+  <select id="product-quality" name="product-quality" [(ngModel)]="productQuality" *ngIf="!deleteOfferBoolean">
     <option value="hight">haut</option>
     <option value="average">moyen</option>
     <option value="low">bas</option>
   </select>
+  <input type="text" value="{{selectedOffer.quality}}" *ngIf="deleteOfferBoolean" readonly>
 
   <label for="product-price">Price (per kilogram):</label>
-  <input type="number" id="product-price" name="product-price" min="0" step="0.01" [(ngModel)]="productPrice">
-
+  <input type="number" id="product-price" name="product-price" min="0" step="0.01" [(ngModel)]="productPrice" *ngIf="!deleteOfferBoolean">
+  <input type="text" value="{{selectedOffer.Price}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="product-unit">Unit:</label>
-  <input type="number" id="product-unit" name="product-unit" [(ngModel)]="productUnit">
-
+  <input type="number" id="product-unit" name="product-unit" [(ngModel)]="productUnit" *ngIf="!deleteOfferBoolean">
+  <input type="text" value="{{selectedOffer.unit}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="actor-type">Actor Type:</label>
-  <select id="actor-type" name="actor-type" [(ngModel)]="actorType">
+  <select id="actor-type" name="actor-type" [(ngModel)]="actorType" *ngIf="!deleteOfferBoolean">
     <option value="agriculteur">agriculteur</option>
     <option value="transporteur">transporteur</option>
     <option value="exportateur">exportateur</option>
   </select>
-
+  <input type="text" value="{{selectedOffer.actorType}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="state">State:</label>
-  <input type="text" id="state" name="state" [(ngModel)]="state">
-
+  <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
+  <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>
   <button class="btn btn-success" type="submit">Appliquer la modification</button>
 </form>
+<p *ngIf="deleteOfferBoolean">delete</p>
 </div>
 
 </div>
