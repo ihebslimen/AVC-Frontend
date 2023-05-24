@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
-
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,91 @@ export class AmdminServiceService {
   public temchiBidhnallah3(): Observable<User[]>{
     return this.http.get<User[]>('http://localhost:5000/api/admin/users', this.httpOptions);
   }
- 
+  public temchiBidhnallah2(){
+    this.http.get('http://localhost:5000/api/admin/users',this.httpOptions).subscribe(
+      (response) => {
+        let text = JSON.stringify(response);
+        let users = JSON.parse(text); // convert string response to JSON object
+       console.log(users);
+        return users;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  public temchiBidhnallah(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiServerUrl}/api/admin/users`,this.httpOptions).pipe(
+      map((users: any) => users.map((user: any) => ({ ...user, role: user.role as "admin" | "user" })))
+    );
+  }
 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public getUsers(){
+  let users=this.http.get<any>("https://jsonplaceholder.typicode.com/users");
+return users;
+  }
+
+  // getUsersTemchi(): Observable<User[]> {
+  //   const userArray: User[] = [];
+  //   return this.http.get('http://localhost:5000/api/admin/users', { responseType: 'text' })
+  //     .pipe(
+  //       map((response: string) => {
+  //         const jsonArray = JSON.parse(response);
+  //         for (let i = 0; i < jsonArray.length; i++) {
+  //           const user: User = {
+  //             _id: jsonArray[i]._id,
+  //             cin: jsonArray[i].cin,
+  //             email: jsonArray[i].email,
+  //             name: jsonArray[i].name,
+  //             phone: jsonArray[i].phone,
+  //             role: jsonArray[i].role
+  //           };
+  //           userArray.push(user);
+  //         }
+  //         return userArray;
+  //       })
+  //     );
+  // }
+
+
+  public getUserid(id_user:number):Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/api/users/${id_user}`);
+    } 
+
+  public addUsers(user:User):Observable<User>{
+  return this.http.post<User>(`${this.apiServerUrl}/api/users`,user);
+  }
+  // public deleteUser(userId: number): Observable<void> {
+  //   console.log("user with the id "+userId+" has been removed" );
+  //   return this.http.delete<void>(`${this.apiServerUrl}/api/users/${userId}`);
+  // }
+  // public updateUser(user: User,userId: number): Observable<User> {
+  //   console.log("user with id "+user._id+" has been updated");
+  //   return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
+  // }
 
 ajouterOffreAgriculteur(stockForm: any): Observable<any> {
     const payload = {
@@ -86,6 +169,9 @@ updateOffer(offerId: string, payload: any) {
   }
 
 
+
+
+
 farmers:any=[];
   getAllFarmers(){
     this.http.get('localhost:5000/api/admin/agricoles');
@@ -103,6 +189,14 @@ farmers:any=[];
     return this.http.delete(url);
   }
   
+  deleteUser(id:string){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.adminToken}`
+    });
+    const url = `localhost:5000/api/admin/users/${id}`;
+    return this.http.delete(url);
+  }
+
 
   deleteUser2(id: string): Observable<any> {
 
@@ -110,6 +204,14 @@ farmers:any=[];
     return this.http.delete(url,this.httpOptions);
   }
 
+  // updateUser(userId: string, payload: any) {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${this.adminToken}`
+  //   });
+  //   const url = `http://localhost:5000/api/admin/users/${userId}`;
+  //   console.log("update user executed")
+  //   return this.http.put(url, payload,{headers});
+  // }
   updateUser(userId: string, updateData: any) {
   const url = `http://localhost:5000/api/admin/users/${userId}`;
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
@@ -120,6 +222,10 @@ farmers:any=[];
 
   return this.http.put(url, updateData, { headers });
 }
+
+  
+
+
 
   
 adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc'
@@ -163,6 +269,17 @@ console.log("filtred users from service");
   }
 
 
+  filterOffers(condition: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.userToken}`
+    });
+    // const url = `${this.apiUrl}/filter_users`;
+    const url='http://localhost:5000/api/user/filter_offers';
+    const requestBody = { condition };
+console.log("filtred offers from service");
+    return this.http.post(url, requestBody,{ headers });
+  }
+
   filterOffers2(actorType: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.dZUSolvHV6Hb0byuAgWn8ErRHw4FWpTt0drQ6Dga4b8'}`
@@ -174,6 +291,8 @@ console.log("filtred users from service");
     return this.http.post(url, body, { headers });
   }
 
+ 
+  
   getUserByType(type: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.adminToken}`

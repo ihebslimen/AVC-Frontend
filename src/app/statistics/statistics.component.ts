@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AmdminServiceService } from '../services/admin-service.service';
 
 @Component({
   selector: 'app-statistics',
@@ -9,9 +10,10 @@ export class StatisticsComponent {
   userValue = '';
   transactionValue = '';
   productValue = '';
-
+constructor(private adminService:AmdminServiceService){}
   ngOnInit() {
     // Generate random values for the first 3 seconds
+    this.getUsers2(); this.getAllOffers();
     let count = 0;
     const interval = setInterval(() => {
       if (count < 3) {
@@ -21,12 +23,13 @@ export class StatisticsComponent {
         count++;
       } else {
         clearInterval(interval);
-        this.userValue = '1,236';
+        this.userValue = this.numberOfUsers.toString();
         this.transactionValue = '4,592';
-        this.productValue = '789';
+        this.productValue = this.numberOfProducts.toString();
       }
     }, 500);
     this.startAnimation(0);
+
   }
  
   lines=[
@@ -46,4 +49,34 @@ export class StatisticsComponent {
       }, duration);
     }
   }
+numberOfUsers:number;
+  public getUsers2(){
+    this.adminService.temchiBidhnallah3()
+    .subscribe(
+      (response) => {
+        let text = JSON.stringify(response);
+        let users = JSON.parse(text); // convert string response to JSON object
+      
+      this.numberOfUsers=users.data.length;
+        return users;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  numberOfProducts:number;
+  getAllOffers() {
+    this.adminService.getAllOffers().subscribe(
+      (response) => {
+  
+       this.numberOfProducts=response.data.length;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
 }

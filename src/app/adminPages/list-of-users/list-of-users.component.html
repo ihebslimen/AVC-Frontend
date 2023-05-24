@@ -16,10 +16,10 @@
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('historique',$event)" ><h6>&nbsp;Consulter l'historique des accords</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userRole==='agriculteur'" ><h6>&nbsp;Consulter les transformateurs</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur')" *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event)"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole')"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
              <!-- <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offre',$event)" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;Lancer un appelle d'offre </h6></a> -->
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -304,7 +304,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of offers" >
+        <tr *ngFor="let item of filtredOffersByActor" >
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'$' + item.priceUnit + '/kg'}}</td>
@@ -400,7 +400,7 @@
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of filterOffers2('transformateur')">
+        <tr *ngFor="let item of filtredOffersByActor">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'dt' + item.priceUnit + '/kg'}}</td>
@@ -580,21 +580,14 @@
           <td>{{farmer._id}}</td>
           <td>{{farmer.localisation}} kg</td>        
         </tr> -->
-
-
-
-
-
-        <!-- El Commentaire <tr *ngFor="let accord of AccordsAgriculteurs">
+        <tr *ngFor="let accord of AccordsAgriculteurs">
           <td></td>
           <td>{{accord.nom}}</td>
           <td>{{accord.telephone}} </td>
           <td>{{'dt' + accord.prix.toFixed(2) + '/kg'}}</td>
           <td>{{accord.quantite}}</td>
           <td>{{accord.qualite}}</td>
-        </tr>  -->
-        
-        
+        </tr>      
       </tbody>
       </table>
   </section>
@@ -613,14 +606,14 @@
     </thead>
     <tbody>
     
-      <!-- El Commentaire <tr *ngFor="let item of listeAccords">
+      <tr *ngFor="let item of listeAccords">
         <td></td>
         <td>{{item.nom}}</td>
         <td>{{item.telephone}} </td>
         <td>{{'dt' + item.prix.toFixed(2) + '/kg'}}</td>
         <td>{{item.quantite}}</td>
         <td>{{item.qualite}}</td>
-      </tr> -->
+      </tr>
     </tbody>
     </table>
 </section>
@@ -688,8 +681,10 @@
         <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr> -->
       <tr *ngFor="let item of filtredOffersByActor">
-        <td></td>
-        <td></td>
+        <td>
+          <!-- {{getUsersByRef(item.actorRef).name}} -->
+        </td>
+        <td>ok</td>
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
         <td>{{'dt' + item.priceUnit + '/kg'}}</td>
@@ -726,7 +721,7 @@
            <button class="btn btn-success">acheter</button>
           </td>
         </tr> -->
-        <tr *ngFor="let offer of filterOffers2('transformateur')" >
+        <tr *ngFor="let offer of filtredOffersByActor" >
           <td (click)="showModal(offer,'stats')">offer1</td>
           <td (click)="showModal(offer,'stats')">offer2</td>
           <td (click)="showModal(offer,'stats')">{{offer.quantity}}</td>

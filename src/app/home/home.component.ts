@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
-
+import {Router} from '@angular/router';
+import { User, agricole } from '../adminPages/list-of-users/list-of-users.component';
+import { AuthenticationServiceService } from '../services/authentication-service.service';
+import { AmdminServiceService } from '../services/admin-service.service';
 
 
 @Component({
@@ -8,13 +11,40 @@ import {Component} from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
+
  
+
+    ngOnInit(){
+      
+  
+
+//     document.cookie = "cookieName=cookieloula; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";
+//     const cookies = document.cookie.split(';');
+// for (let i = 0; i < cookies.length; i++) {
+//   const cookie = cookies[i].trim();
+//   if (cookie.startsWith('cookieName=')) {
+//     const cookieValue = cookie.substring('cookieName='.length);
+//     console.log(cookieValue);
+//     break;
+//   }
+// }
+
+
+  }
   constructor() { }
 
+
+
+   
+  
     
     slideIndex = 1;
 
+  
+
+     
     
+  
     plusSlides(n: number) {
       this.showSlides(this.slideIndex += n);
     }
@@ -45,6 +75,19 @@ export class HomeComponent  {
   
 
 
+  
+
+
+
+
+
+
+
+
+    
+   
+
+
     showSectionHome: boolean = true;
     showSectionStarted: boolean =false;
     
@@ -57,7 +100,42 @@ export class HomeComponent  {
       this.showSectionStarted = true;
     }
 
-   
+
+
+
+    // getAllOffers() {
+    //   this.adminService.getAllOffers().subscribe(
+    //     (response) => {
+    //       console.log("----------getAllusers----------")
+    //       console.log(response);
+    //       console.log("type = " + typeof (response))
+    //     console.log("--------------nos offres--------------------")
+    //       console.log("iterable object===" + response.offers);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // }
+
+    // usersHavingOffers:User[];
+    // getUserByReference(reference:string){
+    //   this.adminService.getUserByReference(reference).subscribe(
+    //     (response) => {
+    //       // Handle the response here
+    //       console.log("users filtred by type")
+    //       console.log(response);
+    //       this.usersHavingOffers=response.data;
+    //       // this.usersByType=response.data;
+    //       // return response;
+    //     },
+    //     (error) => {
+    //       // Handle errors here
+    //       console.log("fama mochkel fil transformateurs")
+    //       console.error(error);
+    //     }
+    //   );
+    // }
 
    
  
