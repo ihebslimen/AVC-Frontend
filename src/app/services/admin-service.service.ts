@@ -255,7 +255,7 @@ farmers:any=[];
     // const url = `${this.apiUrl}/filter_users`;
     const url='http://localhost:5000/api/admin/filter_users';
     const requestBody = { state };
-console.log("filtred users from service");
+// console.log("filtred users from service");
     return this.http.post(url, requestBody,{ headers });
   }
 

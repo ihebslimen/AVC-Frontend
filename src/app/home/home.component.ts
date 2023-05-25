@@ -16,8 +16,10 @@ export class HomeComponent  {
 
  
     ngOnInit(){
+      
       this.searchUserById("6464f14ac8fed61664b085e6");   
-
+   
+// this.sendMessage('11440415');
 
 //     document.cookie = "cookieName=cookieloula; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";
 //     const cookies = document.cookie.split(';');
@@ -112,6 +114,17 @@ filtredUsersByActorRef:User[];
       slides[this.slideIndex - 1].setAttribute("style", "display: block");
       dots[this.slideIndex - 1].className += " active";
     }
+  
+sendMessage(cin:any){
+  this.authenticationService.sendMessage(cin).subscribe(
+    (response)=>{
+      console.log(response);
+    },
+    (error)=>{
+      console.log(error);
+    }
+    );
+}
 
 
   

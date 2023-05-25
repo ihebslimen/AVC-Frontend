@@ -41,10 +41,11 @@ export class ListOfUsersComponent implements OnInit {
 
   ngOnInit() {
     this.filterUsersByActorRef('64662677013ecbe516a36fec')
-    this.originalTable = [...this.users];
+    this.originalTable = [...this.users]; 
     this.getUsers2();
     this.getAllOffers()
     this.filterUsers()
+    this.filterOffers2('agricole');
     console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("6447b2929f05ced8e2fbcdfa"));
     this.getUsersByRef('646c718c579242140bffa439');
     console.log("agricoles offers::::::::::::::::::>>"+this.filterOffers2("agricole"));
@@ -58,7 +59,7 @@ export class ListOfUsersComponent implements OnInit {
     // Perform any necessary actions based on userType (e.g., displaying specific content)
     console.log("user type mte3o howa:======>"+this.userRole)
   });
-
+  this.searchUserById("6464f14ac8fed61664b085e6"); 
 
   }
   
@@ -76,11 +77,7 @@ export class ListOfUsersComponent implements OnInit {
   //     }
   // }
  
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'
-    })
-  };
+ 
   
 usersByRef:User[];
 getUsersByRef(ref: any): User {
@@ -846,20 +843,22 @@ waitingUsers:User[]; approvedUsers:User[];
   filtredUsersByActorRef:User[];
   filterUsersByActorRef(actorRef:any){
     // const state = 'waiting';
-    this.adminService.filterUsers(actorRef).subscribe(
-      (response) => {
-        console.log("=======from filtred users-----------")
-        console.log('Filtered users:', response);
-        this.filtredUsersByActorRef=response.data;
-        console.log("filtred users bil reference==="+this.filtredUsersByActorRef)
-        // Handle the response data
-      },
-      (error) => {
-        console.error('An error occurred', error);
-        // Handle the error
-      }
-    );
-  }
+    // this.adminService.filterUsers(actorRef).subscribe(
+    //   (response) => {
+    //     console.log("=======from filtred users-----------")
+    //     console.log('Filtered users:', response);
+    //     this.filtredUsersByActorRef=response.data;
+    //     console.log("filtred users bil reference==="+this.filtredUsersByActorRef)
+    //     // Handle the response data
+    //   },
+    //   (error) => {
+    //     console.error('An error occurred', error);
+    //     // Handle the error
+    //   }
+    // );
+    console.log("searching..")
+    this.searchUserById("6464f14ac8fed61664b085e6");
+  } 
 usersByType:User[];
   consulterUserByType(userType:string){
     // let userType="transformateur";
@@ -1089,6 +1088,11 @@ if(condition === 'agricole'){
 }
 
 
+adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
+private httpOptions = {
+  headers: new HttpHeaders({
+    'Authorization': `Bearer ${this.adminToken}`
+  })};
 
 userByRole:User;
 searchUserById(userId: string) {
@@ -1108,8 +1112,9 @@ searchUserById(userId: string) {
       // Handle the error
     }
   );
-return this.userByRole;
+return this.userByRole
 }
+ 
 
 
 }

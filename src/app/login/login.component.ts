@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 import { AmdminServiceService } from '../services/admin-service.service';
+import { DOCUMENT } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,15 +14,18 @@ export class LoginComponent {
   isCollapsed = true; regex = /^\d+$/; 
   showAlert !:boolean; showerrorMessage=false; showSuccessMessage=false;
   
-constructor(private router:Router,private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService){}
+constructor(private router:Router,private http:HttpClient,private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService){}
 ngOnInit(){
+  this.searchUserById("6464f14ac8fed61664b085e6"); 
+
+  // this.sendMessage('11440415');
   const pageHeight = document.documentElement.clientHeight;
 // console.log(`The height of the page is ${pageHeight}px`);
 // this.verifierUserType(this.cin);
-console.log("users===="+this.users)
+// console.log("users===="+this.users)
 this.getUsers2();
-this.getUser("645e7a488b96b66d55bde08e");
-console.log("users===="+this.users)
+// this.getUser("645e7a488b96b66d55bde08e");
+// console.log("users===="+this.users)
 
 }
 goToSubscribe(): void {
@@ -30,12 +35,36 @@ password:string=''; passwordError=false;
   loginIsValid !: boolean; loginIsSubmitted:boolean=false;
   errorMessage !:string; 
   cin : number; 
+  sendMessage(cin:any){
+    this.authenticationService.sendMessage(cin).subscribe(
+      (response)=>{
+        console.log(response);
+      },
+      (error)=>{
+        console.log(error);
+      }
+      );
+  }
+  verifycode(otp_code:any){
+    this.authenticationService.verifyCode(otp_code).subscribe(
+      (response)=>{
+        console.log(response);
+        // document.cookie = "identificationtoken"+response.data+"; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";    
+      },
+      (error)=>{
+        console.log(error);
+      }
+      );
+  }
 onSubmitLogin(){
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
   // this.loginIsValid = this.regex.test(this.cin) ;
   this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
   if(this.loginIsValid){
+      const cinToString=this.cin.toString()
+      // console.log(cinToString+ typeof(cinToString));
+      this.sendMessage(cinToString);
     this.showSuccessMessage = true;
 // console.log("login valid")
     setTimeout(() => {
@@ -99,7 +128,6 @@ onSubmitCode(){
   this.codeSubmitted=true;
   if(this.formCode.valid){
   this.codeRegisterIsValid=true;
-  console.log(this.codeSubmitted);
   setTimeout(this.moveLoginForm,2000);
   this.showSuccessMessage = true;
     setTimeout(() => {
@@ -117,9 +145,12 @@ this.showerrorMessage=true;
 }
 
 
-onSubmitPassword(){
+onSubmitPassword(code:any){
   console.log(this.password);
-  this.authenticationService.login(this.password);
+  this.verifycode(code);
+
+// todo
+  // this.authenticationService.login(this.password);
 }
 
 
@@ -352,9 +383,33 @@ console.log(error);
         }
       );}
 
+      adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
+      private httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.adminToken}`
+        })};
 
-
+      userByRole:User;
+      searchUserById(userId: string) {
+        const apiUrl = 'http://localhost:5000/api/admin/filter_users';
+        const requestBody = { _id: userId };
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       
+        this.http.post(apiUrl, requestBody,this.httpOptions).subscribe(
+          (response:any) => {
+            this.userByRole=response.data[0];
+            console.log('User found:', response.data[0].name);
+           
+            // Handle the response data
+          },
+          (error) => {
+            console.error('An error occurred', error);
+            // Handle the error
+          }
+        );
+      return this.userByRole
+      }
+       
   
 
 }

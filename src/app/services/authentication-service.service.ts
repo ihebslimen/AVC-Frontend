@@ -155,10 +155,16 @@ getUserById(id:any){
 
 
 
-sentMessage(cin:any){
-  const url='localhost:5000/api/shared/login';
-  const requestBody = { cin };
-this.http.post(url,requestBody);
+sendMessage(cin:any):Observable<any>{
+  const url='http://localhost:5000/api/shared/login';
+  const requestBody = { cin:cin };
+return this.http.post(url,requestBody);
+}
+
+verifyCode(otp_code:string):Observable<any>{
+const url='http://localhost:5000/api/shared/login_verification';
+const requestBody = { otp_code:otp_code };
+return this.http.post(url,requestBody);
 }
 
 
