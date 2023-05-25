@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import { User, agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 import { AmdminServiceService } from '../services/admin-service.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,10 +15,9 @@ import { AmdminServiceService } from '../services/admin-service.service';
 export class HomeComponent  {
 
  
-
     ngOnInit(){
-      
-  
+      this.searchUserById("6464f14ac8fed61664b085e6");   
+
 
 //     document.cookie = "cookieName=cookieloula; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";
 //     const cookies = document.cookie.split(';');
@@ -31,10 +32,49 @@ export class HomeComponent  {
 
 
   }
-  constructor() { }
-
-
-
+  constructor(private adminService:AmdminServiceService, private http:HttpClient,private authenticationService:AuthenticationServiceService) { }
+adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
+private httpOptions = {
+  headers: new HttpHeaders({
+    'Authorization': `Bearer ${this.adminToken}`
+  })
+}; 
+filtredUsersByActorRef:User[];
+  // filterUsersByActorRef(){
+  //   const state = 'waiting';
+  //   this.adminService.filterUsers(state).subscribe(
+  //     (response) => {
+  //       console.log("=======from filtred users-----------")
+  //       // console.log('Filtered users:', response);
+  //       console.log(response.data);
+  //       // Handle the response data
+  //     },
+  //     (error) => {
+  //       console.error('An error occurred', error);
+  //       // Handle the error
+  //     }
+  //   );
+  // } 
+  user:User;
+  searchUserById(userId: string) {
+    const apiUrl = 'http://localhost:5000/api/admin/filter_users';
+    const requestBody = { _id: userId };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    this.http.post(apiUrl, requestBody,this.httpOptions).subscribe(
+      (response:any) => {
+        this.user=response.data[0];
+        console.log('User found:', response.data[0].name);
+       
+        // Handle the response data
+      },
+      (error) => {
+        console.error('An error occurred', error);
+        // Handle the error
+      }
+    );
+  return this.user
+  }
    
   
     
@@ -72,7 +112,6 @@ export class HomeComponent  {
       slides[this.slideIndex - 1].setAttribute("style", "display: block");
       dots[this.slideIndex - 1].className += " active";
     }
-  
 
 
   

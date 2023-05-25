@@ -305,5 +305,13 @@ getUserByReference(ref:string): Observable<any> {
 }
 
 
+searchUserById(userId: string): Observable<any> {
+  const apiUrl = 'http://localhost:5000/api/admin/filter_users';
+  const requestBody = { _id: userId };
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+ return this.http.post(apiUrl, requestBody,this.httpOptions);
+}
+
 
 }

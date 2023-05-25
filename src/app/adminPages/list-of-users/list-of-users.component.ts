@@ -40,6 +40,7 @@ export class ListOfUsersComponent implements OnInit {
   public originalTable!: User[];
 
   ngOnInit() {
+    this.filterUsersByActorRef('64662677013ecbe516a36fec')
     this.originalTable = [...this.users];
     this.getUsers2();
     this.getAllOffers()
@@ -842,6 +843,23 @@ waitingUsers:User[]; approvedUsers:User[];
       }
     );
   }
+  filtredUsersByActorRef:User[];
+  filterUsersByActorRef(actorRef:any){
+    // const state = 'waiting';
+    this.adminService.filterUsers(actorRef).subscribe(
+      (response) => {
+        console.log("=======from filtred users-----------")
+        console.log('Filtered users:', response);
+        this.filtredUsersByActorRef=response.data;
+        console.log("filtred users bil reference==="+this.filtredUsersByActorRef)
+        // Handle the response data
+      },
+      (error) => {
+        console.error('An error occurred', error);
+        // Handle the error
+      }
+    );
+  }
 usersByType:User[];
   consulterUserByType(userType:string){
     // let userType="transformateur";
@@ -1068,6 +1086,29 @@ if(condition === 'agricole'){
   });
   
 }
+}
+
+
+
+userByRole:User;
+searchUserById(userId: string) {
+  const apiUrl = 'http://localhost:5000/api/admin/filter_users';
+  const requestBody = { _id: userId };
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  this.http.post(apiUrl, requestBody,this.httpOptions).subscribe(
+    (response:any) => {
+      this.userByRole=response.data[0];
+      console.log('User found:', response.data[0].name);
+     
+      // Handle the response data
+    },
+    (error) => {
+      console.error('An error occurred', error);
+      // Handle the error
+    }
+  );
+return this.userByRole;
 }
 
 

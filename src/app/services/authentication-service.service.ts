@@ -155,7 +155,11 @@ getUserById(id:any){
 
 
 
-
+sentMessage(cin:any){
+  const url='localhost:5000/api/shared/login';
+  const requestBody = { cin };
+this.http.post(url,requestBody);
+}
 
 
 // apiUrl='localhost:5000/api/admin/users';
