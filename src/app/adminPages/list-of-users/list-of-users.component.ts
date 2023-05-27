@@ -7,7 +7,7 @@ import { AuthenticationServiceService } from 'src/app/services/authentication-se
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, of } from 'rxjs';
-
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list-of-users',
@@ -40,44 +40,34 @@ export class ListOfUsersComponent implements OnInit {
   public originalTable!: User[];
 
   ngOnInit() {
-    this.filterUsersByActorRef('64662677013ecbe516a36fec')
+    // this.loadData()
     this.originalTable = [...this.users]; 
-    this.getUsers2();
-    this.getAllOffers()
+   
+    // this.getUsers2();
+    // this.getAllOffers()
     this.filterUsers()
     this.filterOffers2('agricole');
-    console.log("l'acteur mta3 ref hedhi-------->"+this.getUserByReference("6447b2929f05ced8e2fbcdfa"));
-    this.getUsersByRef('646c718c579242140bffa439');
-    console.log("agricoles offers::::::::::::::::::>>"+this.filterOffers2("agricole"));
+    this.adminService.filterOffers2('transformateur').subscribe(
+      response => {
+        this.filteredOffersByActor = response.data;
+        // this.loadUserNames();
+        this.loadUserNamesAndPhoneNumbers();
+      },
+      error => {
+        console.error(error);
+      }
+    );
  
    
-  // this.consulterUserByType();
-  this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
-    // Handle the updated userType value
-    console.log("Received userType in Dashboard:",userRole);
-    this.userRole=userRole;
-    // Perform any necessary actions based on userType (e.g., displaying specific content)
-    console.log("user type mte3o howa:======>"+this.userRole)
-  });
-  this.searchUserById("6464f14ac8fed61664b085e6"); 
+  
+  // this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
+
+
+  //   this.userRole=userRole;
+ 
+  // });
 
   }
-  
-
-  // assignRole(){
-  //     if (this.userRole === 'admin') {
-  //       // Assign items for admin user
-  //       this.userItems = this.adminItems;
-  //     } else if (this.userRole === 'user') {
-  //       // Assign items for regular user
-  //       this.userItems = this.userItems;
-  //     } else {
-  //       // Assign items for other user roles
-  //       this.userItems = this.otherItems;
-  //     }
-  // }
- 
- 
   
 usersByRef:User[];
 getUsersByRef(ref: any): User {
@@ -105,8 +95,6 @@ console.log("user actorRef =="+this.usersByRef[0].name)
       (response) => {
         let text = JSON.stringify(response);
         let users = JSON.parse(text); // convert string response to JSON object
-        console.log("this is from getUsers2")
-       console.log(users.data);
        this.users=users.data;
 
         return users;
@@ -221,7 +209,6 @@ console.log(this.offers)
   getPaginatedData() {
     const startIndex = (this.currentPage - 1) * this.selectedLength;
     this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
-    console.log("number of pages"+this.numberOfPages)
     // return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
     return this.approvedUsers.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 
@@ -248,18 +235,25 @@ console.log(this.offers)
   /** Offre */
   showOffreAgricoleur: boolean = false;
   showOffreTransformateur: boolean = false;
-
+showListeReclammmations:boolean=false;
 
   toggleSection(sectionId: string, event: MouseEvent) {
     event.preventDefault();
     if (sectionId === 'utilisateur') {
       this.showSectionInscription = false;
       this.showSectionGestionUtilisateur = true;
+      this.showListeReclammmations=false;
     }
     if (sectionId === 'Inscription') {
+      this.showListeReclammmations=false;
       this.showSectionGestionUtilisateur = false;
       this.showSectionInscription = true;
 
+    }
+    if (sectionId === 'listeReclammmations') {
+      this.showSectionInscription = false;
+      this.showSectionGestionUtilisateur =false;
+      this.showListeReclammmations=true;
     }
     if (sectionId === 'reclamation') {
 
@@ -712,7 +706,6 @@ console.log("id to delete----->"+id);
   getAllOffers() {
     this.adminService.getAllOffers().subscribe(
       (response) => {
-        console.log("----------getAllOffers----------")
         this.offers=response.data;
         
       },
@@ -734,43 +727,6 @@ console.log("id to delete----->"+id);
     }
     )
     this.getAllOffers()
-  }
-
-  getUserHavingOffer(actorRef:string){
-    // this.adminService.filterUsers(actorRef).subscribe(
-    //   (response) => {
-    //     return response.data[0];
-    
-    //     // Handle the response data
-    //   },
-    //   (error) => {
-    //     console.error('An error occurred', error);
-    //     // Handle the error
-    //   }
-    // );
-    this.adminService.temchiBidhnallah3()
-    .subscribe(
-      (response) => {
-        let text = JSON.stringify(response);
-        let users = JSON.parse(text); // convert string response to JSON object
-        console.log("this is from getUsers2")
-       console.log(users.data);
-       this.usersHavingOffers=users.data;
-       console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-       // this.usersHavingOffers=this.users.filter(user=>user._id.toString() === actorRef)[0];
-      
-      // console.log("users having ooffer"+this.usersHavingOffers)   
-        return this.usersHavingOffers;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-    // this.usersHavingOffers=this.users.filter(user=>user._id.toString() === actorRef)[0];
-   
-   console.log("users having ooffer"+this.usersHavingOffers)
-   
   }
   @ViewChild('stockForm', { static: false }) stockForm: NgForm;
   ajouterAuStock() {
@@ -816,8 +772,6 @@ waitingUsers:User[]; approvedUsers:User[];
     const state = 'waiting';
     this.adminService.filterUsers(state).subscribe(
       (response) => {
-        console.log("=======from filtred users-----------")
-        console.log('Filtered users:', response);
         this.waitingUsers=response.data;
         // Handle the response data
       },
@@ -829,8 +783,6 @@ waitingUsers:User[]; approvedUsers:User[];
     
     this.adminService.filterUsers("approved").subscribe(
       (response) => {
-        console.log("=======from filtred users-----------")
-        console.log('Filtered users:', response);
         this.approvedUsers=response.data;
         // Handle the response data
       },
@@ -840,25 +792,8 @@ waitingUsers:User[]; approvedUsers:User[];
       }
     );
   }
-  filtredUsersByActorRef:User[];
-  filterUsersByActorRef(actorRef:any){
-    // const state = 'waiting';
-    // this.adminService.filterUsers(actorRef).subscribe(
-    //   (response) => {
-    //     console.log("=======from filtred users-----------")
-    //     console.log('Filtered users:', response);
-    //     this.filtredUsersByActorRef=response.data;
-    //     console.log("filtred users bil reference==="+this.filtredUsersByActorRef)
-    //     // Handle the response data
-    //   },
-    //   (error) => {
-    //     console.error('An error occurred', error);
-    //     // Handle the error
-    //   }
-    // );
-    console.log("searching..")
-    this.searchUserById("6464f14ac8fed61664b085e6");
-  } 
+  
+ 
 usersByType:User[];
   consulterUserByType(userType:string){
     // let userType="transformateur";
@@ -878,104 +813,15 @@ usersByType:User[];
       }
     );
     }
-    getUserByReference(reference:string){
-       
-        this.adminService.filterUsers(reference).subscribe(
-          (response) => {
-            console.log("=======from filtred users-----------")
-            console.log('user for this offer:', response);
-            this.usersHavingOffers=response.data;
-            console.log("user having this ref:::::nksl&ns&hsilji&j");
-            console.log(this.usersHavingOffers)
-            // Handle the response data
-          },
-          (error) => {
-            console.error('An error occurred', error);
-            // Handle the error
-          }
-        );
-    }
+  
 
 
 
     
 // todo
 //placeholder w bara
-    offreAgriculteurs = [
-      {
-        name: "Ahmad",
-        telephone: "92045912",
-        quality: "Excellent",
-        quantityInStock: 10,
-        price: 50,
-      },
-      {
-        name: "Mohammad",
-        telephone: "239951678",
-        quality: "haut",
-        quantityInStock: 5,
-        price: 40,
-      },
-      {
-        name: "Ali",
-        telephone: "22345810",
-        quality: "haut",
-        quantityInStock: 8,
-        price: 60,
-      },
-      {
-        name: "Fatima",
-        telephone: "55628920",
-        quality: "moyen",
-        quantityInStock: 12,
-        price: 45,
-      },
-      {
-        name: "Nour",
-        telephone: "567890123",
-        quality: "Excellent",
-        quantityInStock: 3,
-        price: 55,
-      },
-    ];  
-    quantiteTransformateur = [
-      {
-        name: "Youssef",
-        telephone: "923454280",
-        quality: "haut",
-        quantityInStock: 15,
-        price: 55,
-      },
-      {
-        name: "Omar",
-        telephone: "234064891",
-        quality: "haut",
-        quantityInStock: 7,
-        price: 38,
-      },
-      {
-        name: "Hassan",
-        telephone: "94578034",
-        quality: "Excellent",
-        quantityInStock: 6,
-        price: 62,
-      },
-      {
-        name: "Amina",
-        telephone: "25159012",
-        quality: "moyen",
-        quantityInStock: 10,
-        price: 48,
-      },
-      {
-        name: "Layla",
-        telephone: "587810827",
-        quality: "haut",
-        quantityInStock: 5,
-        price: 60,
-      },
-    ];  
-
+   
+    
 
     listeAccords=[
       {
@@ -1073,11 +919,7 @@ if(condition === 'transformateur'){
 if(condition === 'agricole'){
   this.adminService.filterOffers2('agricole')
   .subscribe(response => {
-    // Handle the response data here
-    // console.log("les offres de l'agric "+condition);
-    console.log(response);
     this.filtredOffersByActor=response.data;
-    console.log("filtred offers by actor   "+this.filtredOffersByActor)
     return response.data;
   }, error => {
     // Handle any errors here
@@ -1114,10 +956,64 @@ searchUserById(userId: string) {
   );
 return this.userByRole
 }
- 
+message:string;
+createViolationReclamation(event: Event,message:any) {
+  event.preventDefault();
+console.log("reclamation:::"+this.message)
+this.adminService.createViolationReclamation(message).subscribe(
+  response => {
+    console.log('Message sent successfully:', response);
+    // Do something with the response if needed
+  },
+  error => {
+    console.error('Error sending message:', error);
+    // Handle the error if needed
+  }
+);
+        }
+reclammmations:reclamation[];
+        getAllReclamations() {
+          
+        
+        this.adminService.getAllReclamations().subscribe(
+          
+          response => {
+            this.reclammmations=response.data;
+          },
+          error => {
+            console.log("fama mochkel fil reclammmations")
+            console.error('Error sending message:', error);
+            // Handle the error if needed
+          }
+        );
+                }
+
+filteredOffersByActor: Offer[];
+userNames: { [key: string]: string } = {};
+phoneNumbers: { [key: string]: string } = {};        
+                loadUserNamesAndPhoneNumbers() {
+                  for (const offer of this.filteredOffersByActor) {
+                    this.adminService.searchUserById(offer.actorRef).subscribe(
+                      response => {
+                        const userName = response.data[0].name;
+                        this.userNames[offer.actorRef] = userName;
+                        this.phoneNumbers[offer.actorRef] = response.data[0].phone;
+                      },
+                      error => {
+                        console.error(error);
+                        this.userNames[offer.actorRef] = ''; // Assign a default value in case of error
+                        this.phoneNumbers[offer.actorRef] = ''; // Assign a default value in case of error
+                      }
+                    );
+                  }
+                
+                }
 
 
-}
+                
+              }             
+                
+
 export interface User {
   _id: string;
   cin: string;
@@ -1126,10 +1022,7 @@ export interface User {
   phone: string;
   role: "admin" | "user";
   type:"agriculteur" | "transformateur" | "exportateur";
-  // state:"approved" | "waiting"
   public_key: string;
-  // role: string;
-  // type: string;
 }
 
 
@@ -1152,6 +1045,12 @@ export interface Offer {
   actorType: string;
   actorRef: string;
 
+}
+
+export interface reclamation{
+  _id: string,
+  msg: string,
+  userRef: string
 }
 
 

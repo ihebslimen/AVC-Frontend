@@ -5,6 +5,8 @@ import { AuthenticationServiceService } from '../services/authentication-service
 import { AmdminServiceService } from '../services/admin-service.service';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,19 +17,7 @@ export class LoginComponent {
   showAlert !:boolean; showerrorMessage=false; showSuccessMessage=false;
   
 constructor(private router:Router,private http:HttpClient,private authenticationService:AuthenticationServiceService,private adminService:AmdminServiceService){}
-ngOnInit(){
-  this.searchUserById("6464f14ac8fed61664b085e6"); 
 
-  // this.sendMessage('11440415');
-  const pageHeight = document.documentElement.clientHeight;
-// console.log(`The height of the page is ${pageHeight}px`);
-// this.verifierUserType(this.cin);
-// console.log("users===="+this.users)
-this.getUsers2();
-// this.getUser("645e7a488b96b66d55bde08e");
-// console.log("users===="+this.users)
-
-}
 goToSubscribe(): void {
   this.router.navigate(['subscribe']);
 }
@@ -39,6 +29,19 @@ password:string=''; passwordError=false;
     this.authenticationService.sendMessage(cin).subscribe(
       (response)=>{
         console.log(response);
+        // document.cookie = response.cookie;    
+        // document.cookie=response.headers.get('Cookie');
+        // const sessionData = sessionStorage.getItem('phone');
+        console.log("header "+response);
+        if (response.headers && response.headers.get('Set-Cookie')) {
+          const cookie = response.headers.get('Set-Cookie');
+          console.log('Cookie:', cookie);
+          // Rest of your code handling the cookie value
+        } else {
+          console.log('Set-Cookie header not found in the response.');
+        }
+  
+        
       },
       (error)=>{
         console.log(error);
@@ -46,15 +49,19 @@ password:string=''; passwordError=false;
       );
   }
   verifycode(otp_code:any){
+    
     this.authenticationService.verifyCode(otp_code).subscribe(
       (response)=>{
         console.log(response);
+        
         // document.cookie = "identificationtoken"+response.data+"; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";    
       },
       (error)=>{
         console.log(error);
       }
       );
+    
+    // console.log(otp_code+" type= "+typeof(otp_code_as_num));
   }
 onSubmitLogin(){
   this.loginIsSubmitted=true; 
@@ -64,7 +71,10 @@ onSubmitLogin(){
   if(this.loginIsValid){
       const cinToString=this.cin.toString()
       // console.log(cinToString+ typeof(cinToString));
+     
+    
       this.sendMessage(cinToString);
+      console.log("phone =="+sessionStorage.getItem('phone')+'\n'+"role = "+sessionStorage.getItem('phone'))
     this.showSuccessMessage = true;
 // console.log("login valid")
     setTimeout(() => {
@@ -268,149 +278,10 @@ moveLoginForm(): void {
   }
   
   
-userType:string;
-agriculteurs:User[]; transformateurs:User[]; exportateurs:User[];
-  verifierUserType(cin:number){
-    // let userType="transformateur";
-    this.adminService.getUserByType("agriculteur").subscribe(
-      (response) => {
-        // Handle the response here
-        console.log("users filtred by type")
-        // console.log(response);
-        this.agriculteurs=response.data;
-        console.log("agriculteurs:::");
-        console.log(this.agriculteurs)
-        // this.usersByType=response.data;
-        // return response;
-        let agriculteursCins=this.agriculteurs.map(exp=>exp.cin);
-        console.log(agriculteursCins)
-        if (agriculteursCins.some(c => c === cin.toString())) {
-          console.log("mawjoud fil faleha");
-          this.userType = "agriculteur";
-          this.authenticationService.setUserType(this.userType);
-        }
-      },
-      (error) => {
-        // Handle errors here
-        console.log("fama mochkel fil transformateurs")
-        console.error(error);
-      }
-    );
 
-    this.adminService.getUserByType("transformateur").subscribe(
-      (response) => {
-        // Handle the response here
-        console.log("users filtred by type")
-        // console.log(response);
-        this.transformateurs=response.data;
-        console.log("transformateurs:::");
-        console.log(this.transformateurs)
-        // this.usersByType=response.data;
-        // return response;
-        let transformateursCins=this.transformateurs.map(exp=>exp.cin);
-        console.log(transformateursCins)
-        if (transformateursCins.some(c => c === cin.toString())) {
-          console.log("mawjoud fil transps");
-          this.userType = "transportateur";
-          this.authenticationService.setUserType(this.userType);
-        }
-      },
-      (error) => {
-        // Handle errors here
-        console.log("fama mochkel fil transformateurs")
-        console.error(error);
-      }
-    );
-    this.adminService.getUserByType("exportateur").subscribe(
-      (response) => {
-        // Handle the response here
-        console.log("users filtred by type")
-        // console.log(response);
-        this.exportateurs=response.data;
-        console.log("exportateurs:::");
-        let exportateursCins=this.exportateurs.map(exp=>exp.cin);
-        console.log(exportateursCins);
-        console.log(this.exportateurs)
-        // this.usersByType=response.data;
-        // return response;
-        if (exportateursCins.some(c => c === cin.toString())) {
-          console.log("mawjoud fil exportateurs");
-          this.userType = "exportateur";
-          this.authenticationService.setUserType(this.userType);
-        }
-      },
-      (error) => {
-        // Handle errors here
-        console.log("fama mochkel fil transformateurs")
-        console.error(error);
-      }
-
-
-     
-    );
-console.log("type de user------------------------//>>"+this.userType);
-console.log(this.cin)
-    }
-
-
-    getUser(id:any){
-  this.authenticationService.getUserById(id).subscribe(
-    (Response)=>{
-console.log(Response);
-    },
-    (error)=>{
-console.log(error);
-    }
-  )
-    }
-    users:User[]; user:any;
-    public getUsers2(){
-      this.adminService.temchiBidhnallah3()
-      .subscribe(
-        (response) => {
-          let text = JSON.stringify(response);
-          let users = JSON.parse(text); // convert string response to JSON object
-          console.log("this is from getUsers2")
-         console.log(users.data);
-  this.users=users.data;
-  const id="645e7a488b96b66d55bde08e";
-  this.user=this.users.filter(user=>user._id==id)[0]
-        console.log("user li tlawej 3lih"+this.user.name);
-          return users;
-        },
-        (error) => {
-          console.error(error);
-        }
-      );}
-
-      adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
-      private httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': `Bearer ${this.adminToken}`
-        })};
-
-      userByRole:User;
-      searchUserById(userId: string) {
-        const apiUrl = 'http://localhost:5000/api/admin/filter_users';
-        const requestBody = { _id: userId };
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      
-        this.http.post(apiUrl, requestBody,this.httpOptions).subscribe(
-          (response:any) => {
-            this.userByRole=response.data[0];
-            console.log('User found:', response.data[0].name);
-           
-            // Handle the response data
-          },
-          (error) => {
-            console.error('An error occurred', error);
-            // Handle the error
-          }
-        );
-      return this.userByRole
-      }
+    
        
-  
+     
 
 }
 
@@ -426,8 +297,5 @@ export interface User {
   phone: string;
   role: "admin" | "user";
   type:"agriculteur" | "transformateur" | "exportateur";
-  // state:"approved" | "waiting"
   public_key: string;
-  // role: string;
-  // type: string;
 }

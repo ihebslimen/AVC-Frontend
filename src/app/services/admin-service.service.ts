@@ -312,6 +312,21 @@ searchUserById(userId: string): Observable<any> {
 
  return this.http.post(apiUrl, requestBody,this.httpOptions);
 }
+createViolationReclamation(message:any):Observable<any>{
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.userToken}`
+  });
+const url="http://localhost:5000/api/user/violations";
+const requestBody = { msg:message  };
+return this.http.post(url, requestBody,{headers});
+           }
 
 
+           getAllReclamations():Observable<any>{
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${this.adminToken}`
+            });
+          const url="http://localhost:5000/api/admin/violations";
+          return this.http.get(url,{headers});
+                     }
 }

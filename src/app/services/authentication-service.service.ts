@@ -10,13 +10,13 @@ import { User } from '../adminPages/list-of-users/list-of-users.component';
 export class AuthenticationServiceService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   connected=false; role:string;
-  userTypeUpdated: EventEmitter<string> = new EventEmitter<string>();
+  // userTypeUpdated: EventEmitter<string> = new EventEmitter<string>();
 
 
   constructor(private http:HttpClient,private router: Router) { }
-  setUserType(userType: string) {
-    this.userTypeUpdated.emit(userType);
-  }
+  // setUserType(userType: string) {
+  //   this.userTypeUpdated.emit(userType);
+  // }
   
   login(password:string){
     if(password==="adminPass"){
@@ -161,9 +161,11 @@ sendMessage(cin:any):Observable<any>{
 return this.http.post(url,requestBody);
 }
 
-verifyCode(otp_code:string):Observable<any>{
+verifyCode(otp_code:any):Observable<any>{
 const url='http://localhost:5000/api/shared/login_verification';
 const requestBody = { otp_code:otp_code };
+let cookie = document.cookie
+const headers = new HttpHeaders().set('Cookie', cookie);
 return this.http.post(url,requestBody);
 }
 
