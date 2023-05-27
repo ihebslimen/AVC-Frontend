@@ -722,16 +722,11 @@
 <section *ngIf="showListeReclammmations" id="listeReclammmations">
  <div class="reclamationsContainer" *ngFor="let reclammation of reclammmations">
     <div class="reclamation" >
-   <h1 class="actor">acteur:{{reclammation.userRef}}</h1>
+   <h1 class="actor">acteur:{{ userNamesWithReclammation[reclammation.userRef] }}</h1>
       <p class="content">contentu: {{reclammation.msg}}</p>
     </div>	        
   </div>      
-   <!-- <div class="reclamationsContainer">
-    <div class="reclamation" >
-   <h1 class="actor">acteur:userRef</h1>
-      <p class="content">contentu:contenu</p>
-    </div>	        
-  </div>   -->
+
 </section>
 
 <!-- Offre transformateur -->

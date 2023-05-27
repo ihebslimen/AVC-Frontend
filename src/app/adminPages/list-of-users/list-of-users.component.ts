@@ -57,7 +57,16 @@ export class ListOfUsersComponent implements OnInit {
         console.error(error);
       }
     );
- 
+    this.adminService.getAllReclamations().subscribe(
+      response => {
+        this.reclammmations=response.data;
+        this.loadUserNamesByReclammation()
+      },
+      error => {
+        console.log("fama mochkel fil reclammmations")
+        console.error('Error sending message:', error);
+        // Handle the error if needed
+      });
    
   
   // this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
@@ -973,12 +982,10 @@ this.adminService.createViolationReclamation(message).subscribe(
         }
 reclammmations:reclamation[];
         getAllReclamations() {
-          
-        
-        this.adminService.getAllReclamations().subscribe(
-          
+          this.adminService.getAllReclamations().subscribe(
           response => {
             this.reclammmations=response.data;
+            this.loadUserNamesByReclammation()
           },
           error => {
             console.log("fama mochkel fil reclammmations")
@@ -987,7 +994,22 @@ reclammmations:reclamation[];
           }
         );
                 }
-
+                userNamesWithReclammation: { [key: string]: string } = {};
+                loadUserNamesByReclammation() {
+                  for (const reclamation of this.reclammmations) {
+                    this.adminService.searchUserById(reclamation.userRef).subscribe(
+                      response => {
+                        const userName = response.data[0].name;
+                        this.userNamesWithReclammation[reclamation.userRef] = userName;
+                      },
+                      error => {
+                        console.error(error);
+                        this.userNamesWithReclammation[reclamation.userRef] = ''; // Assign a default value in case of error
+                      }
+                    );
+                  }      
+                }              
+              
 filteredOffersByActor: Offer[];
 userNames: { [key: string]: string } = {};
 phoneNumbers: { [key: string]: string } = {};        
@@ -1005,12 +1027,8 @@ phoneNumbers: { [key: string]: string } = {};
                         this.phoneNumbers[offer.actorRef] = ''; // Assign a default value in case of error
                       }
                     );
-                  }
-                
-                }
-
-
-                
+                  }      
+                }              
               }             
                 
 
