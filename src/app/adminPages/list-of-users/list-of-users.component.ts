@@ -511,6 +511,9 @@ showListeReclammmations:boolean=false;
     if (operation === 'moreDetails') {
       this.operation = "moreDetails";
     }
+    if (operation === 'accepter') {
+      this.operation = "accepter";
+    }
   }
  
   updateStockMode: boolean = false;
@@ -730,11 +733,12 @@ console.log("id to delete----->"+id);
         response => {
 
           console.log('Update request successful', response);
-          this.getUsers2();
           this.validationMessage=true;
           this.showUpdateUserForm=false;
           this.showModalFlag=false;
-
+          this.getUsers2();
+          this.getPaginatedData();
+          
           setTimeout(() => {
             this.validationMessage=false;
           }, 2000);
@@ -745,7 +749,9 @@ console.log("id to delete----->"+id);
           console.error('Update request error', error);
           // Handle error scenarios if needed
         }
+        
       );
+      
   }
 
 

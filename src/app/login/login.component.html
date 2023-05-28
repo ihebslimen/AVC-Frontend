@@ -130,7 +130,8 @@ Bensouidene Med Yassine
     <div class="message success" *ngIf="codeSubmitted && codeRegisterIsValid && showSuccessMessage">the verification code you wrote is true => password sent</div>
     <!-- <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div> -->
     <div class="message success" *ngIf="cinSubmitted && cinRegisterIsValid ">the cin is valid write the code sent to your phone</div>
-  
+    <div class="message success" *ngIf="userAdded">inscription envoyé, attend l'acceptation</div>
+ 
   </div>
   <div class="error" *ngIf="showerrorMessage">
     <div class="icon">
@@ -148,6 +149,7 @@ Bensouidene Med Yassine
  <div class="message error"*ngIf="!loginIsValid && loginIsSubmitted && showerrorMessage" >the cin is not valid </div>
 <div class="message error" *ngIf="cinSubmitted && !cinRegisterIsValid && showerrorMessage">the cin is not valid </div>
 <div class="message error" *ngIf="showerrorMessage && codeSubmitted && !codeRegisterIsValid">the verification code you wrote is not valid</div>
+<div class="message error" *ngIf="userNotAdded">inscription a échoué</div>
 </div>
 
 </body>

@@ -179,14 +179,14 @@
         <svg  width="24" height="24" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M320 89.6h640v76.8H320V89.6z m0 768h640v76.8H320v-76.8z m-256-768h128v76.8H64V89.6z m256 384h640v76.8H320V473.6z m-256 0h128v76.8H64V473.6z m0 384h128v76.8H64v-76.8z" fill="#000000" /></svg>
       </a>&nbsp;&nbsp;
         <!-- <a class="btn btn-primary tooltips" (click)="ajouterUtilisateur()"  data-placement="top" data-original-title="Accepter" style="color:white;" > -->
-        <a class="btn btn-primary tooltips"   data-placement="top" data-original-title="Accepter" style="color:white;" (click)="accepterUser(user._id)">
+        <a class="btn btn-primary tooltips"   data-placement="top" data-original-title="Accepter" style="color:white;" (click)="selectUser(user._id);showModal(user,'accepter')">
 
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M5 12l5 5l10 -10"></path>
          </svg>
         </a>&nbsp;&nbsp;
-        <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Réfusé" style="color:white;" (click)="selectUser(user._id);deleteUser2(user._id)">
+        <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Réfusé" style="color:white;" (click)="selectUser(user._id);showModal(user,'refuser')">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M18 6l-12 12"></path>
@@ -876,13 +876,16 @@
 <!-- <ng-template *ngIf="showUpdateUserForm"> -->
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
-    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin'  "  >
+    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin' || (userType==='admin' && operation === ('accpter' || 'refuser'))  "  >
     <div class="modal-header">
-      <h2>User Details</h2>
+      <h2 *ngIf="operation ===('accepter' || 'refuser') ">are you sure you want to continue?</h2>
+      <h2 *ngIf="operation !==('accepter' || 'refuser') ">User Details</h2>
       <button id="closeUserDetails" class="close-btn btn btn-danger" (click)="hideModal(); closeModal(updateForm)">X</button>
+     
+
     </div>
     <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm" >
-    <table class="user-details-table">
+    <table class="user-details-table" *ngIf="operation !==('accepter' || 'refuser')">
    
      
         <tr>
@@ -924,7 +927,8 @@
     <!-- <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="onDeleteUser( selectedUser)">valider la suppression</button> -->
     <button class="btn btn-primary" *ngIf="operation==='delete'" (click)="deleteUser2( selectedUser._id)">valider la suppression</button>
 
-
+<button class="btn btn-success" style="width:100%" *ngIf="operation==='accepter'" (click)="accepterUser(selectedUser._id)">accepter</button>
+<button class="btn btn-danger" style="width:100%" *ngIf="operation==='refuser'" (click)="deleteUser2(selectedUser._id)">refuser</button>
     <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id);updateUserValues(); ">valider la modification</button>
   </form>
   </div>

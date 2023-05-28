@@ -253,13 +253,13 @@ moveLoginForm(): void {
 
  
 
-  userAdded:boolean=false;
+  userAdded:boolean=false; userNotAdded:boolean=false;
   ajouterUtilisateur() {
     const requestBody = {
       "cin": this.cinRegister.toString(),
       "name":this.nomSignup,
       "email": this.emailSignup,
-      "phone":this.phoneSignup,
+      "phone": "+216" + this.phoneSignup,
       "role":"user",
       "state":"waiting",
       type:this.roleSignup,
@@ -270,13 +270,18 @@ moveLoginForm(): void {
     this.adminService.ajouterUtilisateur(requestBody).subscribe(
       (response) => {
         console.log('User added');
-        this.userAdded=true;
+        this.showSuccessMessage=true;
+this.userAdded=true;
+setTimeout(()=>{
+  this.userAdded=false;
+},1000);
       },
       (error) => {
-        console.error('An error occurred', error);
-        setTimeout(()=>{
-          this.userAdded=false;
-        },1000);
+        console.error('An error occurred', error); this.showerrorMessage=true;
+ this.userNotAdded=true;
+ setTimeout(()=>{
+  this.userNotAdded=false;
+},1000);
       }
     );
   }
