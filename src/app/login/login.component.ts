@@ -253,16 +253,16 @@ moveLoginForm(): void {
 
  
 
-
+  userAdded:boolean=false;
   ajouterUtilisateur() {
     const requestBody = {
       "cin": this.cinRegister.toString(),
       "name":this.nomSignup,
       "email": this.emailSignup,
       "phone":this.phoneSignup,
-      "role":this.roleSignup,
+      "role":"user",
       "state":"waiting",
-      "type":"agricole",
+      type:this.roleSignup,
       "actorInfoJson":{"localisation": "bizerte"}
       // Add more parameters as needed
     };
@@ -270,9 +270,13 @@ moveLoginForm(): void {
     this.adminService.ajouterUtilisateur(requestBody).subscribe(
       (response) => {
         console.log('User added');
+        this.userAdded=true;
       },
       (error) => {
         console.error('An error occurred', error);
+        setTimeout(()=>{
+          this.userAdded=false;
+        },1000);
       }
     );
   }
