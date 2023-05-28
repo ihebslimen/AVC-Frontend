@@ -878,14 +878,14 @@
   <div class="modal">
     <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin' || (userType==='admin' && operation === ('accpter' || 'refuser'))  "  >
     <div class="modal-header">
-      <h2 *ngIf="operation ===('accepter' || 'refuser') ">are you sure you want to continue?</h2>
-      <h2 *ngIf="operation !==('accepter' || 'refuser') ">User Details</h2>
+      <h2 *ngIf="operation === 'accepter' || operation === 'refuser'">are you sure you want to continue?</h2>
+      <h2 *ngIf="operation !== 'accepter' && operation !== 'refuser'">User Details</h2>
       <button id="closeUserDetails" class="close-btn btn btn-danger" (click)="hideModal(); closeModal(updateForm)">X</button>
      
 
     </div>
     <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm" >
-    <table class="user-details-table" *ngIf="operation !==('accepter' || 'refuser')">
+    <table class="user-details-table" **ngIf="operation !== 'accepter' && operation !== 'refuser'">
    
      
         <tr>

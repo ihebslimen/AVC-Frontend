@@ -514,6 +514,9 @@ showListeReclammmations:boolean=false;
     if (operation === 'accepter') {
       this.operation = "accepter";
     }
+    if (operation === 'refuser') {
+      this.operation = "refuser";
+    }
   }
  
   updateStockMode: boolean = false;
