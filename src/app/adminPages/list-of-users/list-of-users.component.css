@@ -551,7 +551,7 @@ width:500px; height:500px;
  
 }
 
-
+/* 
 #listeReclammmations{
   position:absolute; top:150px; left:calc(50% - 300px); text-align: center;
   width:1000px; height:350px;  
@@ -578,4 +578,137 @@ width:500px; height:500px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   margin-top:50px;display:flex; justify-content:center; align-items: center;
   height:302px;font-size:38px;
+} */
+/* 33333333333333333 #listeReclammmations {
+  position: absolute;
+  top: 150px;
+  left: calc(50% - 300px);
+  text-align: center;
+}
+
+.reclamationsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.reclamation {
+  width: 300px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.header {
+  background-color: #116D6E;
+  color: white;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.header h2,
+.header p {
+  margin: 0;
+}
+
+.content p {
+  margin: 0;
+} */
+
+/* 222
+#listeReclammmations {
+  position: absolute;
+  top: 150px;
+  left: calc(50% - 500px);
+  text-align: center;
+  width: 1000px;
+}
+
+.reclamationsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+.reclamation {
+  width: 400px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.actor {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  background-color: #116D6E;
+  color: white;
+}
+
+.actor h2 {
+  margin: 0;
+}
+
+.content {
+  margin: 0;
+  padding: 20px;
+  font-size: 18px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+} */
+.Recla {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.card {
+  width: 420px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.card-title {
+  padding: 12px 0;
+}
+
+.card-title h5, .card-title p {
+  margin: 0;
+}
+
+.card-title p {
+  font-size: 14px;
+  color: #888;
+}
+
+.list-group-item {
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.list-group-item i {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.btn-delete {
+  background-color: #ff5c5c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
 }

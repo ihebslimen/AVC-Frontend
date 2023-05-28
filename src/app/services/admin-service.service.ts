@@ -329,4 +329,13 @@ return this.http.post(url, requestBody,{headers});
           const url="http://localhost:5000/api/admin/violations";
           return this.http.get(url,{headers});
                      }
+
+            deleteReclamation(ReclamationId: string) {
+            // Set the headers with authorization token
+            const headers = new HttpHeaders({
+                'Authorization': `Bearer ${ this.adminToken }`
+              });
+            const url = `http://localhost:5000/api/admin/violations/${ReclamationId}`;
+            return this.http.delete(url,{headers});
+          }
 }

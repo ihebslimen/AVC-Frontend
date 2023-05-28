@@ -6,7 +6,7 @@
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
-              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" ><h6>&nbsp;Inscription</h6></a>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" ><h6>&nbsp;Inscription</h6></a><br>
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('listeReclammmations',$event); this.getAllReclamations()" ><h6>&nbsp;consulter la liste des reclammations</h6></a>
             </div>
           </div> 
@@ -246,7 +246,7 @@
   <!--Agriculteur-->
  
   <section class="agriculture" *ngIf="userRole ==='agriculteur'&& showSectionFarmerStock">
-    <h2>ajouter vos offres ici</h2><br>
+    <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
      
       <div class="column">
@@ -337,11 +337,13 @@
       </table>
   </section>
 
+
+
   <!-- transformarteur -->
 
 
   <section class="transformateur" *ngIf="userRole ==='transformateur'&& showSectionTransformateurStock" >
-    <h2>ajouter vos offres ici</h2><br>
+    <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();" #stockForm="ngForm" ngForm>
      
       <div class="column">
@@ -719,15 +721,59 @@
     </table>
 </section>
 
-<section *ngIf="showListeReclammmations" id="listeReclammmations">
+<!-- <section *ngIf="showListeReclammmations" id="listeReclammmations">
  <div class="reclamationsContainer" *ngFor="let reclammation of reclammmations">
     <div class="reclamation" >
-   <h1 class="actor">acteur:{{ userNamesWithReclammation[reclammation.userRef] }}</h1>
+      <h1 class="actor">
+   <h2>Acteur:{{ userNamesWithReclammation[reclammation.userRef] }}</h2>
+   <h2 >Phone:{{phoneNumbersWithReclamation[reclammation.userRef]}}</h2>
+  </h1>
       <p class="content">contentu: {{reclammation.msg}}</p>
     </div>	        
   </div>      
 
-</section>
+</section> -->
+<!-- 2<section *ngIf="showListeReclammmations" id="listeReclammmations">
+  <div class="reclamationsContainer">
+    <div class="reclamation" *ngFor="let reclammation of reclammmations">
+      <div class="actor">
+        <h2>Acteur: {{ userNamesWithReclammation[reclammation.userRef] }}</h2>
+        <h2>Phone: {{ phoneNumbersWithReclamation[reclammation.userRef] }}</h2>
+      </div>
+      <p class="content">Contenu: {{ reclammation.msg }}</p>
+    </div>
+  </div>
+</section> -->
+<div class="Recla margette" id="main-container" *ngIf="showListeReclammmations">
+  <div class="row">
+    <div *ngFor="let reclammation of reclammmations" class="col-md-4 col-xl-3.5">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="card-title col-12 mb-0">
+            <h5>Acteur: {{ userNamesWithReclammation[reclammation.userRef] }}</h5>
+          </div>
+          <div class="card-title col-12 mb-0">
+            <h5>Phone: {{ phoneNumbersWithReclamation[reclammation.userRef] }}</h5>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Contenu: {{ reclammation.msg }}</li>
+        </ul>
+        <button class="btn-delete"  (click)="deleteReclamation(reclammation._id)">Supprimer</button>
+        <!-- -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 <!-- Offre transformateur -->
   <section class="margette" *ngIf="showOffreTransformateur && userType ==='user' && userRole ==='exportateur' " id="showOffreTransformateur">

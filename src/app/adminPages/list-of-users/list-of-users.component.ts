@@ -45,9 +45,9 @@ export class ListOfUsersComponent implements OnInit {
    
     // this.getUsers2();
     // this.getAllOffers()
-    this.filterUsers()
+    this.filterUsers();
     this.filterOffers2('agricole');
-    this.adminService.filterOffers2('transformateur').subscribe(
+    this.adminService.filterOffers2('agricole').subscribe(
       response => {
         this.filteredOffersByActor = response.data;
         // this.loadUserNames();
@@ -60,7 +60,7 @@ export class ListOfUsersComponent implements OnInit {
     this.adminService.getAllReclamations().subscribe(
       response => {
         this.reclammmations=response.data;
-        this.loadUserNamesByReclammation()
+        this.loadUserNamesByReclammation();
       },
       error => {
         console.log("fama mochkel fil reclammmations")
@@ -76,6 +76,19 @@ export class ListOfUsersComponent implements OnInit {
  
   // });
 
+  }
+
+   deleteReclamation(id: string) {
+    this.adminService.deleteReclamation(id)
+      .subscribe(
+        (response) => {
+          console.log(response)// Suppression réussie, effectuer les actions nécessaires
+          this.getAllReclamations();
+        },
+        (error) => {
+          // Gérer l'erreur de suppression
+        }
+      );
   }
   
 usersByRef:User[];
@@ -995,16 +1008,19 @@ reclammmations:reclamation[];
         );
                 }
                 userNamesWithReclammation: { [key: string]: string } = {};
+                phoneNumbersWithReclamation: { [key: string]: string } = {};
                 loadUserNamesByReclammation() {
                   for (const reclamation of this.reclammmations) {
                     this.adminService.searchUserById(reclamation.userRef).subscribe(
                       response => {
                         const userName = response.data[0].name;
                         this.userNamesWithReclammation[reclamation.userRef] = userName;
+                        this.phoneNumbersWithReclamation[reclamation.userRef] = response.data[0].phone;
                       },
                       error => {
                         console.error(error);
                         this.userNamesWithReclammation[reclamation.userRef] = ''; // Assign a default value in case of error
+                        this.phoneNumbersWithReclamation[reclamation.userRef] = '';
                       }
                     );
                   }      
