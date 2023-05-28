@@ -197,6 +197,18 @@ transition: transform .5s ease-in-out;
     border-radius: 4px;
     margin-top: 35px; /* Ajustez les marges supérieure et inférieure, ainsi que les marges gauche et droite selon vos préférences */
   }
+  .seConnecter1 {
+    background-color: #2B968F;
+    color: white;
+    font-family: Roboto;
+    font-size:17px;
+    line-height: 24px;
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 4px;
+    /* margin-top: 5px; Ajustez les marges supérieure et inférieure, ainsi que les marges gauche et droite selon vos préférences */
+  }
+
   /* .seConnecter {
     background-color: #2B968F;
     margin-top: 50px;
@@ -341,4 +353,5 @@ width:100%;
 } */
 .sinup{
   width:300px;
+  margin-top: 5px;
 }

@@ -38,25 +38,67 @@ export class ListOfUsersComponent implements OnInit {
 
   public users: User[] = [];
   public originalTable!: User[];
-
+public conditionn:string='agricole';
   ngOnInit() {
     // this.loadData()
     this.originalTable = [...this.users]; 
    
-    // this.getUsers2();
-    // this.getAllOffers()
+    this.getUsers2();
+    this.getAllOffers();
     this.filterUsers();
     this.filterOffers2('agricole');
-    this.adminService.filterOffers2('agricole').subscribe(
-      response => {
-        this.filteredOffersByActor = response.data;
-        // this.loadUserNames();
+    // this.adminService.filterOffers2('agricole').subscribe(
+    //   response => {
+    //     this.filteredOffersByActor = response.data;
+    //     // this.loadUserNames();
+    //     this.loadUserNamesAndPhoneNumbers();
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
+    if(this.conditionn === 'transformateur'){
+      this.adminService.filterOffers2('transformateur')
+      .subscribe(response => {
+        // Handle the response data here
+        // console.log("les offres de l'agric "+condition);
+        // console.log(response);
+        this.filteredOffersByActor=response.data;
+        console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
-      },
-      error => {
+        return response.data;
+      }, error => {
+        // Handle any errors here
         console.error(error);
-      }
-    );
+      });
+      
+    }
+    
+    if(this.conditionn === 'agricole'){
+      this.adminService.filterOffers2('agricole')
+      .subscribe(response => {
+        this.filteredOffersByActor=response.data;
+        this.loadUserNamesAndPhoneNumbers();
+        return response.data;
+      }, error => {
+        // Handle any errors here
+        console.error(error);
+      });
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.adminService.getAllReclamations().subscribe(
       response => {
         this.reclammmations=response.data;
@@ -845,81 +887,7 @@ usersByType:User[];
    
     
 
-    listeAccords=[
-      {
-        nom: "Youssef",
-        telephone: "253456789",
-        quantite: 8,
-        qualite: "Très bonne",
-        prix: 65,
-      },
-      {
-        nom: "Karim",
-        telephone: "234567890",
-        quantite: 12,
-        qualite: "Élevée",
-        prix: 55,
-      },
-      {
-        nom: "Hassan",
-        telephone: "9945678901",
-        quantite: 6,
-        qualite: "Bonne",
-        prix: 45,
-      },
-      {
-        nom: "Rania",
-        telephone: "556789012",
-        quantite: 10,
-        qualite: "Moyenne",
-        prix: 40,
-      },
-      {
-        nom: "Samira",
-        telephone: "567890123",
-        quantite: 4,
-        qualite: "Très bonne",
-        prix: 70,
-      },
-    ];
 
-AccordsAgriculteurs=[
-  {
-    nom: "Sami",
-    telephone: "123456789",
-    quantite: 15,
-    qualite: "Très bonne",
-    prix: 60,
-  },
-  {
-    nom: "Karima",
-    telephone: "234567890",
-    quantite: 7,
-    qualite: "Élevée",
-    prix: 50,
-  },
-  {
-    nom: "Rachid",
-    telephone: "0345678901",
-    quantite: 9,
-    qualite: "Bonne",
-    prix: 55,
-  },
-  {
-    nom: "Leila",
-    telephone: "956589002",
-    quantite: 13,
-    qualite: "Moyenne",
-    prix: 45,
-  },
-  {
-    nom: "Nadia",
-    telephone: "5678732123",
-    quantite: 5,
-    qualite: "Très bonne",
-    prix: 65,
-  },
-];
 filtredOffersByActor:Offer[];
 filterOffers2(condition:string){
 if(condition === 'transformateur'){

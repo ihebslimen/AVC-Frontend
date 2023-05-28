@@ -603,14 +603,14 @@
           <td>{{farmer._id}}</td>
           <td>{{farmer.localisation}} kg</td>        
         </tr> -->
-        <tr *ngFor="let accord of AccordsAgriculteurs">
+       <!-- 215 <tr *ngFor="let accord of AccordsAgriculteurs">
           <td></td>
           <td>{{accord.nom}}</td>
           <td>{{accord.telephone}} </td>
           <td>{{'dt' + accord.prix.toFixed(2) + '/kg'}}</td>
           <td>{{accord.quantite}}</td>
           <td>{{accord.qualite}}</td>
-        </tr>      
+        </tr>       -->
       </tbody>
       </table>
   </section>
@@ -629,14 +629,14 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of listeAccords">
+     <!-- 484685 <tr *ngFor="let item of listeAccords">
         <td></td>
         <td>{{item.nom}}</td>
         <td>{{item.telephone}} </td>
         <td>{{'dt' + item.prix.toFixed(2) + '/kg'}}</td>
         <td>{{item.quantite}}</td>
         <td>{{item.qualite}}</td>
-      </tr>
+      </tr> -->
     </tbody>
     </table>
 </section>
@@ -801,8 +801,8 @@
           </td>
         </tr> -->
         <tr *ngFor="let offer of filtredOffersByActor" >
-          <td (click)="showModal(offer,'stats')">offer1</td>
-          <td (click)="showModal(offer,'stats')">offer2</td>
+          <td (click)="showModal(offer,'stats')">{{userNames[offer.actorRef]}}</td>
+          <td (click)="showModal(offer,'stats')">{{phoneNumbers[offer.actorRef]}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.quantity}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.quality}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.priceUnit}}</td>
