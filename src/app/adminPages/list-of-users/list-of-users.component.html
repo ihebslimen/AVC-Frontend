@@ -879,14 +879,11 @@
     <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin'  "  >
     <div class="modal-header">
       <h2>User Details</h2>
-      <button id="closeUserDetails" class="close-btn" (click)="hideModal(); closeModal(updateForm)">X</button>
+      <button id="closeUserDetails" class="close-btn btn btn-danger" (click)="hideModal(); closeModal(updateForm)">X</button>
     </div>
     <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm" >
     <table class="user-details-table">
-      <tr>
-        <th>ID:</th>
-        <td><input style="width:300px;" type="text" value="{{selectedUser?._id}}" placeholder="{{selectedUser?._id}}"  readonly></td>
-      </tr>
+   
      
         <tr>
           <th>Name:</th>
@@ -936,7 +933,7 @@
   <div id="moreDetails" *ngIf="operation==='moreDetails'">
     <div class="modal-header">
       <h2>affecter un role pour lui dans la plateforme</h2>
-      <button class="close-btn" (click)="hideModal()">X</button>
+      <button class="close-btn btn btn-danger" (click)="hideModal()">X</button>
     </div>
   
     <table class="user-details-table">
@@ -969,7 +966,7 @@
   <div id="aboutUser" *ngIf="operation==='stats'">
     <div class="modal-header">
       <h2>about user</h2>
-      <button class="close-btn" (click)="hideModal()">X</button>
+      <button class="close-btn btn btn-danger" (click)="hideModal()">X</button>
     </div>
   
     <table class="user-details-table">
