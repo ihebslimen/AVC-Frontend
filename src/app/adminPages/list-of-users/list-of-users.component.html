@@ -157,9 +157,9 @@
     
       <th>CIN</th>
       <th>Name&nbsp;</th>
-      <!-- <th>Username&nbsp;</th> -->
       <th>Email&nbsp;</th>
       <th>phone</th>
+      <th>role</th>
       <th colspan="2">Action</th>
 </tr>
 
@@ -170,8 +170,8 @@
     <td>{{user.cin}}</td>
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
-    <!-- <td>{{user.email}}</td> -->
     <td>{{user.phone}}</td>
+    <td>{{user.type}}</td>
    
 
     <td colspan="2">
@@ -223,16 +223,16 @@
 
   <div class="platform-conditions  ">
     <h3>Conditions de la plateforme</h3>
-    <ul>
+    <ol type="I">
       <li>Tous les utilisateurs doivent accepter nos termes et conditions avant d'utiliser la plateforme.</li>
       <li>Les utilisateurs sont responsables de l'exactitude de leurs données et informations.</li>
       <li>Nous nous réservons le droit de résilier l'accès de tout utilisateur à la plateforme à tout moment.</li>
       <li>Les utilisateurs doivent se conformer à toutes les lois et réglementations applicables.</li>
-    </ul>
+    </ol>
   </div>
 
-  <h2>Reclamation Form</h2>
   <form (submit)="createViolationReclamation($event,message)">
+    <h2>Reclamation Form</h2>
     <label for="message">Message:</label>
     <textarea id="message" name="message" rows="5" [(ngModel)]="message" required></textarea>
     <button type="submit">Submit</button>
@@ -603,7 +603,7 @@
           <td>{{farmer._id}}</td>
           <td>{{farmer.localisation}} kg</td>        
         </tr> -->
-       <!-- 215 <tr *ngFor="let accord of AccordsAgriculteurs">
+        <!-- <tr *ngFor="let accord of AccordsAgriculteurs">
           <td></td>
           <td>{{accord.nom}}</td>
           <td>{{accord.telephone}} </td>
@@ -629,7 +629,7 @@
     </thead>
     <tbody>
     
-     <!-- 484685 <tr *ngFor="let item of listeAccords">
+      <!-- <tr *ngFor="let item of listeAccords">
         <td></td>
         <td>{{item.nom}}</td>
         <td>{{item.telephone}} </td>
@@ -803,6 +803,7 @@
         <tr *ngFor="let offer of filtredOffersByActor" >
           <td (click)="showModal(offer,'stats')">{{userNames[offer.actorRef]}}</td>
           <td (click)="showModal(offer,'stats')">{{phoneNumbers[offer.actorRef]}}</td>
+
           <td (click)="showModal(offer,'stats')">{{offer.quantity}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.quality}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.priceUnit}}</td>
@@ -878,13 +879,13 @@
     <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin'  "  >
     <div class="modal-header">
       <h2>User Details</h2>
-      <button class="close-btn" (click)="hideModal()">X</button>
+      <button id="closeUserDetails" class="close-btn" (click)="hideModal(); closeModal(updateForm)">X</button>
     </div>
     <form (ngSubmit)="updateUser(selectedUser._id)" #updateForm="ngForm" >
     <table class="user-details-table">
       <tr>
         <th>ID:</th>
-        <td>{{selectedUser?.id}}</td>
+        <td><input style="width:300px;" type="text" value="{{selectedUser?._id}}" placeholder="{{selectedUser?._id}}"  readonly></td>
       </tr>
      
         <tr>
@@ -915,14 +916,9 @@
           <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.role}}" placeholder="{{selectedUser?.role}}" [(ngModel)]="updatedRole" name="updatedRoleField"></td>
         </tr>
         <tr>
-          <th>actorInfoJson</th>
-          <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.actorInfoJson}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.actorInfoJson}}"></td>
-        </tr>
-        <tr>
           <th>type:</th>
           <td *ngIf="operation==='delete'" style="width:300px;">{{selectedUser?.type}}</td> 
-          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}" [(ngModel)]="updatedType" name="updatedTypeField"></td>
+          <td *ngIf="operation==='edit'"> <input style="width:300px;"type="text" value="{{selectedUser?.type}}" placeholder="{{selectedUser?.type}}" [(ngModel)]="updatedType" name="updatedTypeField"></td>
         </tr> 
 
     </table>

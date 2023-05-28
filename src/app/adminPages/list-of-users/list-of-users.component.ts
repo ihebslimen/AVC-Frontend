@@ -1012,7 +1012,20 @@ phoneNumbers: { [key: string]: string } = {};
                       }
                     );
                   }      
-                }              
+                }   
+                
+@ViewChild('updateForm', { static: false }) updateForm: NgForm;
+
+                // Other component code
+              
+ closeModal(form: NgForm) {
+  form.resetForm();
+}
+
+
+
+
+
               }             
                 
 
