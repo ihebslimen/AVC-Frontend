@@ -12,7 +12,10 @@ table tr{
     position:absolute; right:50px;
     display: flex; width: 150px;  justify-content: space-between;
 }
-
+.paginator-offreAgricole{
+  position:absolute; right:50px; top: 500px;
+    display: flex; width: 150px;  justify-content: space-between;
+}
 .container{
     margin-top: 0px;
     margin-left: 0px;
@@ -409,10 +412,7 @@ background-color: #7d7f7f;
     margin-bottom: 10px;
   }
   
-  .platform-conditions ol {
- 
-   
-  }
+
   
   .platform-conditions li {
     margin-bottom: 10px;

@@ -275,7 +275,16 @@ console.log(this.offers)
     this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
     // return this.users.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
     return this.approvedUsers.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
-
+  }
+  getPaginatedOffers(){
+    const startIndex = (this.currentPage - 1) * this.selectedLength;
+    this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+    return this.filtredOffersByActor.slice(startIndex, Number(startIndex) + Number(this.selectedLength));    
+  }
+  getPaginatedWaitingUsers(){
+    const startIndex = (this.currentPage - 1) * this.selectedLength;
+    this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+    return this.waitingUsers.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
   }
 
   /** Inscription */
@@ -699,6 +708,7 @@ console.log("id to delete----->"+id);
       (response) => {
         console.log('User deleted successfully');
         this.getUsers2();
+        this.filterUsers();
       },
       (error) => {
         console.error(error);
@@ -741,7 +751,7 @@ console.log("id to delete----->"+id);
           this.showModalFlag=false;
           this.getUsers2();
           this.getPaginatedData();
-          
+          this.filterUsers();
           setTimeout(() => {
             this.validationMessage=false;
           }, 2000);
@@ -765,6 +775,7 @@ console.log("id to delete----->"+id);
     this.adminService.updateUser(userId, updateData).subscribe(
       (response) => {
         console.log('User updated');
+        this.filterUsers();
       },
       (error) => {
         console.error('An error occurred', error);
@@ -912,7 +923,7 @@ if(condition === 'transformateur'){
     // Handle any errors here
     console.error(error);
   });
-  
+
 }
 
 if(condition === 'agricole'){

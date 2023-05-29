@@ -166,7 +166,7 @@
 </thead>
 <tbody class="table-light">
 
-  <tr *ngFor="let user of waitingUsers" >
+  <tr *ngFor="let user of getPaginatedWaitingUsers()" >
     <td>{{user.cin}}</td>
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
@@ -703,7 +703,7 @@
         <td>{{item.quantity}} kg</td>
         <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr> -->
-      <tr *ngFor="let item of filtredOffersByActor">
+      <tr *ngFor="let item of getPaginatedOffers()">
         <td>
           <!-- {{getUsersByRef(item.actorRef).name}} -->
           <!-- {{searchUserById("6464f14ac8fed61664b085e6")}} -->
@@ -719,6 +719,17 @@
       </tr>
     </tbody>
     </table>
+     <div class="paginator-offreAgricole">
+      <select class="form-select" [(ngModel)]="selectedLength">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      </select>
+      <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+      <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+      </div>
+      
 </section>
 
 <!-- <section *ngIf="showListeReclammmations" id="listeReclammmations">
