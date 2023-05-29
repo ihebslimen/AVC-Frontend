@@ -47,6 +47,7 @@ public conditionn:string='agricole';
     this.getAllOffers();
     this.filterUsers();
     this.filterOffers2('agricole');
+    this.consulterHistoriqueUtilisateur();
     // this.adminService.filterOffers2('agricole').subscribe(
     //   response => {
     //     this.filteredOffersByActor = response.data;
@@ -73,7 +74,6 @@ public conditionn:string='agricole';
       });
       
     }
-    
     if(this.conditionn === 'agricole'){
       this.adminService.filterOffers2('agricole')
       .subscribe(response => {
@@ -1042,9 +1042,37 @@ phoneNumbers: { [key: string]: string } = {};
   form.resetForm();
 }
 
+historyId:any; historyQlty:any; historyQty:any;
+consulterHistoriqueUtilisateur(){
+  let pubKey='0x421472051071af95d1425E290D814dFd55d81b14';
+  let history;
+  this.adminService.consulterHistoriqueUtilisateur(pubKey).subscribe(
+    (response)=>{
+console.log(response.data[0].args)
+const history=response.data[0].args;
+this.historyId=response.data[0].args._prod_id;
+this.historyQlty=response.data[0].args._prod_qlt;
+this.historyQty=response.data[0].args._prod_qty;
+console.log("history="+this.historyId)
+    },
+    (error)=>{
+console.log(error)
+    }
+  );
+  // return history;
+}
 
-
-
+acheterOffre(id:any){
+  console.log("offer id is "+id)
+this.adminService.acheterOffre(id).subscribe(
+  (response)=>{
+    console.log("response");
+  },
+  (error)=>{
+    console.log(error);
+  }
+);
+}
 
               }             
                 

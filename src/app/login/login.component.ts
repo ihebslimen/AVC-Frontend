@@ -27,20 +27,17 @@ password:string=''; passwordError=false;
   cin : number; 
   sendMessage(cin:any){
     this.authenticationService.sendMessage(cin).subscribe(
-      (response)=>{
-        console.log(response);
-        // document.cookie = response.cookie;    
-        // document.cookie=response.headers.get('Cookie');
-        // const sessionData = sessionStorage.getItem('phone');
-        console.log("header "+response);
-        if (response.headers && response.headers.get('Set-Cookie')) {
-          const cookie = response.headers.get('Set-Cookie');
-          console.log('Cookie:', cookie);
-          // Rest of your code handling the cookie value
-        } else {
-          console.log('Set-Cookie header not found in the response.');
-        }
-  
+      response=>{
+        console.log("temchi yes");
+        console.log("response.data"+response.data);
+        console.log("response.data._id"+response.data._id)
+        console.log("response[0]"+response[0]);
+        console.log("response[0].data"+response[0].data);
+        console.log("response[0].data[0]"+response[0].data[0]);
+        console.log("response[0].data[0]._id"+response[0].data[0]._id);
+        // console.log("send message response "+response.data[0]);
+        const id = response.data._id;
+      console.log(id); // or do something else with the id
         
       },
       (error)=>{

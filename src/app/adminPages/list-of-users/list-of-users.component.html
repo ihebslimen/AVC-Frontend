@@ -599,6 +599,14 @@
       </tr>
       </thead>
       <tbody>
+        <tr>
+<td>{{historyId}}</td>
+          <td>hcdhd</td>
+<td>hcdhd</td>
+<td>hcdhd</td>
+<td>{{historyQty}}</td>
+<td>{{historyQlty}}</td>
+        </tr>
         <!-- <tr *ngFor="let farmer of agricols">
           <td>{{farmer._id}}</td>
           <td>{{farmer.localisation}} kg</td>        
@@ -714,7 +722,7 @@
         <td>{{item.quantity}} kg</td>
         <td>{{'dt' + item.priceUnit + '/kg'}}</td>
         <td class="actions" colspan="2">
-          <button class="btn btn-success">acheter</button>
+          <button class="btn btn-success" >acheter</button>
          </td>
       </tr>
     </tbody>
@@ -819,7 +827,7 @@
           <td (click)="showModal(offer,'stats')">{{offer.quality}}</td>
           <td (click)="showModal(offer,'stats')">{{offer.priceUnit}}</td>
           <td class="actions" colspan="2">
-           <button class="btn btn-success">acheter</button>
+           <button class="btn btn-success" (click)="acheterOffre(offer._id)">acheter</button>
           </td>
         </tr>
           </tbody>    

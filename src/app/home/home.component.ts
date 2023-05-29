@@ -14,12 +14,14 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent  {
 
-   
+  constructor(private adminService:AmdminServiceService){} 
   
     
     slideIndex = 1;
 
-  
+  ngOnInit(){
+    this.consulterHistoriqueUtilisateur();
+  }
 
      
     
@@ -80,7 +82,17 @@ export class HomeComponent  {
       this.showSectionStarted = true;
     }
 
-
+consulterHistoriqueUtilisateur(){
+  let pubKey='0x421472051071af95d1425E290D814dFd55d81b14';
+  this.adminService.consulterHistoriqueUtilisateur(pubKey).subscribe(
+    (response)=>{
+console.log(response.data[0].args["_prod_id"])
+    },
+    (error)=>{
+console.log(error)
+    }
+  );
+}
 
 
  

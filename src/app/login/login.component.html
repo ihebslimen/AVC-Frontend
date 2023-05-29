@@ -1,7 +1,3 @@
-
-11:40
-Bensouidene
-Bensouidene Med Yassine
 <body> 
   <div class="flou" *ngIf="showerrorMessage || showSuccessMessage"></div>
   <app-header></app-header>
@@ -78,7 +74,7 @@ Bensouidene Med Yassine
 </div>
      <div class="login-form">
       <h1 style="color:rgb(255, 255, 255);">Connexion</h1>
-<form  (ngSubmit)="onSubmitLogin()"    [ngClass]="{'hidden':loginIsValid}"  >
+<form  (ngSubmit)="sendMessage(cin)"    [ngClass]="{'hidden':loginIsValid}"  >
   <br><br>
     
     <!-- <div ngModelGroup="personDetails" #personDetails="ngModelGroup"> -->
