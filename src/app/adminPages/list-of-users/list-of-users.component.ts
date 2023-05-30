@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./list-of-users.component.css']
 })
 export class ListOfUsersComponent implements OnInit {
-  http!: HttpClient; start = 0; selectedLength = 5;
+  http!: HttpClient; start = 0; selectedLength = 5; 
   lengths = [5, 10, 15, 20];
   currentPage: number = 1;
   numberOfPages!: number;
@@ -279,10 +279,10 @@ console.log(this.offers)
       this.currentPage -= 1;
     }
   }
-getPaginatedData2(table:any[]){
-  const startIndex = (this.currentPage - 1) * this.selectedLength;
-  this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
-  return table.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
+getPaginatedData2(table:any[],lengthOfTable:number){
+  const startIndex = (this.currentPage - 1) * lengthOfTable;
+  this.numberOfPages = Math.ceil(this.approvedUsers.length / lengthOfTable);
+  return table.slice(startIndex, Number(startIndex) + Number(lengthOfTable));
 }
   getPaginatedData() {
     const startIndex = (this.currentPage - 1) * this.selectedLength;
@@ -379,18 +379,18 @@ showListeReclammmations:boolean=false;
       this.filtrage=true;
 
     
-      if (this.userRole === 'agriculteur') {
+      if (this.userType2 === 'agriculteur') {
         this.showhistoriqueAgricolteur = true;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
         console.log("filtrage yemchi ?"+this.filtrage)
       }
-      if (this.userRole === 'transformateur') {
+      if (this.userType2 === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = true;
         this.showhistoriqueExportateur = false;
       }
-      if (this.userRole === 'exportateur') {
+      if (this.userType2 === 'exportateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = true;

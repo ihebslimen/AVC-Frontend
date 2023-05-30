@@ -48,18 +48,15 @@ this.idLoggedUser=response.data._id;
       }
       );
   }
-  loggedUserTokenFromVerifyCode:any;
+  loggedUserTokenFromVerifyCode:any; userRole:string | null; userType:string | null;
   verifycode(otp_code:any,idUser:any){
     
     this.authenticationService.verifyCode(otp_code,idUser).subscribe(
       (response)=>{
         console.log(idUser +"id user")
         console.log(response.data);
-// document.cookie== `${this.loggedUserTokenFromVerifyCode}=${response.data}`;  
-this.loggedUserTokenFromVerifyCode = `loggedUser=${response.data}`;
-      document.cookie = this.loggedUserTokenFromVerifyCode;
-        // document.cookie = "identificationtoken"+response.data+"; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";    
-      },
+        this.authenticationService.login2();
+        } ,
       (error)=>{
         console.log(error);
       }
@@ -167,7 +164,8 @@ onSubmitPassword(code:any){
 
 // todo
   // this.authenticationService.login(this.password);
-  this.authenticationService.login2();
+  
+  // this.authenticationService.login2();
 }
 
 

@@ -440,7 +440,7 @@
  
 
   <!--Transformateur-->
-  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole' && userType ==='user'" >
+  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole' && (userRole2==='user' || userType=== 'user') " >
 
     <div class="margett" >
 
@@ -515,7 +515,7 @@
           </tr>
     </thead>
     <tbody class="table-light">
-    <tr *ngFor="let user of usersByType" >
+    <tr *ngFor="let user of getPaginatedData2(usersByType,10)" >
       <td (click)="showModal(user,'stats')">{{user.name}}</td>
       <td (click)="showModal(user,'stats')">{{user.phone}}</td>
         <td (click)="showModal(user,'stats')">{{user.email}}</td>
@@ -710,7 +710,7 @@
         <td>{{item.quantity}} kg</td>
         <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
       </tr> -->
-      <tr *ngFor="let item of getPaginatedOffers()">
+      <tr *ngFor="let item of getPaginatedData2(filtredOffersByActor,10)">
         <td>
           <!-- {{getUsersByRef(item.actorRef).name}} -->
           <!-- {{searchUserById("6464f14ac8fed61664b085e6")}} -->

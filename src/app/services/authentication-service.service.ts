@@ -51,6 +51,7 @@ export class AuthenticationServiceService {
   setUserType(type: string) {
     this.userTypeSubject.next(type);
   }
+  
   login2(){
     const token = this.getCookieValue('loggedUser'); // Get the token from the cookie
 
