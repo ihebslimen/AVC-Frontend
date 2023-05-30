@@ -496,17 +496,17 @@ showListeReclammmations:boolean=false;
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = true;
       this.filtrage=false;
-      if (this.userRole === 'agriculteur') {
+      if (this.userType2 === 'agricole') {
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = false;
       }
-      if (this.userRole === 'transformateur') {
+      if (this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;
         this.showSectionTransformateurStock = true;
         this.showSectionExportateurStock = false;
       }
-      if (this.userRole === 'exportateur') {
+      if (this.userType2 === 'exportateur') {
         this.showSectionFarmerStock = false;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = true;
