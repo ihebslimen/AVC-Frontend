@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, of } from 'rxjs';
 import { combineLatest } from 'rxjs';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-list-of-users',
   templateUrl: './list-of-users.component.html',
@@ -22,18 +22,28 @@ export class ListOfUsersComponent implements OnInit {
   public section: string = '';
 
   filtrage:boolean;
-
-
-
   validationMessage:boolean=false;   showUpdateUserForm:boolean=true;
 
   userType: string | null;
   userRole: string | null;
 
+  userType2: string | null;
+  userRole2: string | null; private subscription: Subscription;
   constructor(private adminService: AmdminServiceService, private route: ActivatedRoute, private authenticationService: AuthenticationServiceService) {
     //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
     this.userType = this.route.snapshot.queryParamMap.get('userType');
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
+
+    this.subscription = this.authenticationService.userRole$.subscribe(role => {
+      this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
+      // Perform any necessary logic based on the user role
+    });
+  
+    this.subscription = this.authenticationService.userType$.subscribe(type => {
+      this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
+      // Perform any necessary logic based on the user type
+    });
+
   }
 
   public users: User[] = [];

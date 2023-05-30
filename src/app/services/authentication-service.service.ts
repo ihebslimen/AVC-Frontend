@@ -27,25 +27,10 @@ export class AuthenticationServiceService {
       this.loggedIn.next(true);
       this.connected=true; 
       this.role='admin';
-
-      const token = this.getCookieValue('loggedUser'); // Get the token from the cookie
-
-if (token) {
-  const decodedToken: any = jwt_decode(token);
-  const userRole = decodedToken.role; // Extract the user role from the decoded token
-  const userType = decodedToken.type; // Extract the user type from the decoded token
-
-  console.log('User Role:', userRole);
-  console.log('User Type:', userType);
-} else {
-  console.log('Token not found');
-}
-
-
     }
     if(password==="userPass"){
       // this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'agriculteur' } });
-      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'exportateur' } });
+      this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'transformateur' } });
 
       this.loggedIn.next(true);
       this.connected=true; 
@@ -53,12 +38,43 @@ if (token) {
     }
     
   }
+  private userRoleSubject = new BehaviorSubject<string | null>(null);
+  private userTypeSubject = new BehaviorSubject<string | null>(null);
+
+  userRole$ = this.userRoleSubject.asObservable();
+  userType$ = this.userTypeSubject.asObservable();
+
+  setUserRole(role: string) {
+    this.userRoleSubject.next(role);
+  }
+
+  setUserType(type: string) {
+    this.userTypeSubject.next(type);
+  }
+  login2(){
+    const token = this.getCookieValue('loggedUser'); // Get the token from the cookie
+
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      const userRole = decodedToken.role; // Extract the user role from the decoded token
+      const userType = decodedToken.type; // Extract the user type from the decoded token
+    
+      console.log('User Role:', userRole);
+      console.log('User Type:', userType);
+      this.setUserRole(userRole);
+      this.setUserType(userType);
+      this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
+    } else {
+      console.log('Token not found');
+    } 
+  }
 
 
   logout(): void {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
     this.connected=false;
+    document.cookie = 'loggedUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   isLoggedIn(): BehaviorSubject<boolean> {

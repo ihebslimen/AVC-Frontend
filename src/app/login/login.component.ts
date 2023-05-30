@@ -163,9 +163,11 @@ this.showerrorMessage=true;
 onSubmitPassword(code:any){
   console.log(this.password);
   this.verifycode(code,this.idLoggedUser);
+  
 
 // todo
   // this.authenticationService.login(this.password);
+  this.authenticationService.login2();
 }
 
 
@@ -292,7 +294,16 @@ setTimeout(()=>{
   }
   
   
-
+  getCookieValue(name: string): string | null {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
     
        
      

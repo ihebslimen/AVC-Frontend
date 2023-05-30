@@ -16,11 +16,11 @@
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('historique',$event)" ><h6>&nbsp;Consulter l'historique des accords</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userRole==='agriculteur'" ><h6>&nbsp;Consulter les transformateurs</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole'" ><h6>&nbsp;Consulter les transformateurs</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf=" userRole==='agriculteur'|| userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf="userType2==='agricole' || userRole2==='agricole'|| userRole2==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
 
              <!-- <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offre',$event)" *ngIf="userRole==='transformateur' || userRole==='exportateur'"><h6>&nbsp;Lancer un appelle d'offre </h6></a> -->
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
@@ -245,7 +245,7 @@
 
   <!--Agriculteur-->
  
-  <section class="agriculture" *ngIf="userRole ==='agriculteur'&& showSectionFarmerStock">
+  <section class="agriculture" *ngIf="userType2 ==='agricole'|| userRole2==='agricole' && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
      
@@ -441,7 +441,7 @@
  
 
   <!--Transformateur-->
-  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userRole==='agriculteur' && userType ==='user'" >
+  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole' && userType ==='user'" >
 
     <div class="margett" >
 
@@ -586,7 +586,7 @@
 <!-- Historique -->
 <section class="historique" id="historique" *ngIf="userType ==='user'">
  <!-- Historique Agriculteur -->
-  <section *ngIf="showhistoriqueAgricolteur && userRole==='agriculteur'" >
+  <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole'" >
     <table id="historique">
       <thead>
       <tr>
