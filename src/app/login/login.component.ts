@@ -24,33 +24,40 @@ goToSubscribe(): void {
 password:string=''; passwordError=false;
   loginIsValid !: boolean; loginIsSubmitted:boolean=false;
   errorMessage !:string; 
-  cin : number; 
+  cin : number; idLoggedUser:any;
   sendMessage(cin:any){
     this.authenticationService.sendMessage(cin).subscribe(
       response=>{
-        console.log("temchi yes");
-        console.log("response.data"+response.data);
+        console.log(response);
+        // console.log("temchi yes");
+        // console.log("response.data"+response.data);
         console.log("response.data._id"+response.data._id)
-        console.log("response[0]"+response[0]);
-        console.log("response[0].data"+response[0].data);
-        console.log("response[0].data[0]"+response[0].data[0]);
-        console.log("response[0].data[0]._id"+response[0].data[0]._id);
+this.idLoggedUser=response.data._id;
+        // console.log("response[0]"+response[0]);
+        // console.log("response[0].data"+response[0].data);
+        // console.log("response[0].data[0]"+response[0].data[0]);
+        // console.log("response[0].data[0]._id"+response[0].data[0]._id);
         // console.log("send message response "+response.data[0]);
-        const id = response.data._id;
-      console.log(id); // or do something else with the id
+      //   const id = response.data._id;
+      // console.log(id); 
         
       },
       (error)=>{
         console.log(error);
+        console.log("erreur fil login")
       }
       );
   }
-  verifycode(otp_code:any){
+  loggedUserTokenFromVerifyCode:any;
+  verifycode(otp_code:any,idUser:any){
     
-    this.authenticationService.verifyCode(otp_code).subscribe(
+    this.authenticationService.verifyCode(otp_code,idUser).subscribe(
       (response)=>{
-        console.log(response);
-        
+        console.log(idUser +"id user")
+        console.log(response.data);
+// document.cookie== `${this.loggedUserTokenFromVerifyCode}=${response.data}`;  
+this.loggedUserTokenFromVerifyCode = `loggedUser=${response.data}`;
+      document.cookie = this.loggedUserTokenFromVerifyCode;
         // document.cookie = "identificationtoken"+response.data+"; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/";    
       },
       (error)=>{
@@ -64,6 +71,7 @@ onSubmitLogin(){
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
   // this.loginIsValid = this.regex.test(this.cin) ;
+  console.log(this.cin)
   this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
   if(this.loginIsValid){
       const cinToString=this.cin.toString()
@@ -154,7 +162,7 @@ this.showerrorMessage=true;
 
 onSubmitPassword(code:any){
   console.log(this.password);
-  this.verifycode(code);
+  this.verifycode(code,this.idLoggedUser);
 
 // todo
   // this.authenticationService.login(this.password);

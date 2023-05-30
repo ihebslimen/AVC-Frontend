@@ -269,7 +269,11 @@ console.log(this.offers)
       this.currentPage -= 1;
     }
   }
-
+getPaginatedData2(table:any[]){
+  const startIndex = (this.currentPage - 1) * this.selectedLength;
+  this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+  return table.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
+}
   getPaginatedData() {
     const startIndex = (this.currentPage - 1) * this.selectedLength;
     this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);

@@ -3,6 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,21 @@ export class AuthenticationServiceService {
       this.loggedIn.next(true);
       this.connected=true; 
       this.role='admin';
+
+      const token = this.getCookieValue('loggedUser'); // Get the token from the cookie
+
+if (token) {
+  const decodedToken: any = jwt_decode(token);
+  const userRole = decodedToken.role; // Extract the user role from the decoded token
+  const userType = decodedToken.type; // Extract the user type from the decoded token
+
+  console.log('User Role:', userRole);
+  console.log('User Type:', userType);
+} else {
+  console.log('Token not found');
+}
+
+
     }
     if(password==="userPass"){
       // this.router.navigate(['listOfUsers'],{ queryParams: { userType: 'user',userRole:'agriculteur' } });
@@ -158,12 +174,12 @@ getUserById(id:any){
 sendMessage(cin:any):Observable<any>{
   const url='http://localhost:5000/api/shared/login';
   const requestBody = { cin:cin };
-return this.http.post(url,requestBody,{ observe: 'response' });
+return this.http.post(url,requestBody);
 }
 
-verifyCode(otp_code:any):Observable<any>{
+verifyCode(otp_code:any,idUser:any):Observable<any>{
 const url='http://localhost:5000/api/shared/login_verification';
-const requestBody = { otp_code:otp_code };
+const requestBody = { otp_code:otp_code , _id:idUser };
 let cookie = document.cookie
 const headers = new HttpHeaders().set('Cookie', cookie);
 return this.http.post(url,requestBody);
@@ -181,5 +197,15 @@ return this.http.post(url,requestBody);
 //   return this.http.get<any>(this.apiUrl, httpOptions);
  
 // }
+getCookieValue(name: string): string | null {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + '=')) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return null;
+}
 
 }
