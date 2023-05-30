@@ -500,6 +500,9 @@ showListeReclammmations:boolean=false;
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = false;
+        console.log(this.showSectionFarmerStock +" showSectionFarmerStock");
+        console.log(this.showSectionTransformateurStock+" showSectionTransformateurStock" );
+        console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
       }
       if (this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;
@@ -540,6 +543,7 @@ showListeReclammmations:boolean=false;
     if (operation === 'refuser') {
       this.operation = "refuser";
     }
+    console.log("operartion update user "+this.operation);
   }
  
   updateStockMode: boolean = false;
@@ -562,36 +566,6 @@ showListeReclammmations:boolean=false;
    
   }
 
-
-
-  //todo fonctions modifier et supprimer
-
-
-  // public onUpdateUser(user: User,id_user:number): void {
-  //   this.adminService.updateUser(user,id_user).subscribe(
-  //     (response: User) => {
-  //       console.log(response);
-  //       this.getUsers();
-  //     },
-  // (error: HttpErrorResponse) => {
-  //   alert(error.message);
-  // }
-  //   );
-  // }
-
-  // public onDeleteUser(userId: number): void {
-  //   this.adminService.deleteUser(userId).subscribe(
-  //     (response: void) => {
-  //       console.log(response);
-  //       this.getUsers();
-  //     },
-
-  //   );
-  // }
-
-
-
-
   quantity: number; quality: string; price: number;
 
   stock = [
@@ -611,11 +585,6 @@ showListeReclammmations:boolean=false;
     console.log("id to upd"+offerId)
     const formValues = {
       quantity: this.productQuantity,
-      // quality: this.productQuality,
-      // price: this.productPrice,
-      // unit: this.productUnit,
-      // actorType: this.actorType,
-      // state: this.state
     };   console.log("form update offer+"+formValues.quantity);
 
     this.adminService.updateOffer(offerId, formValues)
@@ -742,7 +711,7 @@ console.log("id to delete----->"+id);
     console.log(this.updatedType);
   }
 
-
+  updateUserMode:boolean;
   updateUser(userId: string) {
 
     const payload = {
