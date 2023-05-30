@@ -33,16 +33,17 @@ export class ListOfUsersComponent implements OnInit {
     //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
     this.userType = this.route.snapshot.queryParamMap.get('userType');
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
-
-    this.subscription = this.authenticationService.userRole$.subscribe(role => {
-      this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
-      // Perform any necessary logic based on the user role
-    });
+    this.userType2 = this.route.snapshot.queryParamMap.get('userRole');
+    this.userRole2 = this.route.snapshot.queryParamMap.get('userType');
+    // this.subscription = this.authenticationService.userRole$.subscribe(role => {
+    //   this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
+    //   // Perform any necessary logic based on the user role
+    // });
   
-    this.subscription = this.authenticationService.userType$.subscribe(type => {
-      this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
-      // Perform any necessary logic based on the user type
-    });
+    // this.subscription = this.authenticationService.userType$.subscribe(type => {
+    //   this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
+    //   // Perform any necessary logic based on the user type
+    // });
 
   }
 
@@ -58,6 +59,8 @@ public conditionn:string='agricole';
     this.filterUsers();
     this.filterOffers2('agricole');
     this.consulterHistoriqueUtilisateur();
+    console.log("role---->"+this.userRole2);
+    console.log("type---->"+this.userType2);
     // this.adminService.filterOffers2('agricole').subscribe(
     //   response => {
     //     this.filteredOffersByActor = response.data;
@@ -279,10 +282,11 @@ console.log(this.offers)
       this.currentPage -= 1;
     }
   }
-getPaginatedData2(table:any[],lengthOfTable:number){
-  const startIndex = (this.currentPage - 1) * lengthOfTable;
-  this.numberOfPages = Math.ceil(this.approvedUsers.length / lengthOfTable);
-  return table.slice(startIndex, Number(startIndex) + Number(lengthOfTable));
+getPaginatedData2(table:any[],selectedLength:number){
+  this.selectedLength=selectedLength;
+  const startIndex = (this.currentPage - 1) * this.selectedLength;
+  this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+  return table.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 }
   getPaginatedData() {
     const startIndex = (this.currentPage - 1) * this.selectedLength;
@@ -379,22 +383,24 @@ showListeReclammmations:boolean=false;
       this.filtrage=true;
 
     
-      if (this.userType2 === 'agriculteur') {
+      if (this.userType2 === 'agricole') {
         this.showhistoriqueAgricolteur = true;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
+       
         console.log("filtrage yemchi ?"+this.filtrage)
       }
       if (this.userType2 === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = true;
         this.showhistoriqueExportateur = false;
+    
       }
       if (this.userType2 === 'exportateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = true;
-       
+
 
       }
     }
@@ -503,9 +509,7 @@ showListeReclammmations:boolean=false;
         console.log(this.showSectionFarmerStock +" showSectionFarmerStock");
         console.log(this.showSectionTransformateurStock+" showSectionTransformateurStock" );
         console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
-        console.log(this.showSectionFarmerStock, 'showSectionFarmerStock');
-        console.log(this.showSectionTransformateurStock, 'showSectionTransformateurStock');
-        console.log(this.showSectionExportateurStock, 'showSectionExportateurStock');
+        
       }
       if (this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;

@@ -64,7 +64,7 @@ export class AuthenticationServiceService {
       console.log('User Type:', userType);
       this.setUserRole(userRole);
       this.setUserType(userType);
-      this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
+      // this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
     } else {
       console.log('Token not found');
     } 

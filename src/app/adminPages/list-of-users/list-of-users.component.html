@@ -56,7 +56,7 @@
           </tr>
     </thead>
     <tbody class="table-light">
-    <tr *ngFor="let user of getPaginatedData()" >
+    <tr *ngFor="let user of getPaginatedData2(approvedUsers,5)" >
         <td (click)="showModal(user,'stats')">{{user.cin}}</td>
         <!-- <td (click)="showModal(user,'stats')">{{user.cin}}</td> -->
         <td (click)="showModal(user,'stats')">{{user.name}}</td>
@@ -440,7 +440,7 @@
  
 
   <!--Transformateur-->
-  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole' && (userRole2==='user' || userType=== 'user') " >
+  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole'  " >
 
     <div class="margett" >
 
@@ -583,7 +583,7 @@
 </section>
 
 <!-- Historique -->
-<section class="historique" id="historique" *ngIf="userType ==='user'">
+<section class="historique" id="historique" *ngIf="userType ==='user' || userRole2 ==='user' ">
  <!-- Historique Agriculteur -->
   <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole'" >
     <table id="historique">
@@ -606,18 +606,6 @@
 <td>{{historyQty}}</td>
 <td>{{historyQlty}}</td>
         </tr>
-        <!-- <tr *ngFor="let farmer of agricols">
-          <td>{{farmer._id}}</td>
-          <td>{{farmer.localisation}} kg</td>        
-        </tr> -->
-        <!-- <tr *ngFor="let accord of AccordsAgriculteurs">
-          <td></td>
-          <td>{{accord.nom}}</td>
-          <td>{{accord.telephone}} </td>
-          <td>{{'dt' + accord.prix.toFixed(2) + '/kg'}}</td>
-          <td>{{accord.quantite}}</td>
-          <td>{{accord.qualite}}</td>
-        </tr>       -->
       </tbody>
       </table>
   </section>
