@@ -503,6 +503,9 @@ showListeReclammmations:boolean=false;
         console.log(this.showSectionFarmerStock +" showSectionFarmerStock");
         console.log(this.showSectionTransformateurStock+" showSectionTransformateurStock" );
         console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
+        console.log(this.showSectionFarmerStock, 'showSectionFarmerStock');
+        console.log(this.showSectionTransformateurStock, 'showSectionTransformateurStock');
+        console.log(this.showSectionExportateurStock, 'showSectionExportateurStock');
       }
       if (this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;

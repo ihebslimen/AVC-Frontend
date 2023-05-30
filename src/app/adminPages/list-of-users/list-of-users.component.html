@@ -244,7 +244,7 @@
 
   <!--Agriculteur-->
  
-  <section class="agriculture" *ngIf="userType2 ==='agricole'|| userRole2==='agricole' && showSectionFarmerStock">
+  <section class="agriculture" *ngIf="userType2 ==='agricole' && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
      
@@ -738,30 +738,6 @@
       </div>
       
 </section>
-
-<!-- <section *ngIf="showListeReclammmations" id="listeReclammmations">
- <div class="reclamationsContainer" *ngFor="let reclammation of reclammmations">
-    <div class="reclamation" >
-      <h1 class="actor">
-   <h2>Acteur:{{ userNamesWithReclammation[reclammation.userRef] }}</h2>
-   <h2 >Phone:{{phoneNumbersWithReclamation[reclammation.userRef]}}</h2>
-  </h1>
-      <p class="content">contentu: {{reclammation.msg}}</p>
-    </div>	        
-  </div>      
-
-</section> -->
-<!-- 2<section *ngIf="showListeReclammmations" id="listeReclammmations">
-  <div class="reclamationsContainer">
-    <div class="reclamation" *ngFor="let reclammation of reclammmations">
-      <div class="actor">
-        <h2>Acteur: {{ userNamesWithReclammation[reclammation.userRef] }}</h2>
-        <h2>Phone: {{ phoneNumbersWithReclamation[reclammation.userRef] }}</h2>
-      </div>
-      <p class="content">Contenu: {{ reclammation.msg }}</p>
-    </div>
-  </div>
-</section> -->
 <div class="Recla margette" id="main-container" *ngIf="showListeReclammmations">
   <div class="row">
     <div *ngFor="let reclammation of reclammmations" class="col-md-4 col-xl-3.5">
