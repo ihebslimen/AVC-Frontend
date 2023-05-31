@@ -20,7 +20,7 @@ export class ListOfUsersComponent implements OnInit {
   currentPage: number = 1;
   numberOfPages!: number;
   public section: string = '';
-
+connectedUserToken:any;
   filtrage:boolean;
   validationMessage:boolean=false;   showUpdateUserForm:boolean=true;
 
@@ -29,21 +29,31 @@ export class ListOfUsersComponent implements OnInit {
 
   userType2: string | null;
   userRole2: string | null; private subscription: Subscription;
+  userId: string | null;
+  userPublicKey: string | null;
   constructor(private adminService: AmdminServiceService, private route: ActivatedRoute, private authenticationService: AuthenticationServiceService) {
     //diviser slide of functionalities entre les taches de l'administrateur et les fonctionnalités possible pour un utilisateur
     this.userType = this.route.snapshot.queryParamMap.get('userType');
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
-    this.userType2 = this.route.snapshot.queryParamMap.get('userRole');
-    this.userRole2 = this.route.snapshot.queryParamMap.get('userType');
-    // this.subscription = this.authenticationService.userRole$.subscribe(role => {
-    //   this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
-    //   // Perform any necessary logic based on the user role
-    // });
+ 
+    this.subscription = this.authenticationService.userRole$.subscribe(role => {
+      this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
+      // Perform any necessary logic based on the user role
+    });
   
-    // this.subscription = this.authenticationService.userType$.subscribe(type => {
-    //   this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
-    //   // Perform any necessary logic based on the user type
-    // });
+    this.subscription = this.authenticationService.userType$.subscribe(type => {
+      this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
+      // Perform any necessary logic based on the user type
+    });
+    this.subscription = this.authenticationService.userId$.subscribe(role => {
+      this.userId = role; console.log("mil 22222 id==="+this.userId)
+      // Perform any necessary logic based on the user role
+    });
+  
+    this.subscription = this.authenticationService.userType$.subscribe(type => {
+      this.userPublicKey = type; console.log("mil 22222 PUBLIC_KEY==="+this.userPublicKey)
+      // Perform any necessary logic based on the user type
+    });
 
   }
 
@@ -53,7 +63,8 @@ public conditionn:string='agricole';
   ngOnInit() {
     // this.loadData()
     this.originalTable = [...this.users]; 
-   
+    this.connectedUserToken=this.getCookieValue('loggedUser'); 
+    console.log("connected user Token ===="+this.connectedUserToken)
     this.getUsers2();
     this.getAllOffers();
     this.filterUsers();
@@ -814,7 +825,7 @@ console.log("id to delete----->"+id);
   }
 
   ajouterOffreAgriculteur(){
-    this.adminService.ajouterOffreAgriculteur(this.stockForm).subscribe(
+    this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
           this.getAllOffers();
@@ -1063,6 +1074,18 @@ this.adminService.acheterOffre(id).subscribe(
   }
 );
 }
+
+getCookieValue(name: string): string | null {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + '=')) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return null;
+}
+
 
               }             
                 

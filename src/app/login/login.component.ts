@@ -31,7 +31,8 @@ password:string=''; passwordError=false;
         console.log(response);
         // console.log("temchi yes");
         // console.log("response.data"+response.data);
-        console.log("response.data._id"+response.data._id)
+        console.log("response.data._id"+response.data._id);
+        // document.cookie = `loggedUserId=${response.data._id}`;
 this.idLoggedUser=response.data._id;
         // console.log("response[0]"+response[0]);
         // console.log("response[0].data"+response[0].data);
@@ -49,12 +50,14 @@ this.idLoggedUser=response.data._id;
       );
   }
   loggedUserTokenFromVerifyCode:any; userRole:string | null; userType:string | null;
-  verifycode(otp_code:any,idUser:any){
+  userId:string | null;
+  verifycode(otp_code:any){
     
-    this.authenticationService.verifyCode(otp_code,idUser).subscribe(
+    this.authenticationService.verifyCode(otp_code,this.idLoggedUser).subscribe(
       (response)=>{
-        console.log(idUser +"id user")
+        console.log(this.idLoggedUser +"id user")
         console.log(response.data);
+        document.cookie = `loggedUser=${response.data}`;
         this.authenticationService.login2();
         } ,
       (error)=>{
@@ -159,7 +162,7 @@ this.showerrorMessage=true;
 
 onSubmitPassword(code:any){
   console.log(this.password);
-  this.verifycode(code,this.idLoggedUser);
+  this.verifycode(code);
   this.router.navigate(['listOfUsers'],{ queryParams: { userType: "user",userRole:"agricole" } });
 
 // todo

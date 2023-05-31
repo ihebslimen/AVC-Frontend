@@ -40,9 +40,12 @@ export class AuthenticationServiceService {
   }
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userTypeSubject = new BehaviorSubject<string | null>(null);
-
+  private userIdSubject = new BehaviorSubject<string | null>(null);
+  private userPublicKeySubject = new BehaviorSubject<string | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
   userType$ = this.userTypeSubject.asObservable();
+  userId$ = this.userIdSubject.asObservable();
+  userPublicKeySubject$ = this.userTypeSubject.asObservable();
 
   setUserRole(role: string) {
     this.userRoleSubject.next(role);
@@ -52,6 +55,14 @@ export class AuthenticationServiceService {
     this.userTypeSubject.next(type);
   }
   
+  setUserId(id: string) {
+    this.userIdSubject.next(id);
+  }
+
+  setUserPublicKey(publicKey: string) {
+    this.userPublicKeySubject.next(publicKey);
+  }
+
   login2(){
     const token = this.getCookieValue('loggedUser'); // Get the token from the cookie
 
@@ -59,12 +70,20 @@ export class AuthenticationServiceService {
       const decodedToken: any = jwt_decode(token);
       const userRole = decodedToken.role; // Extract the user role from the decoded token
       const userType = decodedToken.type; // Extract the user type from the decoded token
-    
+    const id=decodedToken.user_id;
+    const public_key=decodedToken.public_key;
       console.log('User Role:', userRole);
       console.log('User Type:', userType);
-      this.setUserRole(userRole);
-      this.setUserType(userType);
-      // this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
+      console.log('_id:', id);
+      console.log('public_key:', public_key);
+      this.setUserRole(userRole);          this.setUserId(id);
+      this.setUserType(userType);          this.setUserPublicKey(public_key);  
+      if(userRole === 'admin'){
+        this.router.navigate(['listOfUsers'],{ queryParams: {userType: userRole }});
+      }
+      else{
+        this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
+      }
     } else {
       console.log('Token not found');
     } 

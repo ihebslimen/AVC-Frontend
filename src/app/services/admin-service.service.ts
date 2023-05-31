@@ -109,7 +109,7 @@ userTokenPostman='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5Z
   //   return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
   // }
 
-ajouterOffreAgriculteur(stockForm: any): Observable<any> {
+ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
     const payload = {
       quantity: stockForm.value['product-quantity'],
       quality: stockForm.value['product-quality'],
@@ -124,7 +124,7 @@ ajouterOffreAgriculteur(stockForm: any): Observable<any> {
     // Set the headers with authorization token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        this.userToken
+        token
       }`
     });
     return this.http.post('http://localhost:5000/api/user/offers', payload, { headers }); 
