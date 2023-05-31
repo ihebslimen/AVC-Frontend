@@ -14,7 +14,7 @@ export class AmdminServiceService {
   private apiServerUrl = environment.apiServerUrl;
   constructor(private http:HttpClient) { }
   adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
-  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2NGYwOWNjOGZlZDYxNjY0YjA4NWUyIiwicm9sZSI6InVzZXIiLCJwdWJsaWNfa2V5IjoiMHhiMzkzNDIyZjY0NWQxMTE5OWU1ZWM1YzRjZTk2YWIzYjA5NDhmMGQzMDM4NDJjMDU0YTUwZTEyYmU2ZjM0NWQwODdhNmZjMzY1Y2YyZmM4NDNhYWUyMmNiZjA4Njc4MzY1MjM5OTk5MmQ4ZTgxNDAxOTlkNWM3YjM5NzE5ZTE0OSIsInByaXZhdGVfa2V5IjoiMHgxZDI4MTBmYzliM2E2OTIwYjhkMjM5YjE2YzllZDk0ODQ4NzE1MjY3ODIwZjA5N2VkZWU4NWE3NTJlZjNkMzJiIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.1a1Zh3Sytae2rvaFeXQkJ6eCe6XyETLZAS-2mwfQM58';
+  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5ZGMxZDIwNDI3YzhjYWU5Y2ExIiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg2YTJiY2MzN2VhZjE4OWVkNWQ0ZDIzY2QwOWFkZjg3OTIwMDY2MGIzYWM4M2RkYTQ1YWExOGUyNmQ5MTc0OTk5Njg4MTIxZmI1NDY0NGNmZjczMWZmNDEwMjBhNzVjOTUzMmI5MWM5NTJhYzBlYzc5MmEzMzZhYzQwYjAxMDEyZSIsImV4cCI6MjUzNDAyMjE0NDAwfQ.Jb_-njSwQ_Ey4sCgf-z31M8Cw2426bmAPD591X2O9K0';
 userTokenPostman='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5ZGMxZDIwNDI3YzhjYWU5Y2ExIiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg2YTJiY2MzN2VhZjE4OWVkNWQ0ZDIzY2QwOWFkZjg3OTIwMDY2MGIzYWM4M2RkYTQ1YWExOGUyNmQ5MTc0OTk5Njg4MTIxZmI1NDY0NGNmZjczMWZmNDEwMjBhNzVjOTUzMmI5MWM5NTJhYzBlYzc5MmEzMzZhYzQwYjAxMDEyZSIsImV4cCI6MjUzNDAyMjE0NDAwfQ.Jb_-njSwQ_Ey4sCgf-z31M8Cw2426bmAPD591X2O9K0'
 
 
@@ -285,7 +285,18 @@ console.log("filtred offers from service");
 
     return this.http.post(url, body,{headers});
   }
+  filterOffersById(actorId: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${
+        this.userToken
+      }`
+    });
 
+    const url = 'http://localhost:5000/api/user/offers/filter_offers';
+    const body = { actorRef : actorId };
+
+    return this.http.post(url, body,{headers});
+  }
  
   
   getUserByType(type: string): Observable<any> {

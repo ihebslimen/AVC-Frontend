@@ -62,6 +62,8 @@ connectedUserToken:any;
 public conditionn:string='agricole';
   ngOnInit() {
     // this.loadData()
+    
+    this.filterOffersById(this.userId);
     this.originalTable = [...this.users]; 
     this.connectedUserToken=this.getCookieValue('loggedUser'); 
     console.log("connected user Token ===="+this.connectedUserToken)
@@ -522,7 +524,7 @@ showListeReclammmations:boolean=false;
         console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
         
       }
-      if (this.userType2 === 'transformateur') {
+      if (this.userRole === 'transformateur') {
         this.showSectionFarmerStock = false;
         this.showSectionTransformateurStock = true;
         this.showSectionExportateurStock = false;
@@ -936,8 +938,20 @@ if(condition === 'agricole'){
     // Handle any errors here
     console.error(error);
   });
-  
 }
+}
+MyOffers:Offer[];
+filterOffersById(id:any){
+  this.adminService.filterOffersById(id)
+  .subscribe(response => {
+    console.log(response.data);
+    this.MyOffers=response.data;
+    return response.data;
+  }, error => {
+    // Handle any errors here
+    console.log("filtrage mta3 l'offre bil id memchech")
+    console.error(error);
+  });
 }
 
 
@@ -1067,9 +1081,11 @@ acheterOffre(id:any){
   console.log("offer id is "+id)
 this.adminService.acheterOffre(id).subscribe(
   (response)=>{
-    console.log("response");
+   
+    console.log(response);
   },
   (error)=>{
+    console.log("theb techri l'offre "+id)
     console.log(error);
   }
 );

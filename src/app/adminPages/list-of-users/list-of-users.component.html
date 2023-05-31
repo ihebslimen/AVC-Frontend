@@ -20,7 +20,7 @@
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf="userType2==='agricole' || userType2==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf="userType2==='agricole' || userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -304,7 +304,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of filtredOffersByActor" >
+        <tr *ngFor="let item of MyOffers" >
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'$' + item.priceUnit + '/kg'}}</td>
@@ -709,7 +709,7 @@
         <td>{{item.quantity}} kg</td>
         <td>{{'dt' + item.priceUnit + '/kg'}}</td>
         <td class="actions" colspan="2">
-          <button class="btn btn-success" >acheter</button>
+          <button class="btn btn-success" (click)="acheterOffre(item._id)">acheter</button>
          </td>
       </tr>
     </tbody>
