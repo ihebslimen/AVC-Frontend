@@ -59,7 +59,7 @@ connectedUserToken:any;
 
   public users: User[] = [];
   public originalTable!: User[];
-public conditionn:string='agricole';
+public conditionn:string='transformateur';
   ngOnInit() {
     // this.loadData()
     
@@ -74,44 +74,44 @@ public conditionn:string='agricole';
     this.consulterHistoriqueUtilisateur();
     console.log("role---->"+this.userRole2);
     console.log("type---->"+this.userType2);
-    // this.adminService.filterOffers2('agricole').subscribe(
-    //   response => {
-    //     this.filteredOffersByActor = response.data;
-    //     // this.loadUserNames();
+    this.adminService.filterOffers2('agricole').subscribe(
+      response => {
+        this.filteredOffersByActor = response.data;
+        // this.loadUserNames();
+        this.loadUserNamesAndPhoneNumbers();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    // if(this.conditionn === 'transformateur'){
+    //   this.adminService.filterOffers2('agricole')
+    //   .subscribe(response => {
+    //     // Handle the response data here
+    //     // console.log("les offres de l'agric "+condition);
+    //     // console.log(response);
+    //     this.filteredOffersByActor=response.data;
+    //     console.log("filtred offers by actor   "+this.filteredOffersByActor)
     //     this.loadUserNamesAndPhoneNumbers();
-    //   },
-    //   error => {
+    //     return response.data;
+    //   }, error => {
+    //     // Handle any errors here
     //     console.error(error);
-    //   }
-    // );
-    if(this.conditionn === 'transformateur'){
-      this.adminService.filterOffers2('transformateur')
-      .subscribe(response => {
-        // Handle the response data here
-        // console.log("les offres de l'agric "+condition);
-        // console.log(response);
-        this.filteredOffersByActor=response.data;
-        console.log("filtred offers by actor   "+this.filteredOffersByActor)
-        this.loadUserNamesAndPhoneNumbers();
-        return response.data;
-      }, error => {
-        // Handle any errors here
-        console.error(error);
-      });
+    //   });
       
-    }
-    if(this.conditionn === 'agricole'){
-      this.adminService.filterOffers2('agricole')
-      .subscribe(response => {
-        this.filteredOffersByActor=response.data;
-        this.loadUserNamesAndPhoneNumbers();
-        return response.data;
-      }, error => {
-        // Handle any errors here
-        console.error(error);
-      });
+    // }
+    // if(this.conditionn === 'agricole'){
+    //   this.adminService.filterOffers2('agricole')
+    //   .subscribe(response => {
+    //     this.filteredOffersByActor=response.data;
+    //     this.loadUserNamesAndPhoneNumbers();
+    //     return response.data;
+    //   }, error => {
+    //     // Handle any errors here
+    //     console.error(error);
+    //   });
       
-    }
+    // }
 
 
 

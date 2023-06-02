@@ -13,8 +13,10 @@ export class AmdminServiceService {
  
   private apiServerUrl = environment.apiServerUrl;
   constructor(private http:HttpClient) { }
-  adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.baubGRFe5w8ukFMOnfNy2Tzfn7A6Xecf3VL5DVYxvmA'
-  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5ZGMxZDIwNDI3YzhjYWU5Y2ExIiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg2YTJiY2MzN2VhZjE4OWVkNWQ0ZDIzY2QwOWFkZjg3OTIwMDY2MGIzYWM4M2RkYTQ1YWExOGUyNmQ5MTc0OTk5Njg4MTIxZmI1NDY0NGNmZjczMWZmNDEwMjBhNzVjOTUzMmI5MWM5NTJhYzBlYzc5MmEzMzZhYzQwYjAxMDEyZSIsImV4cCI6MjUzNDAyMjE0NDAwfQ.Jb_-njSwQ_Ey4sCgf-z31M8Cw2426bmAPD591X2O9K0';
+  adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhjNGE4ZGJkOTNkYmY4NzkwMDE1Iiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4NUIyQzBGQTI1QTc3QzdCZjJEN2NiNzRCY2I3N2ExQ0RGNGE3MDkxQiIsInByaXZhdGVfa2V5IjoiMHgzYTc0OGVjNGZlMDgwZDc5OWI3YTA2ZTgwNTJhMTZkZGE1YTQxMDM2ZmRhNDYzYjExYWYwZjQyODBkN2ZmYjgwIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.IBQQlI-NbS6v5qqgFUz0mU3cTuoA0Emei_Hro91mFOU'
+
+
+  userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM';
 userTokenPostman='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5ZGMxZDIwNDI3YzhjYWU5Y2ExIiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg2YTJiY2MzN2VhZjE4OWVkNWQ0ZDIzY2QwOWFkZjg3OTIwMDY2MGIzYWM4M2RkYTQ1YWExOGUyNmQ5MTc0OTk5Njg4MTIxZmI1NDY0NGNmZjczMWZmNDEwMjBhNzVjOTUzMmI5MWM5NTJhYzBlYzc5MmEzMzZhYzQwYjAxMDEyZSIsImV4cCI6MjUzNDAyMjE0NDAwfQ.Jb_-njSwQ_Ey4sCgf-z31M8Cw2426bmAPD591X2O9K0'
 
 
@@ -49,50 +51,6 @@ userTokenPostman='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5Z
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // getUsersTemchi(): Observable<User[]> {
-  //   const userArray: User[] = [];
-  //   return this.http.get('http://localhost:5000/api/admin/users', { responseType: 'text' })
-  //     .pipe(
-  //       map((response: string) => {
-  //         const jsonArray = JSON.parse(response);
-  //         for (let i = 0; i < jsonArray.length; i++) {
-  //           const user: User = {
-  //             _id: jsonArray[i]._id,
-  //             cin: jsonArray[i].cin,
-  //             email: jsonArray[i].email,
-  //             name: jsonArray[i].name,
-  //             phone: jsonArray[i].phone,
-  //             role: jsonArray[i].role
-  //           };
-  //           userArray.push(user);
-  //         }
-  //         return userArray;
-  //       })
-  //     );
-  // }
-
-
   public getUserid(id_user:number):Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/api/users/${id_user}`);
     } 
@@ -100,14 +58,6 @@ userTokenPostman='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2ZGU5Z
   public addUsers(user:User):Observable<User>{
   return this.http.post<User>(`${this.apiServerUrl}/api/users`,user);
   }
-  // public deleteUser(userId: number): Observable<void> {
-  //   console.log("user with the id "+userId+" has been removed" );
-  //   return this.http.delete<void>(`${this.apiServerUrl}/api/users/${userId}`);
-  // }
-  // public updateUser(user: User,userId: number): Observable<User> {
-  //   console.log("user with id "+user._id+" has been updated");
-  //   return this.http.put<User>(`${this.apiServerUrl}/api/users/${userId}`,user);
-  // }
 
 ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
     const payload = {
@@ -119,9 +69,7 @@ ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
       actorType: stockForm.value['actor-type'],
       actorRef:"64662677013ecbe516a36fec"
     };
-    // const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
-
-    // Set the headers with authorization token
+   
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${
         token
@@ -204,14 +152,7 @@ farmers:any=[];
     return this.http.delete(url,this.httpOptions);
   }
 
-  // updateUser(userId: string, payload: any) {
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${this.adminToken}`
-  //   });
-  //   const url = `http://localhost:5000/api/admin/users/${userId}`;
-  //   console.log("update user executed")
-  //   return this.http.put(url, payload,{headers});
-  // }
+
   updateUser(userId: string, updateData: any) {
   const url = `http://localhost:5000/api/admin/users/${userId}`;
   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
@@ -321,6 +262,7 @@ getUserByReference(ref:string): Observable<any> {
 searchUserById(userId: string): Observable<any> {
   const apiUrl = 'http://localhost:5000/api/admin/filter_users';
   const requestBody = { _id: userId };
+  
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
  return this.http.post(apiUrl, requestBody,this.httpOptions);
