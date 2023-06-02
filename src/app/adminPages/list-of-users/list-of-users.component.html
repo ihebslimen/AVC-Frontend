@@ -6,7 +6,7 @@
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
-              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)" ><h6>&nbsp;Inscription</h6></a><br>
+              <a  style="color: white;" class="dropdown-item" (click)="toggleSection('Inscription',$event)"(click)="filterUsers()"><h6>&nbsp;Inscription</h6></a><br>
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('listeReclammmations',$event); getAllReclamations()" ><h6>&nbsp;consulter la liste des reclammations</h6></a>
             </div>
           </div> 
@@ -149,7 +149,7 @@
 
 
 <div class="margett" >
-
+  <div *ngIf="hasWaitingUsers; else noWaitingUsersAlert">
 <table class="table" >
 <thead>
 <tr>
@@ -165,7 +165,7 @@
 </thead>
 <tbody class="table-light">
 
-  <tr *ngFor="let user of getPaginatedWaitingUsers()" >
+  <tr *ngFor="let user of getPaginatedWaitingUsers()">
     <td>{{user.cin}}</td>
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
@@ -210,6 +210,14 @@
 <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
 <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
 </div>
+</div>
+
+<ng-template #noWaitingUsersAlert>
+  <div class="alert alert-warning">
+    No waiting users found.
+  </div>
+</ng-template>
+
 </div>
 
 
@@ -623,15 +631,12 @@
     </tr>
     </thead>
     <tbody>
-    
-      <!-- <tr *ngFor="let item of listeAccords">
-        <td></td>
-        <td>{{item.nom}}</td>
-        <td>{{item.telephone}} </td>
-        <td>{{'dt' + item.prix.toFixed(2) + '/kg'}}</td>
-        <td>{{item.quantite}}</td>
-        <td>{{item.qualite}}</td>
-      </tr> -->
+<tr>
+  <td>
+{{transactionHistory}}
+
+  </td>
+</tr>
     </tbody>
     </table>
 </section>

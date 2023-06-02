@@ -59,10 +59,10 @@ connectedUserToken:any;
 
   public users: User[] = [];
   public originalTable!: User[];
-public conditionn:string='transformateur';
+public conditionn:string='agricole';
   ngOnInit() {
     // this.loadData()
-    
+   this.getTransactionAccountHistory(); 
     this.filterOffersById(this.userId);
     this.originalTable = [...this.users]; 
     this.connectedUserToken=this.getCookieValue('loggedUser'); 
@@ -74,44 +74,44 @@ public conditionn:string='transformateur';
     this.consulterHistoriqueUtilisateur();
     console.log("role---->"+this.userRole2);
     console.log("type---->"+this.userType2);
-    this.adminService.filterOffers2('agricole').subscribe(
-      response => {
-        this.filteredOffersByActor = response.data;
-        // this.loadUserNames();
+    // this.adminService.filterOffers2('agricole').subscribe(
+    //   response => {
+    //     this.filteredOffersByActor = response.data;
+    //     // this.loadUserNames();
+    //     this.loadUserNamesAndPhoneNumbers();
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
+    if(this.conditionn === 'transformateur'){
+      this.adminService.filterOffers2('transformateur')
+      .subscribe(response => {
+        // Handle the response data here
+        // console.log("les offres de l'agric "+condition);
+        // console.log(response);
+        this.filteredOffersByActor=response.data;
+        console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
-      },
-      error => {
+        return response.data;
+      }, error => {
+        // Handle any errors here
         console.error(error);
-      }
-    );
-    // if(this.conditionn === 'transformateur'){
-    //   this.adminService.filterOffers2('agricole')
-    //   .subscribe(response => {
-    //     // Handle the response data here
-    //     // console.log("les offres de l'agric "+condition);
-    //     // console.log(response);
-    //     this.filteredOffersByActor=response.data;
-    //     console.log("filtred offers by actor   "+this.filteredOffersByActor)
-    //     this.loadUserNamesAndPhoneNumbers();
-    //     return response.data;
-    //   }, error => {
-    //     // Handle any errors here
-    //     console.error(error);
-    //   });
+      });
       
-    // }
-    // if(this.conditionn === 'agricole'){
-    //   this.adminService.filterOffers2('agricole')
-    //   .subscribe(response => {
-    //     this.filteredOffersByActor=response.data;
-    //     this.loadUserNamesAndPhoneNumbers();
-    //     return response.data;
-    //   }, error => {
-    //     // Handle any errors here
-    //     console.error(error);
-    //   });
+    }
+    if(this.conditionn === 'agricole'){
+      this.adminService.filterOffers2('agricole')
+      .subscribe(response => {
+        this.filteredOffersByActor=response.data;
+        this.loadUserNamesAndPhoneNumbers();
+        return response.data;
+      }, error => {
+        // Handle any errors here
+        console.error(error);
+      });
       
-    // }
+    }
 
 
 
@@ -290,15 +290,19 @@ console.log(this.offers)
   updateCurrentPage(direction: string) {
     if (direction == "next") {
       this.currentPage += 1;
+      console.log("page +1")
     }
     if (direction == "back") {
       this.currentPage -= 1;
+      console.log("page -1")
     }
   }
 getPaginatedData2(table:any[],selectedLength:number){
-  this.selectedLength=selectedLength;
+  
   const startIndex = (this.currentPage - 1) * this.selectedLength;
-  this.numberOfPages = Math.ceil(this.approvedUsers.length / this.selectedLength);
+ 
+  this.numberOfPages = Math.ceil(table.length / this.selectedLength);
+ 
   return table.slice(startIndex, Number(startIndex) + Number(this.selectedLength));
 }
   getPaginatedData() {
@@ -403,13 +407,13 @@ showListeReclammmations:boolean=false;
        
         console.log("filtrage yemchi ?"+this.filtrage)
       }
-      if (this.userType2 === 'transformateur') {
+      if (this.userRole === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = true;
         this.showhistoriqueExportateur = false;
     
       }
-      if (this.userType2 === 'exportateur') {
+      if (this.userRole === 'exportateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = true;
@@ -855,30 +859,34 @@ console.log("id to delete----->"+id);
 
 waitingUsers:User[]; approvedUsers:User[];
 
-  filterUsers() {
-    const state = 'waiting';
-    this.adminService.filterUsers(state).subscribe(
-      (response) => {
-        this.waitingUsers=response.data;
-        // Handle the response data
-      },
-      (error) => {
-        console.error('An error occurred', error);
-        // Handle the error
-      }
-    );
-    
-    this.adminService.filterUsers("approved").subscribe(
-      (response) => {
-        this.approvedUsers=response.data;
-        // Handle the response data
-      },
-      (error) => {
-        console.error('An error occurred', error);
-        // Handle the error
-      }
-    );
-  }
+hasWaitingUsers: boolean = false;
+
+filterUsers() {
+  this.adminService.filterUsers('waiting').subscribe(
+    (response) => {
+      this.waitingUsers = response.data;
+      this.hasWaitingUsers = this.waitingUsers.length > 0;
+      // Handle the response data
+    },
+    (error) => {
+      console.error('An error occurred', error);
+     
+      // Handle the error
+    }
+  );
+
+  this.adminService.filterUsers('approved').subscribe(
+    (response) => {
+      this.approvedUsers = response.data;
+      // Handle the response data
+    },
+    (error) => {
+      console.error('An error occurred', error);
+      // Handle the error
+    }
+  );
+}
+
   
  
 usersByType:User[];
@@ -1089,6 +1097,22 @@ this.adminService.acheterOffre(id).subscribe(
     console.log(error);
   }
 );
+}
+
+transactionHistory:any;
+getTransactionAccountHistory(){
+  this.adminService.getTransactionAccountHistory().subscribe(
+    (Response)=>{
+      console.log('history of account ::::');
+      console.log(Response);
+      this.transactionHistory=Response.Message;
+    
+    },
+    (Error)=>{
+      console.log(Error);     
+    }
+    );
+
 }
 
 getCookieValue(name: string): string | null {

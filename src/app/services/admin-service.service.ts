@@ -315,7 +315,13 @@ acheterOffre(offerId:any){
   return this.http.post(url,requestBody,{headers})
 }
 
-
+getTransactionAccountHistory():Observable<any>{
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${ this.userToken }`
+  });
+  const url='http://localhost:5000/api/user/blockchain/account_transaction_history';
+  return this.http.get(url,{headers});
+}
 
 
 
