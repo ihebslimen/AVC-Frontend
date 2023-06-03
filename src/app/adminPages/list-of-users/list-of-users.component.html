@@ -939,7 +939,7 @@
           <a href="#">Option 3</a>
         </div> -->
         <select class="form-select" [(ngModel)]="role" (ngModelChange)="affecterRole(role)">
-          <option value="agriculteur">agriculteur</option>
+          <option value="agricole">agriculteur</option>
           <option value="transporteur">transporteur</option>
           <option value="exportateur">exportateur</option>
           
@@ -1009,7 +1009,7 @@
   <input type="text" value="{{selectedOffer.unit}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="actor-type">Actor Type:</label>
   <select id="actor-type" name="actor-type" [(ngModel)]="actorType" *ngIf="!deleteOfferBoolean">
-    <option value="agriculteur">agriculteur</option>
+    <option value="agricole">agriculteur</option>
     <option value="transporteur">transporteur</option>
     <option value="exportateur">exportateur</option>
   </select>

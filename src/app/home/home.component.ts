@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import { User, agricole } from '../adminPages/list-of-users/list-of-users.component';
+import { Offer, User, agricole } from '../adminPages/list-of-users/list-of-users.component';
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 import { AmdminServiceService } from '../services/admin-service.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -14,13 +14,18 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent  {
 
-  constructor(private adminService:AmdminServiceService){} 
+
+  constructor(private adminService:AmdminServiceService, private http:HttpClient){} 
   
     
     slideIndex = 1;
 
   ngOnInit(){
     this.consulterHistoriqueUtilisateur();
+ this.filtrerOffres()
+    console.log("odd"+this.filtrerOffresById('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM','64778dd5fe84e131d38b2356'))
+    this.filtrerOffresById('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM','64778dd5fe84e131d38b2356');
+    console.log("offre "+this.MyOffers)
   }
 
      
@@ -95,6 +100,49 @@ console.log(error)
 }
 
 
+
+MyOffers:Offer[];
+filtrerOffresById(token: any, id: any) {
+  const url = 'http://localhost:5000/api/user/offers/filter_offers';
+  const body = {
+    actorRef: id
+  };
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  this.http.post(url, body, { headers }).subscribe(
+    (response: any) => {
+      // Traiter la réponse ici
+      console.log(response);
+      console.log(response.data);
+      this.MyOffers = response.data;
+    },
+    (error: any) => {
+      // Gérer les erreurs ici
+      console.error(error);
+    }
+  );
+}
+
+filtrerOffres() {
+  const url = 'http://localhost:5000/api/user/offers/filter_offers';
+  const body = {
+    actorRef: '64778dd5fe84e131d38b2356'
+  };
+  const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM');
+
+  this.http.post(url, body, { headers }).subscribe(
+    (response) => {
+      // Traiter la réponse ici
+      console.log(response);
+    },
+    (error) => {
+      // Gérer les erreurs ici
+      console.error(error);
+    }
+  );
+}
  
 
    

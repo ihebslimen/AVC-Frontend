@@ -953,7 +953,7 @@ filterOffersById(id:any){
   this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
     console.log(response.data);
-    this.MyOffers=response.data;
+   
     return response.data;
   }, error => {
     // Handle any errors here
@@ -1112,8 +1112,32 @@ getTransactionAccountHistory(){
       console.log(Error);     
     }
     );
-
 }
+
+filtrerOffresById(token: any, id: any) {
+  const url = 'http://localhost:5000/api/user/offers/filter_offers';
+  const body = {
+    actorRef: this.userId
+  };
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.connectedUserToken}`
+  });
+
+  this.http.post(url, body, { headers }).subscribe(
+    (response: any) => {
+      // Traiter la réponse ici
+      console.log(response);
+      console.log(response.data);
+      this.MyOffers = response.data;
+    },
+    (error: any) => {
+      // Gérer les erreurs ici
+      console.error(error);
+    }
+  );
+}
+
+
 
 getCookieValue(name: string): string | null {
   const cookies = document.cookie.split(';');
@@ -1152,7 +1176,6 @@ export interface agricole {
 
 export interface Offer {
   _id: string;
-  type: string;
   quantity: number;
   quality: string;
   priceUnit: number;
