@@ -351,7 +351,7 @@
 
   <section class="transformateur" *ngIf="userRole ==='transformateur'&& showSectionTransformateurStock" >
     <h2>Ajouter vos offres ici</h2><br>
-    <form (ngSubmit)=" ajouterAuStock();" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)=" ajouterAuStock(); ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
      
       <div class="column">
       <label for="product-quantity">Quantity (in kilograms):</label>

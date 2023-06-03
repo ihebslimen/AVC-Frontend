@@ -37,12 +37,12 @@ connectedUserToken:any;
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
  
     this.subscription = this.authenticationService.userRole$.subscribe(role => {
-      this.userRole2 = role; console.log("mil 22222 role==="+this.userRole2)
+      this.userRole2 = role; console.log("mil 22222 userRole==="+this.userRole2)
       // Perform any necessary logic based on the user role
     });
   
     this.subscription = this.authenticationService.userType$.subscribe(type => {
-      this.userType2 = type; console.log("mil 22222 type==="+this.userType2)
+      this.userType2 = type; console.log("mil 22222 userType==="+this.userType2)
       // Perform any necessary logic based on the user type
     });
     this.subscription = this.authenticationService.userId$.subscribe(role => {
@@ -950,7 +950,6 @@ if(condition === 'agricole'){
 }
 MyOffers:Offer[];
 filterOffersById(id:any){
-  console.log('chbiha'+this.connectedUserToken);
   this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
     console.log(response.data);
@@ -1106,7 +1105,7 @@ getTransactionAccountHistory(){
     (Response)=>{
       console.log('history of account ::::');
       console.log(Response);
-      this.transactionHistory=Response.Message;
+      this.transactionHistory=Response.message;
     
     },
     (Error)=>{

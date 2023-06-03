@@ -79,9 +79,12 @@ export class AuthenticationServiceService {
       this.setUserRole(userRole);          this.setUserId(id);
       this.setUserType(userType);          this.setUserPublicKey(public_key);  
       if(userRole === 'admin'){
+        this.loggedIn.next(true); this.connected=true; 
         this.router.navigate(['listOfUsers'],{ queryParams: {userType: userRole }});
+        
       }
       else{
+        this.loggedIn.next(true); this.connected=true; 
         this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
       }
     } else {

@@ -238,6 +238,7 @@ console.log("filtred offers from service");
 
     return this.http.post(url, body,{headers});
   }
+ 
   
   getUserByType(type: string): Observable<any> {
     const headers = new HttpHeaders({
