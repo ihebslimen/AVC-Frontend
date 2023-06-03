@@ -226,10 +226,10 @@ console.log("filtred offers from service");
 
     return this.http.post(url, body,{headers});
   }
-  filterOffersById(actorId: string): Observable<any> {
+  filterOffersById(token:any,actorId: string | null): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        this.userToken
+        token
       }`
     });
 
@@ -238,7 +238,6 @@ console.log("filtred offers from service");
 
     return this.http.post(url, body,{headers});
   }
- 
   
   getUserByType(type: string): Observable<any> {
     const headers = new HttpHeaders({

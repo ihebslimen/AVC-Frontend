@@ -950,7 +950,8 @@ if(condition === 'agricole'){
 }
 MyOffers:Offer[];
 filterOffersById(id:any){
-  this.adminService.filterOffersById(id)
+  console.log('chbiha'+this.connectedUserToken);
+  this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
     console.log(response.data);
     this.MyOffers=response.data;
