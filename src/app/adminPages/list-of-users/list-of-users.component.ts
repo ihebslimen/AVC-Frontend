@@ -22,7 +22,7 @@ export class ListOfUsersComponent implements OnInit {
   public section: string = '';
 connectedUserToken:any;
   filtrage:boolean;
-  validationMessage:boolean=false;   showUpdateUserForm:boolean=true;
+  validationMessage:boolean=false; errorMessage:boolean=false;   showUpdateUserForm:boolean=true;
 
   userType: string | null;
   userRole: string | null;
@@ -56,10 +56,10 @@ connectedUserToken:any;
     });
 
   }
-
+  public conditionn:string='transformateur';
   public users: User[] = [];
   public originalTable!: User[];
-public conditionn:string='agricole';
+// public conditionn:string='agricole';
   ngOnInit() {
     // this.loadData()
    this.getTransactionAccountHistory(); 
@@ -70,7 +70,7 @@ public conditionn:string='agricole';
     this.getUsers2();
     this.getAllOffers();
     this.filterUsers();
-    this.filterOffers2('agricole');
+    
     this.consulterHistoriqueUtilisateur();
     console.log("role---->"+this.userRole2);
     console.log("type---->"+this.userType2);
@@ -112,6 +112,7 @@ public conditionn:string='agricole';
       });
       
     }
+
 
 
 
@@ -609,30 +610,41 @@ showListeReclammmations:boolean=false;
     console.log("id to upd"+offerId)
     const formValues = {
       quantity: this.productQuantity,
+      // quality:this.productQuality,
+      // priceUnit:this.productPrice,
+      // state:this.state,
+      // unit:this.productUnit,
     };   console.log("form update offer+"+formValues.quantity);
 
     this.adminService.updateOffer(offerId, formValues)
       .subscribe(
         response => {
 console.log('Update request successful', response);
-          // Perform further actions if needed
+this.getAllOffers();
+this.filterOffers2('transformateur')
+// this.filtrerOffresById(this.connectedUserToken,this.userId);
+this.showModalFlag=false;
+this.validationMessage=true;
+setTimeout(()=>{
+  this.validationMessage=false;
+},1000)
+this.updateStockMode=false;
         },
         error => {
           console.error('Update request error', error);
+          this.showModalFlag=false;
+          this.errorMessage=true;
+          setTimeout(()=>{
+            this.errorMessage=false;
+          },1000)
           // Handle error scenarios if needed
         }
       );
-      
-
     console.log('Quantity:', this.UpdatestockForm.value['product-quantity']);
     console.log('Quality:', this.UpdatestockForm.value['product-quality']);
     console.log('Price:', this.UpdatestockForm.value['product-price']);
     console.log('Unit:', this.UpdatestockForm.value['product-unit']);
     console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
-
-  
-// console.log("quan"+formValues.quantity);
-
   }
   // updateOfferQuantity(offerId:string){
   //   const url = `http://localhost:5000/api/user/offers/${offerId}`;
@@ -719,6 +731,11 @@ console.log("id to delete----->"+id);
       },
       (error) => {
         console.error(error);
+        this.errorMessage=true;
+        this.showModalFlag =false;
+        setTimeout(()=>{
+          this.errorMessage=false;
+        },1000)
       }
     );
   }
@@ -746,8 +763,6 @@ console.log("id to delete----->"+id);
       role: this.updatedRole,
       type: this.updatedType,
     };
-
-
     this.adminService.updateUser(userId, payload)
       .subscribe(
         response => {
@@ -767,6 +782,13 @@ console.log("id to delete----->"+id);
         },
         error => {
           console.error('Update request error', error);
+          this.errorMessage=true;
+          setTimeout(()=>{
+            this.errorMessage=true;
+            setTimeout(()=>{
+              this.errorMessage=false
+            })
+          },2000)
           // Handle error scenarios if needed
         }
         
@@ -783,6 +805,10 @@ console.log("id to delete----->"+id);
       (response) => {
         console.log('User updated');
         this.filterUsers();
+        this.validationMessage=true;
+        setTimeout(()=>{
+          this.validationMessage=false;
+        },1000)
       },
       (error) => {
         console.error('An error occurred', error);
@@ -812,9 +838,20 @@ console.log("id to delete----->"+id);
     (Response) =>{
       console.log("tfas5et yé rojla");
       this.getAllOffers();
+      this.validationMessage=true;
+      this.showModalFlag =false;
+      setTimeout(()=>{
+        this.validationMessage=false;
+      },1000)
     },
     (error) => {
       console.log(error);
+      this.updateStockMode=false;
+      this.errorMessage=true;
+      this.showModalFlag =false;
+      setTimeout(()=>{
+        this.errorMessage=false;
+      },1000)
     }
     )
     this.getAllOffers()
@@ -835,12 +872,20 @@ console.log("id to delete----->"+id);
         (response) => {
           // Handle success response
           this.getAllOffers();
-          console.log('Offer added successfully:', response);
+  console.log('Offer added successfully:', response);
+          this.validationMessage=true;
+setTimeout(()=>{
+  this.validationMessage=false;
+},1000)
           // Reset the form if needed
         },
         (error) => {
           // Handle error response
           console.error('Error adding offer:', error);
+          this.errorMessage=true;
+          setTimeout(()=>{
+            this.errorMessage=false;
+          },1000)
         }
       );
   }
@@ -996,11 +1041,18 @@ console.log("reclamation:::"+this.message)
 this.adminService.createViolationReclamation(message).subscribe(
   response => {
     console.log('Message sent successfully:', response);
+    this.validationMessage=true;
+    setTimeout(()=>{
+      this.validationMessage=false;
+    },1000)
     // Do something with the response if needed
   },
   error => {
     console.error('Error sending message:', error);
-    // Handle the error if needed
+  this.errorMessage=true;
+  setTimeout(()=>{
+    this.errorMessage=false;
+  },1000)
   }
 );
         }
