@@ -217,6 +217,18 @@
     No waiting users found.
   </div>
 </ng-template>
+<ng-template #noOffers>
+  <div class="alert alert-warning">
+    pas des offres pour le moment
+  </div>
+</ng-template>
+
+<div *ngIf="filtredOffersByActor.length === 0">
+  <!-- <ng-container *ngTemplateOutlet="noOffers"></ng-container> -->
+  <div class="alert alert-warning">
+    pas des offres pour le moment
+  </div>
+</div>
 
 </div>
 
@@ -684,7 +696,7 @@
 <!-- Offre -->
 
 <section class="historique" id="historique" *ngIf="showOffreAgricoleur && userType==='user'&& userRole==='transformateur'">
-  <table id="historique">
+  <table id="historique" >
     <thead>
     <tr>
       <th>nom de l'agriculteur</th>
@@ -697,7 +709,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of getPaginatedData2(filtredOffersByActor,10)">
+      <tr *ngFor="let item of getPaginatedData2(filteredOffersByActor,10)">
         <td>
           {{ userNames[item.actorRef] }}
         </td>
@@ -922,7 +934,7 @@
         </div> -->
         <select class="form-select" [(ngModel)]="role" (ngModelChange)="affecterRole(role)">
           <option value="agricole">agriculteur</option>
-          <option value="transporteur">transporteur</option>
+          <option value="transformateur">transformateur/option>
           <option value="exportateur">exportateur</option>
           
         </select>
@@ -970,7 +982,7 @@
 </div>
 
 <div class="updateStock" *ngIf="updateStockMode">
-  <button class="btn btn-danger" (click)="hideModal()">X</button>
+  <button class="btn btn-danger hideModal" (click)="hideModal()">X</button>
 <form #UpdatestockForm="ngForm" >
   <label for="product-quantity">Quantity (in kilograms):</label>
   <input type="number" id="product-quantity" *ngIf="!deleteOfferBoolean" name="product-quantity" min="1" [(ngModel)]="productQuantity">
@@ -983,7 +995,7 @@
   </select>
   <input type="text" value="{{selectedOffer.quality}}" *ngIf="deleteOfferBoolean" readonly>
 
-  <label for="product-price">Price (per kilogram):</label>
+  <label for="product-price">Price (per unity):</label>
   <input type="number" id="product-price" name="product-price" min="0" step="0.01" [(ngModel)]="productPrice" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.Price}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="product-unit">Unit:</label>
@@ -992,15 +1004,15 @@
   <label for="actor-type">Actor Type:</label>
   <select id="actor-type" name="actor-type" [(ngModel)]="actorType" *ngIf="!deleteOfferBoolean">
     <option value="agricole">agriculteur</option>
-    <option value="transporteur">transporteur</option>
+    <option value="transformateur">transformateur</option>
     <option value="exportateur">exportateur</option>
   </select>
   <input type="text" value="{{selectedOffer.actorType}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="state">State:</label>
   <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>
-  <button class="btn btn-success" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
-  <button class="btn btn-success" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
+  <button class="btn btn-success valider" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
+  <button class="btn btn-success valider" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
 </form>
 </div>
 

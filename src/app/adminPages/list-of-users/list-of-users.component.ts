@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/admin-service.service';
 import { NgModule } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
@@ -60,92 +60,60 @@ connectedUserToken:any;
   public users: User[] = [];
   public originalTable!: User[];
 // public conditionn:string='agricole';
-  ngOnInit() {
-    // this.loadData()
-   this.getTransactionAccountHistory(); 
-    this.filterOffersById(this.userId);
-    this.originalTable = [...this.users]; 
-    this.connectedUserToken=this.getCookieValue('loggedUser'); 
-    console.log("connected user Token ===="+this.connectedUserToken)
-    this.getUsers2();
-    this.getAllOffers();
-    this.filterUsers();
+ngOnInit() {
+  // this.loadData()
+ this.getTransactionAccountHistory(); 
+  this.filterOffersById(this.userId);
+  this.originalTable = [...this.users]; 
+  this.connectedUserToken=this.getCookieValue('loggedUser'); 
+  console.log("connected user Token ===="+this.connectedUserToken)
+  this.getUsers2();
+  this.getAllOffers();
+  this.filterUsers();
+  this.consulterHistoriqueUtilisateur();
+  console.log("role---->"+this.userRole2);
+  console.log("type---->"+this.userType2);
+
+  if(this.userRole === 'exportateur'){
+    this.adminService.filterOffers2('transformateur')
+    .subscribe(response => {
+      this.filteredOffersByActor=response.data;
+      console.log("filtred offers by actor   "+this.filteredOffersByActor)
+      this.loadUserNamesAndPhoneNumbers();
+      return response.data;
+    }, error => {
+      // Handle any errors here
+      console.error(error);
+    });
     
-    this.consulterHistoriqueUtilisateur();
-    console.log("role---->"+this.userRole2);
-    console.log("type---->"+this.userType2);
-    // this.adminService.filterOffers2('agricole').subscribe(
-    //   response => {
-    //     this.filteredOffersByActor = response.data;
-    //     // this.loadUserNames();
-    //     this.loadUserNamesAndPhoneNumbers();
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    // );
-    if(this.conditionn === 'transformateur'){
-      this.adminService.filterOffers2('transformateur')
-      .subscribe(response => {
-        // Handle the response data here
-        // console.log("les offres de l'agric "+condition);
-        // console.log(response);
-        this.filteredOffersByActor=response.data;
-        console.log("filtred offers by actor   "+this.filteredOffersByActor)
-        this.loadUserNamesAndPhoneNumbers();
-        return response.data;
-      }, error => {
-        // Handle any errors here
-        console.error(error);
-      });
-      
-    }
-    if(this.conditionn === 'agricole'){
-      this.adminService.filterOffers2('agricole')
-      .subscribe(response => {
-        this.filteredOffersByActor=response.data;
-        this.loadUserNamesAndPhoneNumbers();
-        return response.data;
-      }, error => {
-        // Handle any errors here
-        console.error(error);
-      });
-      
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    this.adminService.getAllReclamations().subscribe(
-      response => {
-        this.reclammmations=response.data;
-        this.loadUserNamesByReclammation();
-      },
-      error => {
-        console.log("fama mochkel fil reclammmations")
-        console.error('Error sending message:', error);
-        // Handle the error if needed
-      });
-   
-  
-  // this.authenticationService.userTypeUpdated.subscribe((userRole: string) => {
-
-
-  //   this.userRole=userRole;
- 
-  // });
-
   }
+  if(this.userRole === 'transformateur'){
+    // this.adminService.filterOffers2('agricole');
+    this.adminService.filterOffers2('agricole')
+    .subscribe(response => {
+      this.filteredOffersByActor=response.data;
+      this.loadUserNamesAndPhoneNumbers();
+      return response.data;
+    }, error => {
+      // Handle any errors here
+      console.error(error);
+    });
+    this.filterOffers2('transformateur');
+  }
+
+  this.adminService.getAllReclamations().subscribe(
+    response => {
+      this.reclammmations=response.data;
+      this.loadUserNamesByReclammation();
+    },
+    error => {
+      console.log("fama mochkel fil reclammmations")
+      console.error('Error sending message:', error);
+      // Handle the error if needed
+    });
+ 
+
+}
 
    deleteReclamation(id: string) {
     this.adminService.deleteReclamation(id)
@@ -905,6 +873,7 @@ setTimeout(()=>{
 waitingUsers:User[]; approvedUsers:User[];
 
 hasWaitingUsers: boolean = false;
+@ViewChild('offers') offersTemplate: TemplateRef<any>;
 
 filterUsers() {
   this.adminService.filterUsers('waiting').subscribe(
