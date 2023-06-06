@@ -235,7 +235,7 @@ console.log("filtred offers from service");
   filterOffersById(token:any,actorId: string | null): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        this.userToken
+        token
       }`
     });
 
@@ -273,9 +273,9 @@ searchUserById(userId: string): Observable<any> {
 
  return this.http.post(apiUrl, requestBody,this.httpOptions);
 }
-createViolationReclamation(message:any):Observable<any>{
+createViolationReclamation(message:any,token:any):Observable<any>{
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.userToken}`
+    'Authorization': `Bearer ${token}`
   });
 const url="http://localhost:5000/api/user/violations";
 const requestBody = { msg:message  };
@@ -290,9 +290,9 @@ return this.http.post(url, requestBody,{headers});
           const url="http://localhost:5000/api/admin/violations";
           return this.http.get(url,{headers});
                      }
-  consulterHistoriqueUtilisateur(pubKey:any):Observable<any>{
+  consulterHistoriqueUtilisateur(pubKey:any,token:any):Observable<any>{
     const headers = new HttpHeaders({
-'Authorization': `Bearer ${ this.userToken }`
+'Authorization': `Bearer ${ token }`
      });
     const url="http://localhost:5000/api/user/blockchain/transaction_history";
    const requestBody = { pub_key:pubKey  };
@@ -312,23 +312,29 @@ sendTransaction(){
 }
 
 
-acheterOffre(offerId:any){
+acheterOffre(offerId:any,token:any){
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${ this.userTokenPostman }`
+    'Authorization': `Bearer ${ token }`
   });
   const requestBody={ _id : offerId}
   const url="http://localhost:5000/api/user/offers/buy_offer";
   return this.http.post(url,requestBody,{headers})
 }
 
-getTransactionAccountHistory():Observable<any>{
+getTransactionAccountHistory(token:any):Observable<any>{
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${ this.userToken }`
+    'Authorization': `Bearer ${token}`
   });
   const url='http://localhost:5000/api/user/blockchain/account_transaction_history';
   return this.http.get(url,{headers});
 }
 
-
+historiqueAchat():Observable<any>{
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM"}`
+  });  
+const url='http://localhost:5000/api/user/historique_achats';
+return this.http.get(url,{headers});
+}
 
 }

@@ -206,10 +206,6 @@ getUserById(id:any){
   });
   return this.http.get(url,{headers});
   }
-
-
-
-
 sendMessage(cin:any):Observable<any>{
   const url='http://localhost:5000/api/shared/login';
   const requestBody = { cin:cin };
@@ -223,19 +219,6 @@ let cookie = document.cookie
 const headers = new HttpHeaders().set('Cookie', cookie);
 return this.http.post(url,requestBody);
 }
-
-
-// apiUrl='localhost:5000/api/admin/users';
-// getUsers() {
-
-  // const httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyYmEyMzA0ZWE5OWIwMjIyMjdmMTBlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.17tI_G0dL2LVdfEcY2m4DyvNd6_mV-d0YcJ7AWApPto'
-  //   })
-  // };
-//   return this.http.get<any>(this.apiUrl, httpOptions);
- 
-// }
 getCookieValue(name: string): string | null {
   const cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {

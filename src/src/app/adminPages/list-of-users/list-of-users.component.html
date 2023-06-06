@@ -16,11 +16,11 @@
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('historique',$event)" ><h6>&nbsp;Consulter l'historique des accords</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole'" ><h6>&nbsp;Consulter les transformateurs</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole' || userRole==='agricole' " ><h6>&nbsp;Consulter les transformateurs</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); filterOffers2('agricole');"  *ngIf="userType2==='agricole' || userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -217,6 +217,18 @@
     No waiting users found.
   </div>
 </ng-template>
+<ng-template #noOffers>
+  <div class="alert alert-warning">
+    pas des offres pour le moment
+  </div>
+</ng-template>
+
+<div *ngIf="filtredOffersByActor.length === 0">
+  <!-- <ng-container *ngTemplateOutlet="noOffers"></ng-container> -->
+  <div class="alert alert-warning">
+    pas des offres pour le moment
+  </div>
+</div>
 
 </div>
 
@@ -254,7 +266,7 @@
  
   <section class="agriculture" *ngIf="userType2 ==='agricole' && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
-    <form (ngSubmit)=" ajouterAuStock();ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)=" ajouterAuStock();ajouterOffre()" #stockForm="ngForm" ngForm>
      
       <div class="column">
       <label for="product-quantity">Quantity (in kilograms):</label>
@@ -351,7 +363,7 @@
 
   <section class="transformateur" *ngIf="userRole ==='transformateur'&& showSectionTransformateurStock" >
     <h2>Ajouter vos offres ici</h2><br>
-    <form (ngSubmit)=" ajouterAuStock(); ajouterOffreAgriculteur()" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)=" ajouterAuStock(); ajouterOffre()" #stockForm="ngForm" ngForm>
      
       <div class="column">
       <label for="product-quantity">Quantity (in kilograms):</label>
@@ -410,7 +422,7 @@
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of filtredOffersByActor">
+        <tr *ngFor="let item of MyOffers">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'dt' + item.priceUnit + '/kg'}}</td>
@@ -448,7 +460,7 @@
  
 
   <!--Transformateur-->
-  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole'  " >
+  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && (userType2==='agricole' || userRole === 'agricole') " >
 
     <div class="margett" >
 
@@ -684,7 +696,7 @@
 <!-- Offre -->
 
 <section class="historique" id="historique" *ngIf="showOffreAgricoleur && userType==='user'&& userRole==='transformateur'">
-  <table id="historique">
+  <table id="historique" >
     <thead>
     <tr>
       <th>nom de l'agriculteur</th>
@@ -696,17 +708,9 @@
     </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let item of offers">
-        <td></td>
-        <td>{{getUserHavingOffer(item.actorRef) }} </td>
-        <td>{{item.quality}}</td>
-        <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.priceUnit.toFixed(2) + '/kg'}}</td>
-      </tr> -->
-      <tr *ngFor="let item of getPaginatedData2(filtredOffersByActor,10)">
+
+      <tr *ngFor="let item of getPaginatedData2(filteredOffersByActor,10)">
         <td>
-          <!-- {{getUsersByRef(item.actorRef).name}} -->
-          <!-- {{searchUserById("6464f14ac8fed61664b085e6")}} -->
           {{ userNames[item.actorRef] }}
         </td>
         <td>{{ phoneNumbers[item.actorRef] }}</td>
@@ -777,16 +781,6 @@
             </tr>
       </thead>
       <tbody class="table-light">
-      <!-- <tr *ngFor="let user of usersByType" >
-          <td (click)="showModal(user,'stats')">{{user._id}}</td>
-          <td (click)="showModal(user,'stats')">{{user.cin}}</td>
-          <td (click)="showModal(user,'stats')">{{user.name}}</td>
-          <td (click)="showModal(user,'stats')">{{user.email}}</td>
-          <td (click)="showModal(user,'stats')">{{user.phone}}</td>
-          <td class="actions" colspan="2">
-           <button class="btn btn-success">acheter</button>
-          </td>
-        </tr> -->
         <tr *ngFor="let offer of filtredOffersByActor" >
           <td (click)="showModal(offer,'stats')">{{userNames[offer.actorRef]}}</td>
           <td (click)="showModal(offer,'stats')">{{phoneNumbers[offer.actorRef]}}</td>
@@ -939,8 +933,8 @@
           <a href="#">Option 3</a>
         </div> -->
         <select class="form-select" [(ngModel)]="role" (ngModelChange)="affecterRole(role)">
-          <option value="agriculteur">agriculteur</option>
-          <option value="transporteur">transporteur</option>
+          <option value="agricole">agriculteur</option>
+          <option value="transformateur">transformateur/option>
           <option value="exportateur">exportateur</option>
           
         </select>
@@ -988,7 +982,7 @@
 </div>
 
 <div class="updateStock" *ngIf="updateStockMode">
-  <button class="btn btn-danger" (click)="hideModal()">X</button>
+  <button class="btn btn-danger hideModal" (click)="hideModal()">X</button>
 <form #UpdatestockForm="ngForm" >
   <label for="product-quantity">Quantity (in kilograms):</label>
   <input type="number" id="product-quantity" *ngIf="!deleteOfferBoolean" name="product-quantity" min="1" [(ngModel)]="productQuantity">
@@ -1001,7 +995,7 @@
   </select>
   <input type="text" value="{{selectedOffer.quality}}" *ngIf="deleteOfferBoolean" readonly>
 
-  <label for="product-price">Price (per kilogram):</label>
+  <label for="product-price">Price (per unity):</label>
   <input type="number" id="product-price" name="product-price" min="0" step="0.01" [(ngModel)]="productPrice" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.Price}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="product-unit">Unit:</label>
@@ -1009,16 +1003,16 @@
   <input type="text" value="{{selectedOffer.unit}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="actor-type">Actor Type:</label>
   <select id="actor-type" name="actor-type" [(ngModel)]="actorType" *ngIf="!deleteOfferBoolean">
-    <option value="agriculteur">agriculteur</option>
-    <option value="transporteur">transporteur</option>
+    <option value="agricole">agriculteur</option>
+    <option value="transformateur">transformateur</option>
     <option value="exportateur">exportateur</option>
   </select>
   <input type="text" value="{{selectedOffer.actorType}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="state">State:</label>
   <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>
-  <button class="btn btn-success" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
-  <button class="btn btn-success" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
+  <button class="btn btn-success valider" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
+  <button class="btn btn-success valider" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
 </form>
 </div>
 
@@ -1058,11 +1052,8 @@
     </svg>
   </div>    
   <div class="message success" >done successfuly</div>
-   <!-- <div class="message success"*ngIf="personDetails.valid && loginIsValid  && loginIsSubmitted && showSuccessMessage" >You're good to pass!</div> -->
 </div> 
-
-
-<div class="error" >
+<div class="error" *ngIf="errorMessage">
   <div class="icon">
   <svg width="100" height="100px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>error</title>
@@ -1074,6 +1065,7 @@
     </g>
 </svg>
   </div>
+  <div class="message error" >sorry but it failed</div>
 </div>
 
 

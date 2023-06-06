@@ -14,6 +14,12 @@ export class AmdminServiceService {
   private apiServerUrl = environment.apiServerUrl;
   constructor(private http:HttpClient) { }
   adminToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhjNGE4ZGJkOTNkYmY4NzkwMDE1Iiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4NUIyQzBGQTI1QTc3QzdCZjJEN2NiNzRCY2I3N2ExQ0RGNGE3MDkxQiIsInByaXZhdGVfa2V5IjoiMHgzYTc0OGVjNGZlMDgwZDc5OWI3YTA2ZTgwNTJhMTZkZGE1YTQxMDM2ZmRhNDYzYjExYWYwZjQyODBkN2ZmYjgwIiwiZXhwIjoyNTM0MDIyMTQ0MDB9.IBQQlI-NbS6v5qqgFUz0mU3cTuoA0Emei_Hro91mFOU'
+  // #user:
+  // Farmer
+  // "accec_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM"
+  
+  // transformer
+  accec_token :  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs"
 
 
   userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM';
@@ -79,11 +85,11 @@ ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
 }
 
 updateOffer(offerId: string, payload: any) {
-  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs';
   // Set the headers with authorization token
   const headers = new HttpHeaders({
       'Authorization': `Bearer ${
-        this.userToken
+        token
       }`
     });
   const url = `http://localhost:5000/api/user/offers/${offerId}`;
@@ -182,7 +188,7 @@ farmers:any=[];
     // Set the headers with authorization token
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${
-          this.userToken
+          this.adminToken
  }`
       });
     const url = `http://localhost:5000/api/user/offers/${offerId}`;
@@ -267,9 +273,9 @@ searchUserById(userId: string): Observable<any> {
 
  return this.http.post(apiUrl, requestBody,this.httpOptions);
 }
-createViolationReclamation(message:any):Observable<any>{
+createViolationReclamation(message:any,token:any):Observable<any>{
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.userToken}`
+    'Authorization': `Bearer ${token}`
   });
 const url="http://localhost:5000/api/user/violations";
 const requestBody = { msg:message  };
@@ -284,9 +290,9 @@ return this.http.post(url, requestBody,{headers});
           const url="http://localhost:5000/api/admin/violations";
           return this.http.get(url,{headers});
                      }
-  consulterHistoriqueUtilisateur(pubKey:any):Observable<any>{
+  consulterHistoriqueUtilisateur(pubKey:any,token:any):Observable<any>{
     const headers = new HttpHeaders({
-'Authorization': `Bearer ${ this.userToken }`
+'Authorization': `Bearer ${ token }`
      });
     const url="http://localhost:5000/api/user/blockchain/transaction_history";
    const requestBody = { pub_key:pubKey  };
@@ -306,18 +312,18 @@ sendTransaction(){
 }
 
 
-acheterOffre(offerId:any){
+acheterOffre(offerId:any,token:any){
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${ this.userTokenPostman }`
+    'Authorization': `Bearer ${ token }`
   });
   const requestBody={ _id : offerId}
   const url="http://localhost:5000/api/user/offers/buy_offer";
   return this.http.post(url,requestBody,{headers})
 }
 
-getTransactionAccountHistory():Observable<any>{
+getTransactionAccountHistory(token:any):Observable<any>{
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${ this.userToken }`
+    'Authorization': `Bearer ${token}`
   });
   const url='http://localhost:5000/api/user/blockchain/account_transaction_history';
   return this.http.get(url,{headers});

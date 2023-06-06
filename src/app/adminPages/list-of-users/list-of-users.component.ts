@@ -45,16 +45,14 @@ connectedUserToken:any;
       this.userType2 = type; console.log("mil 22222 userType==="+this.userType2)
       // Perform any necessary logic based on the user type
     });
-    this.subscription = this.authenticationService.userId$.subscribe(role => {
-      this.userId = role; console.log("mil 22222 id==="+this.userId)
+    this.subscription = this.authenticationService.userId$.subscribe(id => {
+      this.userId = id; console.log("mil 22222 id==="+this.userId)
       // Perform any necessary logic based on the user role
     });
-  
-    this.subscription = this.authenticationService.userType$.subscribe(type => {
-      this.userPublicKey = type; console.log("mil 22222 PUBLIC_KEY==="+this.userPublicKey)
+    this.subscription = this.authenticationService.userPublicKeySubject$.subscribe(pubKey => {
+      this.userPublicKey = pubKey; console.log("mil 22222 PUBLIC_KEY==="+this.userPublicKey)
       // Perform any necessary logic based on the user type
     });
-
   }
   public conditionn:string='transformateur';
   public users: User[] = [];
@@ -62,11 +60,11 @@ connectedUserToken:any;
 // public conditionn:string='agricole';
 ngOnInit() {
   // this.loadData()
- this.getTransactionAccountHistory(); 
-  this.filterOffersById(this.userId);
-  this.originalTable = [...this.users]; 
+  this.historiqueAchat();
   this.connectedUserToken=this.getCookieValue('loggedUser'); 
   console.log("connected user Token ===="+this.connectedUserToken)
+  this.getTransactionAccountHistory(); 
+  this.filterOffersById(this.userId);
   this.getUsers2();
   this.getAllOffers();
   this.filterUsers();
@@ -74,7 +72,7 @@ ngOnInit() {
   console.log("role---->"+this.userRole2);
   console.log("type---->"+this.userType2);
 
-  if(this.userRole === 'exportateur'){
+  if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
     this.adminService.filterOffers2('transformateur')
     .subscribe(response => {
       this.filteredOffersByActor=response.data;
@@ -87,7 +85,7 @@ ngOnInit() {
     });
     
   }
-  if(this.userRole === 'transformateur'){
+  if(this.userRole === 'transformateur' || this.userType2=== 'transformateur'){
     // this.adminService.filterOffers2('agricole');
     this.adminService.filterOffers2('agricole')
     .subscribe(response => {
@@ -101,17 +99,20 @@ ngOnInit() {
     this.filterOffers2('transformateur');
   }
 
-  this.adminService.getAllReclamations().subscribe(
-    response => {
-      this.reclammmations=response.data;
-      this.loadUserNamesByReclammation();
-    },
-    error => {
-      console.log("fama mochkel fil reclammmations")
-      console.error('Error sending message:', error);
-      // Handle the error if needed
-    });
- 
+  if(this.userRole === 'admin' || this.userType2 === 'admin'){
+    this.adminService.getAllReclamations().subscribe(
+      response => {
+        this.reclammmations=response.data;
+        this.loadUserNamesByReclammation();
+      },
+      error => {
+        console.log("fama mochkel fil reclammmations")
+        console.error('Error sending message:', error);
+        // Handle the error if needed
+      });
+  }
+  console.log("my offers offre "+this.filtrerOffres())
+  this.filtrerOffresById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356");
 
 }
 
@@ -590,7 +591,7 @@ showListeReclammmations:boolean=false;
 console.log('Update request successful', response);
 this.getAllOffers();
 this.filterOffers2('transformateur')
-// this.filtrerOffresById(this.connectedUserToken,this.userId);
+this.filtrerOffresById(this.connectedUserToken,this.userId);
 this.showModalFlag=false;
 this.validationMessage=true;
 setTimeout(()=>{
@@ -835,7 +836,7 @@ console.log("id to delete----->"+id);
     console.log('Actor Type:', this.stockForm.value['actor-type']);
   }
 
-  ajouterOffreAgriculteur(){
+  ajouterOffre(){
     this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
@@ -910,7 +911,7 @@ usersByType:User[];
       (response) => {
         // Handle the response here
         console.log("users filtred by type")
-        console.log(response);
+        console.log(response.data);
         this.usersByType=response.data;
         // this.usersByType=response.data;
         // return response;
@@ -964,9 +965,12 @@ if(condition === 'agricole'){
 }
 MyOffers:Offer[];
 filterOffersById(id:any){
+  console.log("id mil filterOffersById"+id);
   this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
+    console.log(" mtoken connedté mil filterOffersById"+this.connectedUserToken);
     console.log(response.data);
+  this.MyOffers=response.data;
    
     return response.data;
   }, error => {
@@ -1007,7 +1011,7 @@ message:string;
 createViolationReclamation(event: Event,message:any) {
   event.preventDefault();
 console.log("reclamation:::"+this.message)
-this.adminService.createViolationReclamation(message).subscribe(
+this.adminService.createViolationReclamation(message,this.connectedUserToken).subscribe(
   response => {
     console.log('Message sent successfully:', response);
     this.validationMessage=true;
@@ -1076,6 +1080,41 @@ phoneNumbers: { [key: string]: string } = {};
                       }
                     );
                   }      
+                }  
+
+
+loadHistoryUserNames() {
+  
+                  for (const histoire of this.historique) {
+                    if(histoire.buyer === 'moi'){
+                    this.adminService.searchUserById(histoire.seller).subscribe(
+                      response => {
+                        const userName = response.data[0].name;
+                        const userPhone=response.dat[0].phone;
+                        this.userNames[histoire.seller] = userName;
+                        this.phoneNumbers[histoire.seller] = userPhone;
+                      },
+                      error => {
+                        console.error(error);
+                        this.userNames[histoire.seller] = ''; // Assign a default value in case of error
+                      }
+                    );
+                  }  
+                  if(histoire.seller === 'moi'){
+                    this.adminService.searchUserById(histoire.buyer).subscribe(
+                      response => {
+                        const userName = response.data[0].name;
+                        this.userNames[histoire.buyer] = userName;
+                        const userPhone=response.dat[0].phone;
+                        this.phoneNumbers[histoire.buyer] = userPhone;
+                      },
+                      error => {
+                        console.error(error);
+                        this.userNames[histoire.buyer] = ''; // Assign a default value in case of error
+                      }
+                    );
+                  }   
+                }  
                 }   
                 
 @ViewChild('updateForm', { static: false }) updateForm: NgForm;
@@ -1090,7 +1129,7 @@ historyId:any; historyQlty:any; historyQty:any;
 consulterHistoriqueUtilisateur(){
   let pubKey='0x421472051071af95d1425E290D814dFd55d81b14';
   let history;
-  this.adminService.consulterHistoriqueUtilisateur(pubKey).subscribe(
+  this.adminService.consulterHistoriqueUtilisateur(pubKey,this.connectedUserToken).subscribe(
     (response)=>{
 console.log(response.data[0].args)
 const history=response.data[0].args;
@@ -1108,10 +1147,35 @@ console.log(error)
 
 acheterOffre(id:any){
   console.log("offer id is "+id)
-this.adminService.acheterOffre(id).subscribe(
+this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
   (response)=>{
-   
     console.log(response);
+    if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
+      this.adminService.filterOffers2('transformateur')
+      .subscribe(response => {
+        this.filteredOffersByActor=response.data;
+        console.log("filtred offers by actor   "+this.filteredOffersByActor)
+        this.loadUserNamesAndPhoneNumbers();
+        return response.data;
+      }, error => {
+        // Handle any errors here
+        console.error(error);
+      });
+      
+    }
+    if(this.userRole === 'transformateur' || this.userType2=== 'transformateur'){
+      // this.adminService.filterOffers2('agricole');
+      this.adminService.filterOffers2('agricole')
+      .subscribe(response => {
+        this.filteredOffersByActor=response.data;
+        this.loadUserNamesAndPhoneNumbers();
+        return response.data;
+      }, error => {
+        // Handle any errors here
+        console.error(error);
+      });
+      this.filterOffers2('transformateur');
+    }
   },
   (error)=>{
     console.log("theb techri l'offre "+id)
@@ -1122,7 +1186,7 @@ this.adminService.acheterOffre(id).subscribe(
 
 transactionHistory:any;
 getTransactionAccountHistory(){
-  this.adminService.getTransactionAccountHistory().subscribe(
+  this.adminService.getTransactionAccountHistory(this.connectedUserToken).subscribe(
     (Response)=>{
       console.log('history of account ::::');
       console.log(Response);
@@ -1149,7 +1213,7 @@ filtrerOffresById(token: any, id: any) {
       // Traiter la réponse ici
       console.log(response);
       console.log(response.data);
-      this.MyOffers = response.data;
+     
     },
     (error: any) => {
       // Gérer les erreurs ici
@@ -1158,6 +1222,26 @@ filtrerOffresById(token: any, id: any) {
   );
 }
 
+
+filtrerOffres() {
+  const url = 'http://localhost:5000/api/user/offers/filter_offers';
+  const body = {
+    actorRef: '64778d70fe84e131d38b2354'
+  };
+  const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs');
+
+  this.http.post(url, body, { headers }).subscribe(
+    (response) => {
+      // Traiter la réponse ici
+      console.log("from filtrerOffres")
+      console.log(response);
+    },
+    (error) => {
+      // Gérer les erreurs ici
+      console.error(error);
+    }
+  );
+}
 
 
 getCookieValue(name: string): string | null {
@@ -1170,8 +1254,19 @@ getCookieValue(name: string): string | null {
   }
   return null;
 }
-
-
+historique:any[]=[];
+historiqueAchat(){
+  this.adminService.historiqueAchat().subscribe(
+    (response)=>{
+      console.log("$$$$$ l'historique des achats $$$$");
+      console.log(response.data);
+     this.historique=response.data; 
+    },
+    (errror)=>{
+      console.error("historique mayemchic")
+    }
+  )
+}
               }             
                 
 
