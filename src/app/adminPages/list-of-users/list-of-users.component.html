@@ -638,18 +638,18 @@
   <table id="historique">
     <thead>
       <tr>
-        <th>date</th>
-        <th>nom de l'acheteur</th>
-        <th>telephone</th>
-        <th>qualité</th>
+        <th>Date</th>
+        <th>Nom de l'acheteur</th>
+        <th>Telephone</th>
+        <th>Qualité</th>
         <th>Quantity in Stock</th>
         <th>Price</th>
-        <th>nom du vendeur</th>
+        <th>Nom du vendeur</th>
       </tr>
       </thead>
       <tbody>
         <tr *ngFor="let histoire of historique">
-          <td>date</td>
+          <td>{{histoire.timestamp | date: 'dd/MM/yyyy'}}</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
          <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
