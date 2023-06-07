@@ -61,6 +61,7 @@ connectedUserToken:any;
 ngOnInit() {
   // this.loadData()
   this.historiqueAchat();
+
   this.connectedUserToken=this.getCookieValue('loggedUser'); 
   console.log("connected user Token ===="+this.connectedUserToken)
   this.getTransactionAccountHistory(); 
@@ -111,7 +112,7 @@ ngOnInit() {
         // Handle the error if needed
       });
   }
-  console.log("my offers offre "+this.filtrerOffres())
+
   this.filtrerOffresById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356");
 
 }
@@ -1084,13 +1085,12 @@ phoneNumbers: { [key: string]: string } = {};
 
 
 loadHistoryUserNames() {
-  
                   for (const histoire of this.historique) {
-                    if(histoire.buyer === 'moi'){
+                    if(histoire.seller !== 'moi'){
                     this.adminService.searchUserById(histoire.seller).subscribe(
                       response => {
                         const userName = response.data[0].name;
-                        const userPhone=response.dat[0].phone;
+                        const userPhone=response.data[0].phone;
                         this.userNames[histoire.seller] = userName;
                         this.phoneNumbers[histoire.seller] = userPhone;
                       },
@@ -1100,13 +1100,14 @@ loadHistoryUserNames() {
                       }
                     );
                   }  
-                  if(histoire.seller === 'moi'){
+                  if(histoire.buyer !== 'moi'){
                     this.adminService.searchUserById(histoire.buyer).subscribe(
                       response => {
                         const userName = response.data[0].name;
                         this.userNames[histoire.buyer] = userName;
-                        const userPhone=response.dat[0].phone;
+                        const userPhone=response.data[0].phone;
                         this.phoneNumbers[histoire.buyer] = userPhone;
+
                       },
                       error => {
                         console.error(error);
@@ -1223,25 +1224,25 @@ filtrerOffresById(token: any, id: any) {
 }
 
 
-filtrerOffres() {
-  const url = 'http://localhost:5000/api/user/offers/filter_offers';
-  const body = {
-    actorRef: '64778d70fe84e131d38b2354'
-  };
-  const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs');
+// filtrerOffres() {
+//   const url = 'http://localhost:5000/api/user/offers/filter_offers';
+//   const body = {
+//     actorRef: '64778d70fe84e131d38b2354'
+//   };
+//   const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs');
 
-  this.http.post(url, body, { headers }).subscribe(
-    (response) => {
-      // Traiter la réponse ici
-      console.log("from filtrerOffres")
-      console.log(response);
-    },
-    (error) => {
-      // Gérer les erreurs ici
-      console.error(error);
-    }
-  );
-}
+//   this.http.post(url, body, { headers }).subscribe(
+//     (response) => {
+//       // Traiter la réponse ici
+//       console.log("from filtrerOffres")
+//       console.log(response);
+//     },
+//     (error) => {
+//       // Gérer les erreurs ici
+//       console.error(error);
+//     }
+//   );
+// }
 
 
 getCookieValue(name: string): string | null {
@@ -1261,6 +1262,7 @@ historiqueAchat(){
       console.log("$$$$$ l'historique des achats $$$$");
       console.log(response.data);
      this.historique=response.data; 
+     this.loadHistoryUserNames();
     },
     (errror)=>{
       console.error("historique mayemchic")

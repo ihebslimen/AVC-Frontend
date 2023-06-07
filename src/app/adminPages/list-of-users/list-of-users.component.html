@@ -608,55 +608,58 @@
   <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole'" >
     <table id="historique">
       <thead>
-      <tr>
-        <th>date</th>
-        <th>nom</th>
-        <th>télephone</th>
-        <th>prix</th>
-        <th>quantité</th>
-        <th>qualité</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let histoire of historique">
-<td>{{histoire.buyer}}</td>
-          <td>hcdhd</td>
-<td>{{histoire.price}}</td>
-<td>{{histoire.quality}}</td>
-<td>{{histoire.quantity}}</td>
-<td>{{histoire.seller}}</td>
+        <tr>
+          <th>date</th>
+          <th>nom de l'acheteur</th>
+          <th>telephone</th>
+          <th>qualité</th>
+          <th>Quantity in Stock</th>
+          <th>Price</th>
+          <th>nom du vendeur</th>
         </tr>
-      </tbody>
+        </thead>
+        <tbody>
+          <tr *ngFor="let histoire of historique">
+            <td>date</td>
+            <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+            <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+           <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+           <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+           <td>{{histoire.quantity}}</td>
+          <td>{{histoire.quality}}</td> 
+          <td>{{histoire.price || 'null'}}</td>
+          <td>{{userNames[histoire.seller] || 'moi' }}</td>
+          </tr>
+        </tbody>
       </table>
   </section>
 <!-- Historique Transformateur -->
 <section *ngIf="showhistoriqueTransformateur && userRole==='transformateur'">
   <table id="historique">
     <thead>
-    <tr>
-      <th>date</th>
-      <th>nom de l'achetetur</th>
-      <th>télephone</th>
-      <th>quantité acheté</th>
-      <th>qualité</th>
-      <th>Prix</th>
-      <th>nom du vendeur</th>
-    </tr>
-    </thead>
-    <tbody>
-<tr *ngFor="let histoire of historique">
-  <td>date</td>
-  <td>{{userNames[histoire.buyer] || 'moi' }}</td>
-<td>{{histoire.price}}</td>
- <!-- <td>{{ histoire.buyer !== 'moi' ? "seller" : "buyer" }}</td> -->
- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
- <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td>
-<td>{{histoire.quantity}}</td>
-<td>{{histoire.quality}}</td>
-<td>{{histoire.price}}</td>
-<td>{{userNames[histoire.seller] || 'moi' }}</td>
-</tr>
-    </tbody>
+      <tr>
+        <th>date</th>
+        <th>nom de l'acheteur</th>
+        <th>telephone</th>
+        <th>qualité</th>
+        <th>Quantity in Stock</th>
+        <th>Price</th>
+        <th>nom du vendeur</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let histoire of historique">
+          <td>date</td>
+          <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+          <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+         <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+         <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+         <td>{{histoire.quantity}}</td>
+        <td>{{histoire.quality}}</td> 
+        <td>{{histoire.price || 'null'}}</td>
+        <td>{{userNames[histoire.seller] || 'moi' }}</td>
+        </tr>
+      </tbody>
     </table>
 </section>
 <!-- Historique exportateur -->
