@@ -591,7 +591,7 @@ showListeReclammmations:boolean=false;
         response => {
 console.log('Update request successful', response);
 this.getAllOffers();
-this.filterOffers2('transformateur')
+// this.filterOffers2('transformateur')
 this.filtrerOffresById(this.connectedUserToken,this.userId);
 this.showModalFlag=false;
 this.validationMessage=true;
@@ -804,12 +804,13 @@ console.log("id to delete----->"+id);
 
   deleteOffer(id:string){
    console.log("id=="+id)
-    this.adminService.deleteOffer(id).subscribe(
+    this.adminService.deleteOffer(id,this.connectedUserToken).subscribe(
     (Response) =>{
       console.log("tfas5et yé rojla");
-      this.getAllOffers();
       this.validationMessage=true;
       this.showModalFlag =false;
+      this.getAllOffers();
+      this.filterOffersById(this.userId);
       setTimeout(()=>{
         this.validationMessage=false;
       },1000)
@@ -841,8 +842,9 @@ console.log("id to delete----->"+id);
     this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
-          this.getAllOffers();
   console.log('Offer added successfully:', response);
+  this.getAllOffers();
+  this.filterOffersById(this.userId);
           this.validationMessage=true;
 setTimeout(()=>{
   this.validationMessage=false;
@@ -967,7 +969,7 @@ if(condition === 'agricole'){
 MyOffers:Offer[];
 filterOffersById(id:any){
   console.log("id mil filterOffersById"+id);
-  this.adminService.filterOffersById(this.connectedUserToken,this.userId)
+  this.adminService.filterOffersById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356")
   .subscribe(response => {
     console.log(" mtoken connedté mil filterOffersById"+this.connectedUserToken);
     console.log(response.data);

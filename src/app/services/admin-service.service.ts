@@ -184,11 +184,11 @@ farmers:any=[];
     );
   }
 
-  deleteOffer(offerId: string) {
+  deleteOffer(offerId: string,token:any) {
     // Set the headers with authorization token
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${
-          this.adminToken
+          token
  }`
       });
     const url = `http://localhost:5000/api/user/offers/${offerId}`;

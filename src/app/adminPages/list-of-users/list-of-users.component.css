@@ -13,8 +13,15 @@ table tr{
     display: flex; width: 150px;  justify-content: space-between;
 }
 .paginator-offreAgricole{
-  position:absolute; right:-100px; top: 30px; z-index:10000;
+  position:absolute; left:200px; top: 70px; 
     display: flex; width: 150px;  justify-content: space-between;
+}
+.paginator-MyOffers button{
+height:45px; 
+}
+.paginator-MyOffers{
+  position:absolute; left:200px; top: 500px; 
+  display: flex; width: 150px;  justify-content: space-between; 
 }
 .container{
     margin-top: 0px;

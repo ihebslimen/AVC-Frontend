@@ -107,7 +107,7 @@
     </thead>
     <tbody class="table-light">
       
-    <tr *ngFor="let user of filtredUsers " >
+    <tr *ngFor="let user of getPaginatedData2(filtredUsers,5) " >
         <td>{{user.cin}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
@@ -324,7 +324,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of MyOffers" >
+        <tr *ngFor="let item of getPaginatedData2(MyOffers,5)" >
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'$' + item.priceUnit + '/kg'}}</td>
@@ -354,6 +354,16 @@
         </tr>
       </tbody>
       </table>
+      <div class="paginator">
+        <select class="form-select" [(ngModel)]="selectedLength">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+        <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+        <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+      </div>
   </section>
 
 
@@ -422,7 +432,7 @@
       </thead>
       <tbody>
       
-        <tr *ngFor="let item of MyOffers">
+        <tr *ngFor="let item of getPaginatedData2(MyOffers,5)">
           <td>{{item.quality}}</td>
           <td>{{item.quantity}} kg</td>
           <td>{{'dt' + item.priceUnit + '/kg'}}</td>
@@ -453,6 +463,16 @@
         </tr>
       </tbody>
       </table>
+      <div class="paginator-MyOffers">
+        <select class="form-select" [(ngModel)]="selectedLength">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+        <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+        <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+      </div>
   </section>
  
   </section>
@@ -477,7 +497,7 @@
       </thead>
       <tbody class="table-light">
       
-        <tr *ngFor="let user of usersByType" >
+        <tr *ngFor="let user of getPaginatedData2(usersByType,5)" >
           <td>{{user.name}}</td>
           <td>{{user.phone}}</td>
           <td>{{user.email}}</td>
@@ -498,7 +518,7 @@
         </thead>
         <tbody class="table-light">
         
-          <tr *ngFor="let user of filtredUsersByType" >
+          <tr *ngFor="let user of getPaginatedData2(filtredUsersByType,5)" >
             <td>{{user.name}}</td>
             <td>{{user.phone}}</td>
             <td>{{user.email}}</td>
@@ -555,7 +575,7 @@
           </tr>
     </thead>
     <tbody class="table-light">
-    <tr *ngFor="let user of filtredUsersByType" >
+    <tr *ngFor="let user of getPaginatedData2(filtredUsersByType,5)" >
         <td (click)="showModal(user,'stats')">{{user._id}}</td>
         <td (click)="showModal(user,'stats')">{{user.cin}}</td>
         <td (click)="showModal(user,'stats')">{{user.email}}</td>
@@ -619,7 +639,7 @@
         </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let histoire of historique">
+          <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
             <td>date</td>
             <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
             <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
@@ -638,18 +658,18 @@
   <table id="historique">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Nom de l'acheteur</th>
-        <th>Telephone</th>
-        <th>Qualité</th>
+        <th>date</th>
+        <th>nom de l'acheteur</th>
+        <th>telephone</th>
+        <th>qualité</th>
         <th>Quantity in Stock</th>
         <th>Price</th>
-        <th>Nom du vendeur</th>
+        <th>nom du vendeur</th>
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let histoire of historique">
-          <td>{{histoire.timestamp | date: 'dd/MM/yyyy'}}</td>
+        <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
+          <td>date</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
          <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -674,7 +694,7 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of offers">
+      <tr *ngFor="let item of getPaginatedData2(offers,5)">
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
         <td>{{'$' + item.priceUnit+ '/kg'}}</td>
@@ -693,7 +713,7 @@
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of filtredOffers">
+      <tr *ngFor="let item of getPaginatedData2(filtredOffers,5)">
         <td>{{item.quality}}</td>
         <td>{{item.quantity}} kg</td>
         <td>{{'$' + item.priceUnit+ '/kg'}}</td>
@@ -791,7 +811,7 @@
             </tr>
       </thead>
       <tbody class="table-light">
-        <tr *ngFor="let offer of filtredOffersByActor" >
+        <tr *ngFor="let offer of getPaginatedData2(filtredOffersByActor,5)" >
           <td (click)="showModal(offer,'stats')">{{userNames[offer.actorRef]}}</td>
           <td (click)="showModal(offer,'stats')">{{phoneNumbers[offer.actorRef]}}</td>
 
@@ -816,7 +836,7 @@
             </tr>
       </thead>
       <tbody class="table-light">
-      <tr *ngFor="let user of filtredOffers" >
+      <tr *ngFor="let user of getPaginatedData2(filtredOffers,5)" >
           <td (click)="showModal(user,'stats')"></td>
           <td (click)="showModal(user,'stats')"></td>
           <td (click)="showModal(user,'stats')">{{user.quantity}}</td>
