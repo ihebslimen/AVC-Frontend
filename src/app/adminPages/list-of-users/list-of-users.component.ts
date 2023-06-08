@@ -840,6 +840,8 @@ console.log("id to delete----->"+id);
 
   ajouterOffre(){
     const StockFormKemel={...this.stockForm}
+    this.stockForm.value['product-quantity']=this.stockForm.value['product-quantity'].toString();
+    this.stockForm.value['product-price']=this.stockForm.value['product-price'].toString();
     this.stockForm.value['actor-type']=this.userType2??this.userRole;
     this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
