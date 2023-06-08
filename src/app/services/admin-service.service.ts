@@ -85,6 +85,7 @@ ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
 }
 
 updateOffer(offerId: string, payload: any) {
+  // todo  lezem nraja3ha connectedUserToken
   const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs';
   // Set the headers with authorization token
   const headers = new HttpHeaders({

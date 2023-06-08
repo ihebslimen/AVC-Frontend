@@ -580,10 +580,10 @@ showListeReclammmations:boolean=false;
     console.log("id to upd"+offerId)
     const formValues = {
       quantity: this.productQuantity,
-      // quality:this.productQuality,
-      // priceUnit:this.productPrice,
-      // state:this.state,
-      // unit:this.productUnit,
+      quality:this.productQuality,
+      priceUnit:this.productPrice,
+      state:this.state,
+      unit:this.productUnit,
     };   console.log("form update offer+"+formValues.quantity);
 
     this.adminService.updateOffer(offerId, formValues)
@@ -839,6 +839,8 @@ console.log("id to delete----->"+id);
   }
 
   ajouterOffre(){
+    const StockFormKemel={...this.stockForm}
+    this.stockForm.value['actor-type']=this.userType2??this.userRole;
     this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
@@ -969,6 +971,7 @@ if(condition === 'agricole'){
 MyOffers:Offer[];
 filterOffersById(id:any){
   console.log("id mil filterOffersById"+id);
+   // todo  lezem nraja3ha connectedUserToken
   this.adminService.filterOffersById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356")
   .subscribe(response => {
     console.log(" mtoken connedté mil filterOffersById"+this.connectedUserToken);

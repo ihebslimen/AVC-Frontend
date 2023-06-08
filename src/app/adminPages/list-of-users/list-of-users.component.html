@@ -20,7 +20,7 @@
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userRole==='transformateur' ||userRole==='agricole'" ><h6>&nbsp;quantité disponible et prix</h6></a>
 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
@@ -264,7 +264,7 @@
 
   <!--Agriculteur-->
  
-  <section class="agriculture" *ngIf="userType2 ==='agricole' && showSectionFarmerStock">
+  <section class="agriculture" *ngIf="userType2 ==='agricole' ||userRole==='agricole' && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffre()" #stockForm="ngForm" ngForm>
      
@@ -301,12 +301,12 @@
     </div>
     <label for="actor-type">actor type:</label>
     
-    <select id="actor-type" name="actor-type" ngModel >
+    <!-- <select id="actor-type" name="actor-type" ngModel >
       <option value="">--Select actor type--</option>
       <option value="Agriculteur">Agriculteur</option>
       <option value="transformateur">transformateur</option>
       <option value="exportateur">exportateur</option>
-    </select>
+    </select> -->
 </div>
 
 <div class="butt">
@@ -389,13 +389,13 @@
       <option value="low">Low</option>
       </select>
     
-      <label for="product-price">Price (per kilogram):</label>
-    <div class="line">
+      <label for="product-price" style="position:relative; left:100px;">Price (per kilogram):</label>
+    <div class="line" style="position:relative; left:100px;">
       <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel >
       <!-- <button >modifier</button> -->
     </div>
   </div>
-  <div class="column">
+  <div class="column column2">
     <label for="product-unit">unit :</label>
     <div class="line">
       <input type="number" id="product-unit" name="product-unit"  ngModel >
@@ -406,13 +406,13 @@
       <input type="text" id="product-state" name="product-state"  ngModel >
       <!-- <button >modifier</button> -->
     </div>
-    <label for="actor-type">actor type:</label>
+    <label for="actor-type" [hidden]=true>actor type:</label>
     
-    <select id="actor-type" name="actor-type" ngModel >
-    <option value="">--Select actor type--</option>
-    <option value="Agriculteur">Agriculteur</option>
-    <option value="transformateur">transformateur</option>
-    <option value="exportateur">exportateur</option>
+    <select id="actor-type" [hidden]=true name="actor-type" ngModel >
+    <option  value="">--Select actor type--</option>
+    <option  value="Agricole">Agriculteur</option>
+    <option  value="transformateur">transformateur</option>
+    <option  value="exportateur">exportateur</option>
     </select>
 </div>
 
