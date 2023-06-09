@@ -1,0 +1,11 @@
+1/ fonction bech te5oou cookie mel header (Set-Cookie)
+2/ fonction bech te5ou cookie mel cookies document.cookie getCookie(cookiename)
+3/ fonction bech t7ot el cookies fel documen.cookie setCookie(cookiename)
+4/ function inject cookie to header (interceptor) :
+request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${this.cookie.getCookie("auth_token")}
+            Cookie: session= ${this.cookie.getCookie("session")}`
+          }
+        });
+
