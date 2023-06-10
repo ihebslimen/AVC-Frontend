@@ -61,7 +61,7 @@ connectedUserToken:any;
 ngOnInit() {
   // this.loadData()
  
-
+console.log("l role  == "+this.userRole );
   this.connectedUserToken=this.getCookieValue('loggedUser'); 
   this.historiqueAchat();
   console.log("connected user Token ===="+this.connectedUserToken)
@@ -73,7 +73,7 @@ ngOnInit() {
   this.consulterHistoriqueUtilisateur();
   console.log("role---->"+this.userRole2);
   console.log("type---->"+this.userType2);
-
+this.filtrage=true;
   if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
     this.adminService.filterOffers2('transformateur')
     .subscribe(response => {
@@ -248,6 +248,12 @@ console.log(this.offers)
       );
       console.log(this.filtredOffers)
     }
+  } filtredHistory:any[]=[];
+  applyFilterHistorique(){
+    this.filtredHistory=this.historique.filter(history =>
+      this.userNames[history.seller].includes(this.filterValue) ||
+      this.userNames[history.buyer].includes(this.filterValue)
+      )
   }
 
   resetTable() {
@@ -372,7 +378,7 @@ showListeReclammmations:boolean=false;
       this.filtrage=true;
 
     
-      if (this.userType2 === 'agricole') {
+      if (this.userType2 || this.userRole=== 'agricole') {
         this.showhistoriqueAgricolteur = true;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
@@ -491,7 +497,7 @@ showListeReclammmations:boolean=false;
       this.showOffreAgricoleur = false;
       this.showOffreTransformateur = true;
       this.filtrage=false;
-      if (this.userType2 === 'agricole') {
+      if (this.userType2 === 'agricole' || this.userRole === 'agricole') {
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = false;
@@ -1156,12 +1162,15 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
   (response)=>{
     console.log(response);
     if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
+      
       this.adminService.filterOffers2('transformateur')
       .subscribe(response => {
         this.filteredOffersByActor=response.data;
         console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
+        this.loadHistoryUserNames();
         this.historiqueAchat();
+       
         return response.data;
       }, error => {
         // Handle any errors here
@@ -1175,6 +1184,9 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
       .subscribe(response => {
         this.filteredOffersByActor=response.data;
         this.loadUserNamesAndPhoneNumbers();
+        this.loadHistoryUserNames();
+        this.historiqueAchat();
+    
         return response.data;
       }, error => {
         // Handle any errors here

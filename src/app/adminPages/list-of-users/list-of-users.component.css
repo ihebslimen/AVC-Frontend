@@ -12,9 +12,19 @@ table tr{
     position:absolute; right:50px;
     display: flex; width: 150px;  justify-content: space-between;
 }
+.paginator-historique{
+  position:absolute; right:0px; top:30px;
+    display: flex; width: 150px;  justify-content: space-between; 
+}
 .paginator-offreAgricole{
   position:absolute; left:200px; top: 70px; 
     display: flex; width: 150px;  justify-content: space-between;
+}
+.paginator-ajouterOffreAgricole{
+  position:absolute; left:1200px; top: 500px; 
+  display: flex; width: 150px;  justify-content: space-between;
+}.paginator-ajouterOffreAgricole button{
+  height:45px; 
 }
 .paginator-MyOffers button{
 height:45px; 
@@ -216,6 +226,9 @@ height:45px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.agriculture .column2{
+  position:relative;  top:-50px;
 }
 
 .agriculture label {
