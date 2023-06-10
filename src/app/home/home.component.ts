@@ -20,11 +20,40 @@ export class HomeComponent  {
     
     slideIndex = 1;
 
-
-
-     
-    
+    connectedUserToken:any;
+    ngOnInit(){
+    this.connectedUserToken=this.getCookieValue('loggedUser'); 
+ this.historiqueAchat()   
+    }
   
+    historique:any[]=[];
+    historiqueAchat(){
+      this.adminService.historiqueAchat(this.connectedUserToken).subscribe(
+        (response)=>{
+          console.log("$$$$$ l'historique des achats $$$$");
+          console.log(response.data);
+         this.historique=response.data; 
+        
+    
+        },
+        (errror)=>{
+          console.error("historique mayemchic")
+        }
+      )
+    }
+
+
+    getCookieValue(name: string): string | null {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+
     plusSlides(n: number) {
       this.showSlides(this.slideIndex += n);
     }

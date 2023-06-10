@@ -1,7 +1,7 @@
 <app-header></app-header>
 <body style="background-color: #f6f9ff;">
 <div class="container">
-    <div class="row" id="adminRole" *ngIf="userType==='admin'">
+    <div class="row" id="adminRole" *ngIf="userRole2==='admin'">
            <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
@@ -11,17 +11,16 @@
             </div>
           </div> 
         </div>
-        <div class="row" id="userRole" *ngIf="userType==='user'">
+        <div class="row" id="userType2" *ngIf="userRole2==='user'">
           <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('historique',$event)" ><h6>&nbsp;Consulter l'historique des accords</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole' || userRole==='agricole' " ><h6>&nbsp;Consulter les transformateurs</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userRole==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userRole==='transformateur' ||userRole==='agricole'" ><h6>&nbsp;quantité disponible et prix</h6></a>
-
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole' " ><h6>&nbsp;Consulter les transformateurs</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userType2==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userType2==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userType2==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userType2==='transformateur' ||userType2==='agricole'" ><h6>&nbsp;quantité disponible et prix</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
          </div> 
@@ -29,7 +28,7 @@
        
        
 
-    <div class="marget" id="utilisateur" *ngIf="(showSectionGestionUtilisateur && userType==='admin') ">
+    <div class="marget" id="utilisateur" *ngIf="(showSectionGestionUtilisateur && userRole2==='admin') ">
      
         <div class="col-md-12 s8ir">
 
@@ -145,7 +144,7 @@
 
 <!--INSCRIPTION -->
 
-<div class="marget" id="Inscription" *ngIf="showSectionInscription && userType ==='admin'">
+<div class="marget" id="Inscription" *ngIf="showSectionInscription && userRole2==='admin'">
 
 
 <div class="margett" >
@@ -238,7 +237,7 @@
 
 
 <!-- reclamation -->
-<section class="reclamation margette " id="reclamation" *ngIf="showReclamationSection && userType ==='user'" >
+<section class="reclamation margette " id="reclamation" *ngIf="showReclamationSection && userRole2==='user'" >
 
   <div class="platform-conditions  ">
     <h3>Conditions de la plateforme</h3>
@@ -260,11 +259,11 @@
 
 
 <!-- Stock -->
-<section class="Stock margette" id="Stock"  *ngIf="userType ==='user' ">
+<section class="Stock margette" id="Stock"  *ngIf="userRole2==='user' ">
 
   <!--Agriculteur-->
  
-  <section class="agriculture" *ngIf="userType2 ==='agricole' ||userRole==='agricole' && showSectionFarmerStock">
+  <section class="agriculture" *ngIf="userType2 ==='agricole'  && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffre()" #stockForm="ngForm" ngForm>
      
@@ -371,7 +370,7 @@
   <!-- transformarteur -->
 
 
-  <section class="transformateur" *ngIf="userRole ==='transformateur'&& showSectionTransformateurStock" >
+  <section class="transformateur" *ngIf="userType2 ==='transformateur'&& showSectionTransformateurStock" >
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock(); ajouterOffre()" #stockForm="ngForm" ngForm>
      
@@ -480,7 +479,7 @@
  
 
   <!--Transformateur-->
-  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && (userType2==='agricole' || userRole === 'agricole') " >
+  <section class="transformateurs margette" id="transformateurs" *ngIf=" showTransformateurs && userType2==='agricole' " >
 
     <div class="margett" >
 
@@ -543,7 +542,7 @@
 </div>
 
 <!-- Show Exportateur -->
-<section class="margette" *ngIf="showExportateurs && userType ==='user' && userRole ==='transformateur' " id="showExportateurs">
+<section class="margette" *ngIf="showExportateurs && userRole2==='user' && userType2 ==='transformateur' " id="showExportateurs">
   <table class="table" *ngIf="filterValue ===''">
     <thead>
         <tr>
@@ -623,7 +622,7 @@
 </section>
 
 <!-- Historique -->
-<section class="historique" id="historique" *ngIf="userType ==='user' || userRole2 ==='user' ">
+<section class="historique" id="historique" *ngIf="userRole2==='user'">
  <!-- Historique Agriculteur -->
   <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole'" >
     <table id="historique">
@@ -654,7 +653,7 @@
       </table>
   </section>
 <!-- Historique Transformateur -->
-<section *ngIf="showhistoriqueTransformateur && userRole==='transformateur'">
+<section *ngIf="showhistoriqueTransformateur && userType2==='transformateur'">
   <table id="historique">
     <thead>
       <tr>
@@ -683,7 +682,7 @@
     </table>
 </section>
 <!-- Historique exportateur -->
-<section *ngIf="showhistoriqueExportateur && userRole==='exportateur' && filterValue ==='' ">
+<section *ngIf="showhistoriqueExportateur && userType2==='exportateur' && filterValue ==='' ">
   <table id="historique">
     <thead>
     <tr>
@@ -702,7 +701,7 @@
     </tbody>
     </table>
 </section>
-<section *ngIf="showhistoriqueExportateur && userRole==='exportateur' && filterValue.length > 0 ">
+<section *ngIf="showhistoriqueExportateur && userType2==='exportateur' && filterValue.length > 0 ">
   <table id="historique">
     <thead>
     <tr>
@@ -725,7 +724,7 @@
 
 <!-- Offre -->
 
-<section class="historique" id="historique" *ngIf="showOffreAgricoleur && userType==='user'&& userRole==='transformateur'">
+<section class="historique" id="historique" *ngIf="showOffreAgricoleur && userRole2==='user'&& userType2==='transformateur'">
   <table id="historique" >
     <thead>
     <tr>
@@ -797,7 +796,7 @@
 
 
 <!-- Offre transformateur -->
-  <section class="margette" *ngIf="showOffreTransformateur && userType ==='user' && userRole ==='exportateur' " id="showOffreTransformateur">
+  <section class="margette" *ngIf="showOffreTransformateur && userRole2==='user' && userType2 ==='exportateur' " id="showOffreTransformateur">
     <table class="table" *ngIf="filterValue === ''">
       <thead >
           <tr>
@@ -887,7 +886,7 @@
 <!-- <ng-template *ngIf="showUpdateUserForm"> -->
 <div class="modal-overlay" [ngClass]="{'open': showModalFlag}" *ngIf="showModalFlag">
   <div class="modal">
-    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userType==='admin' || (userType==='admin' && operation === ('accpter' || 'refuser'))  "  >
+    <div id="userDetails" *ngIf="operation!=='stats' && operation!=='moreDetails' && userRole2==='admin' || (userRole2==='admin' && operation === ('accpter' || 'refuser'))  "  >
     <div class="modal-header">
       <h2 *ngIf="operation === 'accepter' || operation === 'refuser'">are you sure you want to continue?</h2>
       <h2 *ngIf="operation !== 'accepter' && operation !== 'refuser'">User Details</h2>
@@ -1014,30 +1013,30 @@
 <div class="updateStock" *ngIf="updateStockMode">
   <button class="btn btn-danger hideModal" (click)="hideModal()">X</button>
 <form #UpdatestockForm="ngForm" >
-  <label for="product-quantity">Quantity (in kilograms):</label>
+  <label for="product-quantity">Quantity:</label>
   <input type="number" id="product-quantity" *ngIf="!deleteOfferBoolean" name="product-quantity" min="1" [(ngModel)]="productQuantity">
-<input type="text" value="{{selectedOffer._id}}"  *ngIf="deleteOfferBoolean" readonly>
+<input type="text" value="{{selectedOffer.quantity}}"  *ngIf="deleteOfferBoolean" readonly>
   <label for="product-quality" >Quality:</label>
   <select id="product-quality" name="product-quality" [(ngModel)]="productQuality" *ngIf="!deleteOfferBoolean">
-    <option value="hight">haut</option>
-    <option value="average">moyen</option>
-    <option value="low">bas</option>
+    <option value="hight">hight</option>
+    <option value="average">medium</option>
+    <option value="low">low</option>
   </select>
   <input type="text" value="{{selectedOffer.quality}}" *ngIf="deleteOfferBoolean" readonly>
 
   <label for="product-price">Price (per unity):</label>
   <input type="number" id="product-price" name="product-price" min="0" step="0.01" [(ngModel)]="productPrice" *ngIf="!deleteOfferBoolean">
-  <input type="text" value="{{selectedOffer.Price}}" *ngIf="deleteOfferBoolean" readonly>
+  <input type="text" value="{{selectedOffer.priceUnit}}" *ngIf="deleteOfferBoolean" readonly>
   <label for="product-unit">Unit:</label>
-  <input type="number" id="product-unit" name="product-unit" [(ngModel)]="productUnit" *ngIf="!deleteOfferBoolean">
+  <input type="text" id="product-unit" name="product-unit" [(ngModel)]="productUnit" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.unit}}" *ngIf="deleteOfferBoolean" readonly>
-  <label for="actor-type">Actor Type:</label>
+  <!-- <label for="actor-type">Actor Type:</label>
   <select id="actor-type" name="actor-type" [(ngModel)]="actorType" *ngIf="!deleteOfferBoolean">
     <option value="agricole">agriculteur</option>
     <option value="transformateur">transformateur</option>
     <option value="exportateur">exportateur</option>
-  </select>
-  <input type="text" value="{{selectedOffer.actorType}}" *ngIf="deleteOfferBoolean" readonly>
+  </select> -->
+  <!-- <input type="text" value="{{selectedOffer.actorType}}" *ngIf="deleteOfferBoolean" readonly> -->
   <label for="state">State:</label>
   <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>

@@ -77,6 +77,9 @@ numberOfUsers:number;
       }
     );
   }
-
+numberOfTransactions:number;
+// getAllTransactions(){
+// this.user
+// }
 
 }

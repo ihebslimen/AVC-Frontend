@@ -84,9 +84,9 @@ ajouterOffreAgriculteur(stockForm: any,token:any): Observable<any> {
     return this.http.post('http://localhost:5000/api/user/offers', payload, { headers }); 
 }
 
-updateOffer(offerId: string, payload: any) {
+updateOffer(offerId: string, payload: any,token:any) {
   // todo  lezem nraja3ha connectedUserToken
-  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs';
+  // const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs';
   // Set the headers with authorization token
   const headers = new HttpHeaders({
       'Authorization': `Bearer ${
@@ -330,9 +330,9 @@ getTransactionAccountHistory(token:any):Observable<any>{
   return this.http.get(url,{headers});
 }
 
-historiqueAchat():Observable<any>{
+historiqueAchat(token:any):Observable<any>{
   const headers = new HttpHeaders({
-    'Authorization': `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM"}`
+    'Authorization': `Bearer ${token}`
   });  
 const url='http://localhost:5000/api/user/historique_achats';
 return this.http.get(url,{headers});

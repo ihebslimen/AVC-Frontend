@@ -60,9 +60,10 @@ connectedUserToken:any;
 // public conditionn:string='agricole';
 ngOnInit() {
   // this.loadData()
-  this.historiqueAchat();
+ 
 
   this.connectedUserToken=this.getCookieValue('loggedUser'); 
+  this.historiqueAchat();
   console.log("connected user Token ===="+this.connectedUserToken)
   this.getTransactionAccountHistory(); 
   this.filterOffersById(this.userId);
@@ -586,13 +587,12 @@ showListeReclammmations:boolean=false;
       unit:this.productUnit,
     };   console.log("form update offer+"+formValues.quantity);
 
-    this.adminService.updateOffer(offerId, formValues)
+    this.adminService.updateOffer(offerId, formValues,this.connectedUserToken)
       .subscribe(
         response => {
 console.log('Update request successful', response);
 this.getAllOffers();
-// this.filterOffers2('transformateur')
-this.filtrerOffresById(this.connectedUserToken,this.userId);
+  this.filterOffersById(this.userId);
 this.showModalFlag=false;
 this.validationMessage=true;
 setTimeout(()=>{
@@ -839,11 +839,10 @@ console.log("id to delete----->"+id);
   }
 
   ajouterOffre(){
-    const StockFormKemel={...this.stockForm}
     this.stockForm.value['product-quantity']=this.stockForm.value['product-quantity'].toString();
     this.stockForm.value['product-price']=this.stockForm.value['product-price'].toString();
     this.stockForm.value['actor-type']=this.userType2??this.userRole;
-    this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
+    this.adminService.ajouterOffreAgriculteur(this.stockForm,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs").subscribe(
         (response) => {
           // Handle success response
   console.log('Offer added successfully:', response);
@@ -934,9 +933,7 @@ usersByType:User[];
 
 
 
-    
-// todo
-//placeholder w bara
+
    
     
 
@@ -974,7 +971,7 @@ MyOffers:Offer[];
 filterOffersById(id:any){
   console.log("id mil filterOffersById"+id);
    // todo  lezem nraja3ha connectedUserToken
-  this.adminService.filterOffersById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356")
+  this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
     console.log(" mtoken connedté mil filterOffersById"+this.connectedUserToken);
     console.log(response.data);
@@ -1164,6 +1161,7 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
         this.filteredOffersByActor=response.data;
         console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
+        this.historiqueAchat();
         return response.data;
       }, error => {
         // Handle any errors here
@@ -1264,12 +1262,13 @@ getCookieValue(name: string): string | null {
 }
 historique:any[]=[];
 historiqueAchat(){
-  this.adminService.historiqueAchat().subscribe(
+  this.adminService.historiqueAchat(this.connectedUserToken).subscribe(
     (response)=>{
       console.log("$$$$$ l'historique des achats $$$$");
       console.log(response.data);
      this.historique=response.data; 
      this.loadHistoryUserNames();
+
     },
     (errror)=>{
       console.error("historique mayemchic")
