@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { User } from '../adminPages/list-of-users/list-of-users.component';
 import jwt_decode from 'jwt-decode';
@@ -85,7 +85,13 @@ export class AuthenticationServiceService {
       }
       else{
         this.loggedIn.next(true); this.connected=true; 
-        this.router.navigate(['listOfUsers'],{ queryParams: { userType: userRole,userRole:userType } });
+        const queryParams= { userType: userRole,userRole:userType }
+        const navigationExtras: NavigationExtras = {
+          state: { queryParams },
+          queryParamsHandling: 'merge',
+    skipLocationChange: false
+        };
+        this.router.navigate(['listOfUsers'],navigationExtras);
       }
     } else {
       console.log('Token not found');

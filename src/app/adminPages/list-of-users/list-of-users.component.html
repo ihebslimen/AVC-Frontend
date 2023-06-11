@@ -1,8 +1,8 @@
 <app-header></app-header>
 <body style="background-color: #f6f9ff;">
 <div class="container">
-    <div class="row" id="adminRole" *ngIf="userRole2==='admin'">
-           <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
+    <div class="row" id="adminRole" *ngIf="userType==='admin'">
+           <div class="col-2  fixed-left taille" *ngIf="userType === 'admin'" style="background-color:  rgb(41, 78, 157);">
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
@@ -11,16 +11,16 @@
             </div>
           </div> 
         </div>
-        <div class="row" id="userType2" *ngIf="userRole2==='user'">
+        <div class="row" id="userType2" *ngIf="userRole2==='user' || userType === 'user'">
           <div class="col-2  fixed-left taille" style="background-color:  rgb(41, 78, 157);">
            <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed;">
              <h1 style="color: white;">Dashboard user</h1><br><br>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('historique',$event)" ><h6>&nbsp;Consulter l'historique des accords</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('transformateurs',$event); consulterUserByType('transformateur')" *ngIf=" userType2==='agricole' " ><h6>&nbsp;Consulter les transformateurs</h6></a>
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userType2==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userType2==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('exportateurs',$event); consulterUserByType('exportateur') " *ngIf=" userType2==='transformateur' || userRole==='transformateur'" ><h6>&nbsp;Consulter les exportateurs</h6></a>    
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offreAgricolteur',$event)" *ngIf=" userType2==='transformateur' ||userRole==='transformateur' filterOffers2('agricole')" ><h6>&nbsp;Consulter les offres d'agricolteurs</h6></a> 
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('offretransformateur',$event); consulterUserByType('transformateur');  filterOffers2('transformateur')" *ngIf=" userType2==='exportateur'"><h6>&nbsp;Consulter les offres de transformateurs</h6></a>        
-             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userType2==='transformateur' ||userType2==='agricole'" ><h6>&nbsp;quantité disponible et prix</h6></a>
+             <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('Stock',$event); "  *ngIf="userType2==='agricole' || userType2==='transformateur' ||userRole==='agricole' ||userRole==='transformateur'" ><h6>&nbsp;quantité disponible et prix</h6></a>
              <a  style="color: white;" class="dropdown-item"  (click)="toggleSection('reclamation',$event)"><h6>&nbsp;signaler une vioaltion des conditions</h6></a>
             </div>
          </div> 
@@ -259,11 +259,11 @@
 
 
 <!-- Stock -->
-<section class="Stock margette" id="Stock"  *ngIf="userRole2==='user' ">
+<section class="Stock margette" id="Stock"  *ngIf="userRole2==='user' || userType === 'user' ">
 
   <!--Agriculteur-->
  
-  <section class="agriculture" *ngIf="userType2 ==='agricole'  && showSectionFarmerStock">
+  <section class="agriculture" *ngIf="(userType2 ==='agricole' || userRole==='agricole')  && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
     <form (ngSubmit)=" ajouterAuStock();ajouterOffre()" #stockForm="ngForm" ngForm>
      
@@ -281,16 +281,16 @@
       <option value="low">Low</option>
       </select>
     
-      <label for="product-price">Price (per kilogram):</label>
-    <div class="line">
+      <label for="product-price" style="position:relative; left:100px;">Price (per kilogram):</label>
+    <div class="line" style="position:relative; left:100px;">
       <input type="number" id="product-price" name="product-price" min="0" step="0.01" ngModel >
       <!-- <button >modifier</button> -->
     </div>
   </div>
-  <div class="column">
+  <div class="column column2">
     <label for="product-unit">unit :</label>
     <div class="line">
-      <input type="number" id="product-unit" name="product-unit"  ngModel >
+      <input type="text" id="product-unit" name="product-unit"  ngModel >
       <!-- <button >modifier</button> -->
     </div>
     <label for="product-state">state :</label>
@@ -298,14 +298,14 @@
       <input type="text" id="product-state" name="product-state"  ngModel >
       <!-- <button >modifier</button> -->
     </div>
-    <label for="actor-type">actor type:</label>
+    <label for="actor-type" [hidden]=true>actor type:</label>
     
-    <!-- <select id="actor-type" name="actor-type" ngModel >
-      <option value="">--Select actor type--</option>
-      <option value="Agriculteur">Agriculteur</option>
-      <option value="transformateur">transformateur</option>
-      <option value="exportateur">exportateur</option>
-    </select> -->
+    <select id="actor-type" [hidden]=true name="actor-type" ngModel >
+    <option  value="">--Select actor type--</option>
+    <option  value="Agricole">Agriculteur</option>
+    <option  value="transformateur">transformateur</option>
+    <option  value="exportateur">exportateur</option>
+    </select>
 </div>
 
 <div class="butt">
@@ -353,7 +353,7 @@
         </tr>
       </tbody>
       </table>
-      <div class="paginator">
+      <div class="paginator-ajouterOffreAgricole">
         <select class="form-select" [(ngModel)]="selectedLength">
           <option value="5">5</option>
           <option value="10">10</option>
@@ -622,9 +622,9 @@
 </section>
 
 <!-- Historique -->
-<section class="historique" id="historique" *ngIf="userRole2==='user'">
+<section class="historique" id="historique" *ngIf="userRole2==='user' || userType === 'user'">
  <!-- Historique Agriculteur -->
-  <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole'" >
+  <section *ngIf="showhistoriqueAgricolteur && userType2==='agricole' && filterValue ===''" >
     <table id="historique">
       <thead>
         <tr>
@@ -652,8 +652,37 @@
         </tbody>
       </table>
   </section>
+  <section *ngIf="showhistoriqueAgricolteur&& userType2==='agricole'  && filterValue.length > 0 ">
+    <table id="historique">
+      <thead>
+      <tr>
+        <th>date00</th>
+        <th>nom de l'acheteur</th>
+        <th>telephone</th>
+        <th>qualité</th>
+        <th>Quantity in Stock</th>
+        <th>Price</th>
+        <th>nom du vendeur</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+        <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
+          <td>date</td>
+          <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+          <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+         <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+         <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+         <td>{{histoire.quantity}}</td>
+        <td>{{histoire.quality}}</td> 
+        <td>{{histoire.price || 'null'}}</td>
+        <td>{{userNames[histoire.seller] || 'moi' }}</td>
+        </tr>
+      </tbody>
+      </table>
+  </section>
 <!-- Historique Transformateur -->
-<section *ngIf="showhistoriqueTransformateur && userType2==='transformateur'">
+<section *ngIf="showhistoriqueTransformateur && (userType2==='transformateur' || userRole==='transformateur') && filterValue ==='' ">
   <table id="historique">
     <thead>
       <tr>
@@ -681,45 +710,103 @@
       </tbody>
     </table>
 </section>
-<!-- Historique exportateur -->
-<section *ngIf="showhistoriqueExportateur && userType2==='exportateur' && filterValue ==='' ">
+<section *ngIf="showhistoriqueTransformateur && userType2==='transformateur' && filterValue.length > 0 ">
   <table id="historique">
     <thead>
     <tr>
-      <th>Quality exportateur</th>
+      <th>date</th>
+      <th>nom de l'acheteur</th>
+      <th>telephone</th>
+      <th>qualité</th>
       <th>Quantity in Stock</th>
       <th>Price</th>
+      <th>nom du vendeur</th>
     </tr>
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of getPaginatedData2(offers,5)">
-        <td>{{item.quality}}</td>
-        <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.priceUnit+ '/kg'}}</td>
+      <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
+        <td>date</td>
+        <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+        <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+       <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+       <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+       <td>{{histoire.quantity}}</td>
+      <td>{{histoire.quality}}</td> 
+      <td>{{histoire.price || 'null'}}</td>
+      <td>{{userNames[histoire.seller] || 'moi' }}</td>
       </tr>
     </tbody>
+    </table>
+</section>
+<!-- Historique exportateur -->
+<section *ngIf="showhistoriqueExportateur && userType2==='exportateur' && filterValue ==='' ">
+  <table id="historique">
+    <thead>
+      <tr>
+        <th>date</th>
+        <th>nom de l'acheteur</th>
+        <th>telephone</th>
+        <th>qualité</th>
+        <th>Quantity in Stock</th>
+        <th>Price</th>
+        <th>nom du vendeur</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
+          <td>date</td>
+          <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+          <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+         <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+         <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+         <td>{{histoire.quantity}}</td>
+        <td>{{histoire.quality}}</td> 
+        <td>{{histoire.price || 'null'}}</td>
+        <td>{{userNames[histoire.seller] || 'moi' }}</td>
+        </tr>
+      </tbody>
     </table>
 </section>
 <section *ngIf="showhistoriqueExportateur && userType2==='exportateur' && filterValue.length > 0 ">
   <table id="historique">
     <thead>
     <tr>
-      <th>Quality exportateur</th>
+      <th>date</th>
+      <th>nom de l'acheteur</th>
+      <th>telephone</th>
+      <th>qualité</th>
       <th>Quantity in Stock</th>
       <th>Price</th>
+      <th>nom du vendeur</th>
     </tr>
     </thead>
     <tbody>
     
-      <tr *ngFor="let item of getPaginatedData2(filtredOffers,5)">
-        <td>{{item.quality}}</td>
-        <td>{{item.quantity}} kg</td>
-        <td>{{'$' + item.priceUnit+ '/kg'}}</td>
+      <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
+        <td>date</td>
+        <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
+        <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
+       <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
+       <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
+       <td>{{histoire.quantity}}</td>
+      <td>{{histoire.quality}}</td> 
+      <td>{{histoire.price || 'null'}}</td>
+      <td>{{userNames[histoire.seller] || 'moi' }}</td>
       </tr>
     </tbody>
     </table>
 </section>
+<div class="paginator-historique" *ngIf="showhistoriqueExportateur || showhistoriqueAgricolteur || showhistoriqueTransformateur ">
+  <select class="form-select" [(ngModel)]="selectedLength">
+  <option value="5">5</option>
+  <option value="10">10</option>
+  <option value="15">15</option>
+  <option value="20">20</option>
+  </select>
+  <button [disabled]="currentPage === 1" class="btn btn-success bold" (click)="updateCurrentPage('back')">&#8592;</button>
+  <button [disabled]="currentPage === numberOfPages" class="btn btn-success" (click)="updateCurrentPage('next')">&#8594;</button>
+  </div>
 </section>
 
 <!-- Offre -->
@@ -1105,7 +1192,8 @@
 
   <div class="input-group mb-3" >
     <input type="text" class="form-control" placeholder="filtre sur tout les champs" [(ngModel)]="filterValue" (ngModelChange)="applyFilter()" >
-    <button class="btn btn-primary" (click)="applyFilterUsersDashbord()">Filter</button> 
+    <button *ngIf="(!showhistoriqueAgricolteur && !showhistoriqueTransformateur && !showhistoriqueExportateur) || (userType==='admin' || userType==='admin')" class="btn btn-primary" (click)="applyFilterUsersDashbord()">Filtrer</button> 
+    <button *ngIf="(showhistoriqueAgricolteur || showhistoriqueTransformateur || showhistoriqueExportateur) &&(userType !== 'admin' && userRole2 !== 'admin')" class="btn btn-primary" (click)="applyFilterHistorique()">filtrerH</button>
   </div>
 
   </div>
