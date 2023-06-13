@@ -163,6 +163,7 @@ this.showerrorMessage=true;
 onSubmitPassword(code:any){
   console.log(this.password);
   this.verifycode(code);
+  
   this.router.navigate(['listOfUsers'],{ queryParams: { userType: "user",userRole:"agricole" } });
 
 // todo

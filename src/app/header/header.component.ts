@@ -1,5 +1,5 @@
 import { Component,Input,Output ,EventEmitter, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { Router,NavigationEnd } from '@angular/router';
+import { Router,NavigationEnd, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from '@angular/router'
 import { AuthenticationServiceService } from '../services/authentication-service.service';
 import { Subscription } from 'rxjs';
@@ -65,8 +65,14 @@ logout(): void {
  
  
 
-
-
+navigateWithQueryParams() {
+  const queryParams = { param1: 'value1', param2: 'value2' };
+  const navigationExtras: NavigationExtras = {
+    queryParams,
+    skipLocationChange: true
+  };
+  this.router.navigate(['/listOfUsers'], navigationExtras);
+}
  
   
 

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, of } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-list-of-users',
   templateUrl: './list-of-users.component.html',
@@ -26,6 +27,8 @@ connectedUserToken:any;
 
   userType: string | null;
   userRole: string | null;
+  param1: string | null;
+  param2: string | null;
 
   userType2: string | null;
   userRole2: string | null; private subscription: Subscription;
@@ -36,6 +39,9 @@ connectedUserToken:any;
     this.userType = this.route.snapshot.queryParamMap.get('userType');
     this.userRole = this.route.snapshot.queryParamMap.get('userRole');
  
+    this.param1 = this.route.snapshot.queryParamMap.get('param1');
+    this.param2 = this.route.snapshot.queryParamMap.get('param2');
+
     this.subscription = this.authenticationService.userRole$.subscribe(role => {
       this.userRole2 = role; console.log("mil 22222 userRole==="+this.userRole2)
       // Perform any necessary logic based on the user role
@@ -61,7 +67,9 @@ connectedUserToken:any;
 ngOnInit() {
   // this.loadData()
  
-
+console.log("l role  == "+this.userRole );
+console.log("param1"+this.param1)
+console.log("param2222"+this.param2)
   this.connectedUserToken=this.getCookieValue('loggedUser'); 
   this.historiqueAchat();
   console.log("connected user Token ===="+this.connectedUserToken)
@@ -73,7 +81,7 @@ ngOnInit() {
   this.consulterHistoriqueUtilisateur();
   console.log("role---->"+this.userRole2);
   console.log("type---->"+this.userType2);
-
+this.filtrage=true;
   if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
     this.adminService.filterOffers2('transformateur')
     .subscribe(response => {
@@ -248,6 +256,12 @@ console.log(this.offers)
       );
       console.log(this.filtredOffers)
     }
+  } filtredHistory:any[]=[];
+  applyFilterHistorique(){
+    this.filtredHistory=this.historique.filter(history =>
+      this.userNames[history.seller].includes(this.filterValue) ||
+      this.userNames[history.buyer].includes(this.filterValue)
+      )
   }
 
   resetTable() {
@@ -323,17 +337,19 @@ showListeReclammmations:boolean=false;
       this.showSectionInscription = false;
       this.showSectionGestionUtilisateur = true;
       this.showListeReclammmations=false;
+      this.filtrage=true;
     }
     if (sectionId === 'Inscription') {
       this.showListeReclammmations=false;
       this.showSectionGestionUtilisateur = false;
       this.showSectionInscription = true;
-
+      this.filtrage=true;
     }
     if (sectionId === 'listeReclammmations') {
       this.showSectionInscription = false;
       this.showSectionGestionUtilisateur =false;
       this.showListeReclammmations=true;
+      this.filtrage=false;
     }
     if (sectionId === 'reclamation') {
 
@@ -372,20 +388,20 @@ showListeReclammmations:boolean=false;
       this.filtrage=true;
 
     
-      if (this.userType2 === 'agricole') {
+      if (this.userType2 === 'agricole' || this.userRole=== 'agricole') {
         this.showhistoriqueAgricolteur = true;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
        
         console.log("filtrage yemchi ?"+this.filtrage)
       }
-      if (this.userRole === 'transformateur') {
+      if (this.userRole === 'transformateur' || this.userType2 === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = true;
         this.showhistoriqueExportateur = false;
     
       }
-      if (this.userRole === 'exportateur') {
+      if (this.userRole === 'exportateur' || this.userType2 === 'exportateur') {
         this.showhistoriqueAgricolteur = false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = true;
@@ -489,9 +505,9 @@ showListeReclammmations:boolean=false;
       this.showhistoriqueExportateur = false;
       /* Appelle d'offre */
       this.showOffreAgricoleur = false;
-      this.showOffreTransformateur = true;
+      this.showOffreTransformateur = false;
       this.filtrage=false;
-      if (this.userType2 === 'agricole') {
+      if (this.userType2 === 'agricole' || this.userRole === 'agricole') {
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = false;
@@ -500,12 +516,12 @@ showListeReclammmations:boolean=false;
         console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
         
       }
-      if (this.userRole === 'transformateur') {
+      if (this.userRole === 'transformateur' || this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;
         this.showSectionTransformateurStock = true;
         this.showSectionExportateurStock = false;
       }
-      if (this.userType2 === 'exportateur') {
+      if (this.userType2 === 'exportateur' || this.userRole === 'exportateur') {
         this.showSectionFarmerStock = false;
         this.showSectionTransformateurStock = false;
         this.showSectionExportateurStock = true;
@@ -842,7 +858,7 @@ console.log("id to delete----->"+id);
     this.stockForm.value['product-quantity']=this.stockForm.value['product-quantity'].toString();
     this.stockForm.value['product-price']=this.stockForm.value['product-price'].toString();
     this.stockForm.value['actor-type']=this.userType2??this.userRole;
-    this.adminService.ajouterOffreAgriculteur(this.stockForm,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs").subscribe(
+    this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
   console.log('Offer added successfully:', response);
@@ -1156,12 +1172,15 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
   (response)=>{
     console.log(response);
     if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
+      
       this.adminService.filterOffers2('transformateur')
       .subscribe(response => {
         this.filteredOffersByActor=response.data;
         console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
+        this.loadHistoryUserNames();
         this.historiqueAchat();
+       
         return response.data;
       }, error => {
         // Handle any errors here
@@ -1175,6 +1194,9 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
       .subscribe(response => {
         this.filteredOffersByActor=response.data;
         this.loadUserNamesAndPhoneNumbers();
+        this.loadHistoryUserNames();
+        this.historiqueAchat();
+    
         return response.data;
       }, error => {
         // Handle any errors here
@@ -1260,6 +1282,30 @@ getCookieValue(name: string): string | null {
   }
   return null;
 }
+ timestamp = 1623496400000;
+
+// Create a new Date object using the timestamp
+ date = new Date(this.timestamp);
+
+// Format the date to a desired format using Angular's DatePipe
+
+
+// Create an instance of DatePipe
+ datePipe = new DatePipe('en-US');
+
+// Format the date using the desired format (e.g., 'yyyy-MM-dd')
+formattedDate: string | null  = this.datePipe.transform(this.date, 'yyyy-MM-dd');
+
+// console.log(this.formattedDate);
+  
+
+
+
+
+
+
+
+// Output: 2021-06-12
 historique:any[]=[];
 historiqueAchat(){
   this.adminService.historiqueAchat(this.connectedUserToken).subscribe(
