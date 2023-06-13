@@ -1085,7 +1085,8 @@ reclammmations:reclamation[];
               
 filteredOffersByActor: Offer[];
 userNames: { [key: string]: string } = {};
-phoneNumbers: { [key: string]: string } = {};        
+phoneNumbers: { [key: string]: string } = {};   
+timestamps: { [key: string]: string } = {};      
                 loadUserNamesAndPhoneNumbers() {
                   for (const offer of this.filteredOffersByActor) {
                     this.adminService.searchUserById(offer.actorRef).subscribe(
@@ -1111,12 +1112,21 @@ loadHistoryUserNames() {
                       response => {
                         const userName = response.data[0].name;
                         const userPhone=response.data[0].phone;
+                        console.log("historqiue");
+                        console.log(histoire);
+                        
                         this.userNames[histoire.seller] = userName;
                         this.phoneNumbers[histoire.seller] = userPhone;
+                        const date = new Date(parseInt(histoire.timestamp) * 1000);
+                        console.log("hellllo");
+                        console.log(histoire.timestamp);
+                        this.timestamps[histoire.seller] = date.toLocaleDateString();
+                        
                       },
                       error => {
                         console.error(error);
                         this.userNames[histoire.seller] = ''; // Assign a default value in case of error
+                        this.timestamps[histoire.seller] = '';
                       }
                     );
                   }  
@@ -1127,11 +1137,15 @@ loadHistoryUserNames() {
                         this.userNames[histoire.buyer] = userName;
                         const userPhone=response.data[0].phone;
                         this.phoneNumbers[histoire.buyer] = userPhone;
+                        const timestamp=response.data[0].timestamp;
+                        this.timestamps[histoire.buyer] = timestamp;
+
 
                       },
                       error => {
                         console.error(error);
                         this.userNames[histoire.buyer] = ''; // Assign a default value in case of error
+                        this.timestamps[histoire.buyer] = '';
                       }
                     );
                   }   
@@ -1282,21 +1296,7 @@ getCookieValue(name: string): string | null {
   }
   return null;
 }
- timestamp = 1623496400000;
-
-// Create a new Date object using the timestamp
- date = new Date(this.timestamp);
-
-// Format the date to a desired format using Angular's DatePipe
-
-
-// Create an instance of DatePipe
- datePipe = new DatePipe('en-US');
-
-// Format the date using the desired format (e.g., 'yyyy-MM-dd')
-formattedDate: string | null  = this.datePipe.transform(this.date, 'yyyy-MM-dd');
-
-// console.log(this.formattedDate);
+ 
   
 
 

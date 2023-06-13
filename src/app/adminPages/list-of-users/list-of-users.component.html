@@ -639,7 +639,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
-            <td>{{formattedDate}}</td>
+            <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
             <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
             <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
            <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -668,7 +668,7 @@
       <tbody>
       
         <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
-          <td>{{formattedDate }}</td>
+          <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
          <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -697,7 +697,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
-          <td>{{histoire.timestamp | date }}</td>
+          <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
          <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -726,7 +726,7 @@
     <tbody>
     
       <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
-        <td>date</td>
+        <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
         <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
         <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
        <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -755,7 +755,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let histoire of getPaginatedData2(historique,5)">
-          <td>date</td>
+          <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
          <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
@@ -784,7 +784,7 @@
     <tbody>
     
       <tr *ngFor="let histoire of getPaginatedData2(filtredHistory,5)">
-        <td>date</td>
+        <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}<td>
         <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
         <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
        <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
