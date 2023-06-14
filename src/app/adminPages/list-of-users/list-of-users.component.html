@@ -265,7 +265,7 @@
  
   <section class="agriculture" *ngIf="(userType2 ==='agricole' || userRole==='agricole')  && showSectionFarmerStock">
     <h2>Ajouter vos offres ici</h2><br>
-    <form (ngSubmit)=" ajouterAuStock();ajouterOffre()" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)="ajouterOffre()" #stockForm="ngForm" ngForm>
      
       <div class="column">
       <label for="product-quantity">Quantity (in kilograms):</label>
@@ -372,7 +372,7 @@
 
   <section class="transformateur" *ngIf="userType2 ==='transformateur'&& showSectionTransformateurStock" >
     <h2>Ajouter vos offres ici</h2><br>
-    <form (ngSubmit)=" ajouterAuStock(); ajouterOffre()" #stockForm="ngForm" ngForm>
+    <form (ngSubmit)="ajouterOffre()" #stockForm="ngForm" ngForm>
      
       <div class="column">
       <label for="product-quantity">Quantity (in kilograms):</label>
@@ -700,8 +700,6 @@
           <td>{{timestamps[histoire.buyer] || timestamps[histoire.seller]}}</td>
           <td>{{userNames[histoire.buyer] || 'moi' }}</td> 
           <td>{{ phoneNumbers[histoire.buyer] || phoneNumbers[histoire.seller] }}</td>
-         <!-- <td *ngIf="phoneNumbers[histoire.buyer]">{{phoneNumbers[histoire.buyer]}}</td>
-         <td *ngIf="phoneNumbers[histoire.seller]==='moi' ">{{phoneNumbers[histoire.seller]}}</td> -->
          <td>{{histoire.quantity}}</td>
         <td>{{histoire.quality}}</td> 
         <td>{{histoire.price || 'null'}}</td>
@@ -1026,7 +1024,7 @@
 
 <button class="btn btn-success" style="width:100%" *ngIf="operation==='accepter'" (click)="accepterUser(selectedUser._id)">accepter</button>
 <button class="btn btn-danger" style="width:100%" *ngIf="operation==='refuser'" (click)="deleteUser2(selectedUser._id)">refuser</button>
-    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id);updateUserValues(); ">valider la modification</button>
+    <button class="btn btn-primary" type="submit" *ngIf="operation==='edit'" (click)="updateUser( selectedUser._id) ">valider la modification</button>
   </form>
   </div>
  
@@ -1127,7 +1125,7 @@
   <label for="state">State:</label>
   <input type="text" id="state" name="state" [(ngModel)]="state" *ngIf="!deleteOfferBoolean">
   <input type="text" value="{{selectedOffer.state}}" *ngIf="deleteOfferBoolean" readonly>
-  <button class="btn btn-success valider" type="submit" *ngIf="!deleteOfferBoolean" (click)="showUpdateStockValues(); updateStock(selectedOffer._id);">Appliquer la modification</button>
+  <button class="btn btn-success valider" type="submit" *ngIf="!deleteOfferBoolean" (click)="updateStock(selectedOffer._id)">Appliquer la modification</button>
   <button class="btn btn-success valider" type="submit" *ngIf="deleteOfferBoolean" (click)="deleteOffer(selectedOffer._id)">supprimer définitivement</button>
 </form>
 </div>
