@@ -65,25 +65,16 @@ logout(): void {
  
  
 
-// navigateWithQueryParams() {
-//   const queryParams = { param1: 'value1', param2: 'value2' };
-//   const navigationExtras: NavigationExtras = {
-//     queryParams,
-//     skipLocationChange: true
-//   };
-//   this.router.navigate(['/listOfUsers'], navigationExtras);
-// }
-goBackToDashbord(){
-const queryParams= { userType: this.userRole,userRole:this.userType }
-const navigationExtras: NavigationExtras = {
-  state: { queryParams },
-  queryParamsHandling: 'merge',
-skipLocationChange: false
-};
-console.log("userRole-------"+this.userRole);
-console.log("userType-------"+this.userType);
-this.router.navigate(['listOfUsers'],navigationExtras);
+navigateWithQueryParams() {
+  const queryParams = { param1: 'value1', param2: 'value2' };
+  const navigationExtras: NavigationExtras = {
+    queryParams,
+    skipLocationChange: true
+  };
+  this.router.navigate(['/listOfUsers'], navigationExtras);
 }
+ 
+  
 
 
 

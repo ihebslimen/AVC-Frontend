@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"admin",component:AdminProfileComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"profile",component:ProfileComponent},
-  {path:"listOfUsers",component:ListOfUsersComponent,},
+  {path:"listOfUsers",component:ListOfUsersComponent,canActivate:[IsAdminRouteGuardService]},
   {path:"statistics",component:StatisticsComponent},
   {path:"apropos",component:AproposComponent},
   {path:"**",component:PageNotFoundComponent},

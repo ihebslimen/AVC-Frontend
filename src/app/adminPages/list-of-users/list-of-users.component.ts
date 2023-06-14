@@ -1,11 +1,15 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AmdminServiceService } from 'src/app/services/admin-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, of } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-list-of-users',
   templateUrl: './list-of-users.component.html',
@@ -39,24 +43,20 @@ connectedUserToken:any;
     this.param2 = this.route.snapshot.queryParamMap.get('param2');
 
     this.subscription = this.authenticationService.userRole$.subscribe(role => {
-      this.userRole2 = role; 
-    
+      this.userRole2 = role; console.log("mil 22222 userRole==="+this.userRole2)
       // Perform any necessary logic based on the user role
     });
   
     this.subscription = this.authenticationService.userType$.subscribe(type => {
-      this.userType2 = type;
-      
+      this.userType2 = type; console.log("mil 22222 userType==="+this.userType2)
       // Perform any necessary logic based on the user type
     });
     this.subscription = this.authenticationService.userId$.subscribe(id => {
-      this.userId = id; 
-    
+      this.userId = id; console.log("mil 22222 id==="+this.userId)
       // Perform any necessary logic based on the user role
     });
     this.subscription = this.authenticationService.userPublicKeySubject$.subscribe(pubKey => {
-      this.userPublicKey = pubKey; 
-      
+      this.userPublicKey = pubKey; console.log("mil 22222 PUBLIC_KEY==="+this.userPublicKey)
       // Perform any necessary logic based on the user type
     });
   }
@@ -66,31 +66,32 @@ connectedUserToken:any;
 // public conditionn:string='agricole';
 ngOnInit() {
   // this.loadData()
-  this.connectedUserToken=this.getCookieValue('loggedUser'); 
  
-
-  
-if(this.userRole2==='user'){
+console.log("l role  == "+this.userRole );
+console.log("param1"+this.param1)
+console.log("param2222"+this.param2)
+  this.connectedUserToken=this.getCookieValue('loggedUser'); 
   this.historiqueAchat();
+  console.log("connected user Token ===="+this.connectedUserToken)
   this.getTransactionAccountHistory(); 
   this.filterOffersById(this.userId);
-}
-this.getUsers2();
-this.getAllOffers();
-this.filterUsers();
-  if(this.userRole2==='user'){
+  this.getUsers2();
+  this.getAllOffers();
+  this.filterUsers();
   this.consulterHistoriqueUtilisateur();
-
-
+  console.log("role---->"+this.userRole2);
+  console.log("type---->"+this.userType2);
 this.filtrage=true;
   if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
     this.adminService.filterOffers2('transformateur')
     .subscribe(response => {
       this.filteredOffersByActor=response.data;
+      console.log("filtred offers by actor   "+this.filteredOffersByActor)
       this.loadUserNamesAndPhoneNumbers();
       return response.data;
     }, error => {
       // Handle any errors here
+      console.error(error);
     });
     
   }
@@ -103,12 +104,25 @@ this.filtrage=true;
       return response.data;
     }, error => {
       // Handle any errors here
+      console.error(error);
     });
     this.filterOffers2('transformateur');
   }
-}
 
-//  this.filtrerOffresById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356");
+  if(this.userRole === 'admin' || this.userType2 === 'admin'){
+    this.adminService.getAllReclamations().subscribe(
+      response => {
+        this.reclammmations=response.data;
+        this.loadUserNamesByReclammation();
+      },
+      error => {
+        console.log("fama mochkel fil reclammmations")
+        console.error('Error sending message:', error);
+        // Handle the error if needed
+      });
+  }
+
+  this.filtrerOffresById("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs","64778dd5fe84e131d38b2356");
 
 }
 
@@ -116,7 +130,7 @@ this.filtrage=true;
     this.adminService.deleteReclamation(id)
       .subscribe(
         (response) => {
-         // Suppression réussie, effectuer les actions nécessaires
+          console.log(response)// Suppression réussie, effectuer les actions nécessaires
           this.getAllReclamations();
         },
         (error) => {
@@ -135,10 +149,10 @@ getUsersByRef(ref: any): User {
         this.users = users.data;
 
         this.usersByRef = this.users.filter((user) => user._id === ref);
-
+console.log("user actorRef =="+this.usersByRef[0].name)
       }),
       catchError((error) => {
-       
+        console.error(error);
         return of(null); // return null or any default value on error
       })
     );
@@ -156,7 +170,7 @@ getUsersByRef(ref: any): User {
         return users;
       },
       (error) => {
-      
+        console.error(error);
       }
     );
   
@@ -168,7 +182,7 @@ getUsersByRef(ref: any): User {
 
   sortTable() {
     if (this.sortValue === 'name') {
-      this.approvedUsers = this.approvedUsers.slice().sort(
+      this.users = this.users.slice().sort(
         (a, b) => a.name.localeCompare(b.name)
       );
     }
@@ -176,34 +190,34 @@ getUsersByRef(ref: any): User {
   sortTableArrows(param: string, order: string) {
     if (order == "asc") {
       if (param === 'name') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         );
       }
       if (param === 'username') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         );
       }
       if (param === 'email') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.email.localeCompare(b.name)
         );
       }
     }
     if (order == "des") {
       if (param === 'name') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         ).reverse();
       }
       if (param === 'username') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         ).reverse();
       }
       if (param === 'email') {
-        this.approvedUsers = this.approvedUsers.slice().sort(
+        this.users = this.users.slice().sort(
           (a, b) => a.email.localeCompare(b.name)
         ).reverse();
       }
@@ -234,13 +248,13 @@ getUsersByRef(ref: any): User {
   }
   applyFilterUsersDashbord(){
     if (this.filterValue.length > 0) {
-
+console.log(this.offers)
       this.filtredOffers = this.offers.filter(offer =>
         offer.quality.toString() === this.filterValue 
         // user.username.toLowerCase().includes(this.filterValue.toLowerCase()) ||
         // offer.email.toLowerCase().includes(this.filterValue.toLowerCase())
       );
-  
+      console.log(this.filtredOffers)
     }
   } filtredHistory:any[]=[];
   applyFilterHistorique(){
@@ -249,9 +263,14 @@ getUsersByRef(ref: any): User {
       this.userNames[history.buyer].includes(this.filterValue)
       )
   }
-
+  
+  applyFilterOffre(){
+    this.filteredOffersByActor=this.filteredOffersByActor.filter(offre=>
+      offre.quantity== parseInt(this.filterValue)
+    )
+    }
   resetTable() {
-
+    console.log(this.originalTable);
     // this.users = this.getUsers();
     // this.filterName = '';
     // this.filterUsername = '';
@@ -262,9 +281,11 @@ getUsersByRef(ref: any): User {
   updateCurrentPage(direction: string) {
     if (direction == "next") {
       this.currentPage += 1;
+      console.log("page +1")
     }
     if (direction == "back") {
       this.currentPage -= 1;
+      console.log("page -1")
     }
   }
 getPaginatedData2(table:any[],selectedLength:number){
@@ -377,7 +398,7 @@ showListeReclammmations:boolean=false;
         this.showhistoriqueTransformateur = false;
         this.showhistoriqueExportateur = false;
        
-
+        console.log("filtrage yemchi ?"+this.filtrage)
       }
       if (this.userRole === 'transformateur' || this.userType2 === 'transformateur') {
         this.showhistoriqueAgricolteur = false;
@@ -494,7 +515,11 @@ showListeReclammmations:boolean=false;
       if (this.userType2 === 'agricole' || this.userRole === 'agricole') {
         this.showSectionFarmerStock = true;
         this.showSectionTransformateurStock = false;
-        this.showSectionExportateurStock = false;        
+        this.showSectionExportateurStock = false;
+        console.log(this.showSectionFarmerStock +" showSectionFarmerStock");
+        console.log(this.showSectionTransformateurStock+" showSectionTransformateurStock" );
+        console.log(this.showSectionExportateurStock+ " showSectionExportateurStock"); 
+        
       }
       if (this.userRole === 'transformateur' || this.userType2 === 'transformateur') {
         this.showSectionFarmerStock = false;
@@ -508,8 +533,9 @@ showListeReclammmations:boolean=false;
       }
 
     }
-
+    // console.log(this.showSection);
   }
+  //todo fazet ki tenzel 3al bouton yo5rjo informations
   selectedUser: any; selectedOffer: any;
   showModalFlag = false; operation: string | undefined;
   showAboutUser = false;   deleteOfferBoolean:boolean| undefined;
@@ -534,6 +560,7 @@ showListeReclammmations:boolean=false;
     if (operation === 'refuser') {
       this.operation = "refuser";
     }
+    console.log("operartion update user "+this.operation);
   }
  
   updateStockMode: boolean = false;
@@ -572,17 +599,19 @@ showListeReclammmations:boolean=false;
   actorType: string;
   state: string;
   updateStock(offerId: string) {
+    console.log("id to upd"+offerId)
     const formValues = {
       quantity: this.productQuantity,
       quality:this.productQuality,
       priceUnit:this.productPrice,
       state:this.state,
       unit:this.productUnit,
-    };
+    };   console.log("form update offer+"+formValues.quantity);
 
     this.adminService.updateOffer(offerId, formValues,this.connectedUserToken)
       .subscribe(
         response => {
+console.log('Update request successful', response);
 this.getAllOffers();
   this.filterOffersById(this.userId);
 this.showModalFlag=false;
@@ -593,6 +622,7 @@ setTimeout(()=>{
 this.updateStockMode=false;
         },
         error => {
+          console.error('Update request error', error);
           this.showModalFlag=false;
           this.errorMessage=true;
           setTimeout(()=>{
@@ -601,7 +631,34 @@ this.updateStockMode=false;
           // Handle error scenarios if needed
         }
       );
+    console.log('Quantity:', this.UpdatestockForm.value['product-quantity']);
+    console.log('Quality:', this.UpdatestockForm.value['product-quality']);
+    console.log('Price:', this.UpdatestockForm.value['product-price']);
+    console.log('Unit:', this.UpdatestockForm.value['product-unit']);
+    console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
   }
+  // updateOfferQuantity(offerId:string){
+  //   const url = `http://localhost:5000/api/user/offers/${offerId}`;
+  //   const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ2MzdlOGZmODI0NmQ0YzE2YTVhYzdkIiwicm9sZSI6ImFkbWluIiwicHVibGljX2tleSI6IjB4MDEyMDhkMmY0OWVjYWIxYTc0ZGJkOGVkOTIyNGFiMzdhMTA3NTg0OWVhMThlNGQzZDhjMThmNTY2NzFmNDdjNWM4NjJkNTFkYTAwM2IwMDFmZTZiZTE1NzU1YjZjZTAwZDkyZjE0ZTdlZGE1NzBmYTcxOWE4NmE5OGVlOWJiNGUiLCJwcml2YXRlX2tleSI6IjB4OGQ1ODJlMjNhMjU3NjUxZmYyZGUxYTI3Yjg3MWYwNzZjY2UwZWNmNDA2NTVlOGFiOTIxMDFjZGRmZThjMzMwNiIsImV4cCI6MjUzNDAyMjE0NDAwfQ.oBTL8QgfxY31ISZD520GPegU9K0qjm9nuM-Fe3_W5Pc';
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //     'Content-Type': 'application/json'
+  //   });
+  // console.log("id off"+offerId)
+  //   const payload = { "quantity": this.productQuantity};
+  
+  //   this.http.put(url, payload, { headers }).subscribe(
+  //     (response) => {
+  //       console.log('Update offer quantity successful', response);
+  //       // Handle success scenario if needed
+  //     },
+  //     (error) => {
+  //       console.error('Update offer quantity error', error);
+  //       // Handle error scenario if needed
+  //     }
+  //   );
+  // }
+  
 
   role: string;
   affecterRole(role: string) {
@@ -609,6 +666,23 @@ this.updateStockMode=false;
   }
 
   @ViewChild('UpdatestockForm', { static: false }) UpdatestockForm: NgForm;
+  showUpdateStockValues() {
+    console.log('Quantity:', this.UpdatestockForm.value['product-quantity']);
+    console.log('Quality:', this.UpdatestockForm.value['product-quality']);
+    console.log('Price:', this.UpdatestockForm.value['product-price']);
+    console.log('Unit:', this.UpdatestockForm.value['product-unit']);
+    console.log('Actor Type:', this.UpdatestockForm.value['actor-type']);
+
+  }
+
+
+
+
+
+
+  // ajouterUtilisateur() {
+  //   this.adminService.ajouterUtilisateur();
+  // }
 
   Farmers = this.adminService.getAllFarmers();
 
@@ -617,9 +691,12 @@ this.updateStockMode=false;
   getAgricoles(): void {
     this.adminService.getAgricoles().subscribe(
       (response) => {
+        console.log("hay mchet getAgricoles");
+        console.log(response);
         this.agricols = response.agricoles;
       },
       (error) => {
+        console.error(error);
       }
     );
   }
@@ -629,32 +706,26 @@ this.updateStockMode=false;
     this.adminService.deleteAgricole(id);
   }
   deleteUser(id: string) {
+    console.log("id = " + id);
     this.adminService.deleteUser(id);
   }
 
 
   deleteUser2(id: string): void {
     const url = `http://localhost:5000/api/admin/users/${id}`;
+console.log("id to delete----->"+id);
     this.adminService.deleteUser2(id).subscribe(
       (response) => {
-        // this.getUsers2();
+        console.log('User deleted successfully');
+        this.getUsers2();
         this.filterUsers();
-        this.validationMessage=true;
-        this.showModalFlag=true;
-        setTimeout(()=>{
-          this.showModalFlag=false;
-        },1500)
-        setTimeout(()=>{
-          this.validationMessage=false;
-        },1000)
       },
       (error) => {
-        this.validationMessage=true;
+        console.error(error);
+        this.errorMessage=true;
+        this.showModalFlag =false;
         setTimeout(()=>{
-          this.showModalFlag=false;
-        },1500)
-        setTimeout(()=>{
-          this.validationMessage=false;
+          this.errorMessage=false;
         },1000)
       }
     );
@@ -662,7 +733,15 @@ this.updateStockMode=false;
 
   updatedName: string; updatedCin: string; updatedEmail: string;
   updatedPhone: string; updatedRole: string; updatedType: string; updatedState: string;
- 
+  updateUserValues() {
+    console.log("this is update function");
+    console.log(this.updatedName);
+    console.log(this.updatedCin);
+    console.log(this.updatedPhone);
+    console.log(this.updatedRole);
+    console.log(this.updatedEmail);
+    console.log(this.updatedType);
+  }
 
   updateUserMode:boolean;
   updateUser(userId: string) {
@@ -678,6 +757,8 @@ this.updateStockMode=false;
     this.adminService.updateUser(userId, payload)
       .subscribe(
         response => {
+
+          console.log('Update request successful', response);
           this.validationMessage=true;
           this.showUpdateUserForm=false;
           this.showModalFlag=false;
@@ -691,6 +772,7 @@ this.updateStockMode=false;
           // Perform further actions if needed
         },
         error => {
+          console.error('Update request error', error);
           this.errorMessage=true;
           setTimeout(()=>{
             this.errorMessage=true;
@@ -712,25 +794,15 @@ this.updateStockMode=false;
     }
     this.adminService.updateUser(userId, updateData).subscribe(
       (response) => {
+        console.log('User updated');
         this.filterUsers();
         this.validationMessage=true;
-        this.showModalFlag=true;
-        setTimeout(()=>{
-          this.showModalFlag=false;
-        },1500)
         setTimeout(()=>{
           this.validationMessage=false;
         },1000)
       },
       (error) => {
-        this.errorMessage=true;
-        this.showModalFlag=true;
-        setTimeout(()=>{
-          this.showModalFlag=false;
-        },1500)
-        setTimeout(()=>{
-          this.errorMessage=false;
-        },1000) 
+        console.error('An error occurred', error);
       }
     );
   }
@@ -746,14 +818,16 @@ this.updateStockMode=false;
         
       },
       (error) => {
-  
+        console.log(error);
       }
     );
   }
 
   deleteOffer(id:string){
+   console.log("id=="+id)
     this.adminService.deleteOffer(id,this.connectedUserToken).subscribe(
     (Response) =>{
+      console.log("tfas5et yé rojla");
       this.validationMessage=true;
       this.showModalFlag =false;
       this.getAllOffers();
@@ -763,6 +837,7 @@ this.updateStockMode=false;
       },1000)
     },
     (error) => {
+      console.log(error);
       this.updateStockMode=false;
       this.errorMessage=true;
       this.showModalFlag =false;
@@ -774,6 +849,15 @@ this.updateStockMode=false;
     this.getAllOffers()
   }
   @ViewChild('stockForm', { static: false }) stockForm: NgForm;
+  ajouterAuStock() {
+    console.log('Quantity:', this.stockForm.value['product-quantity']);
+    console.log('Quality:', this.stockForm.value['product-quality']);
+    console.log('Price:', this.stockForm.value['product-price']);
+    console.log('Unit:', this.stockForm.value['product-unit']);
+    console.log('state:', this.stockForm.value['product-state']);
+
+    console.log('Actor Type:', this.stockForm.value['actor-type']);
+  }
 
   ajouterOffre(){
     this.stockForm.value['product-quantity']=this.stockForm.value['product-quantity'].toString();
@@ -782,9 +866,10 @@ this.updateStockMode=false;
     this.adminService.ajouterOffreAgriculteur(this.stockForm,this.connectedUserToken).subscribe(
         (response) => {
           // Handle success response
+  console.log('Offer added successfully:', response);
   this.getAllOffers();
   this.filterOffersById(this.userId);
-  this.validationMessage=true;
+          this.validationMessage=true;
 setTimeout(()=>{
   this.validationMessage=false;
 },1000)
@@ -792,6 +877,7 @@ setTimeout(()=>{
         },
         (error) => {
           // Handle error response
+          console.error('Error adding offer:', error);
           this.errorMessage=true;
           setTimeout(()=>{
             this.errorMessage=false;
@@ -804,10 +890,12 @@ setTimeout(()=>{
 
   selectOffer(offer: any) {
     this.selectedOffer = offer;
+    console.log("selected Offer quantity"+this.selectedOffer.quantity);
+    console.log("selected Offer2"+this.selectedOffer);
   }
   selectUser(id: any) {
     // this.selectedUser = user;
-   
+    console.log("id mta3 l user li theb tnahih"+id);
   }
 
 waitingUsers:User[]; approvedUsers:User[];
@@ -823,6 +911,7 @@ filterUsers() {
       // Handle the response data
     },
     (error) => {
+      console.error('An error occurred', error);
      
       // Handle the error
     }
@@ -834,6 +923,7 @@ filterUsers() {
       // Handle the response data
     },
     (error) => {
+      console.error('An error occurred', error);
       // Handle the error
     }
   );
@@ -847,13 +937,16 @@ usersByType:User[];
     this.adminService.getUserByType(userType).subscribe(
       (response) => {
         // Handle the response here
+        console.log("users filtred by type")
+        console.log(response.data);
         this.usersByType=response.data;
-        this.usersByType=this.usersByType.filter(user=>user.state ==='approved')
         // this.usersByType=response.data;
         // return response;
       },
       (error) => {
         // Handle errors here
+        console.log("fama mochkel fil transformateurs")
+        console.error(error);
       }
     );
     }
@@ -872,11 +965,14 @@ if(condition === 'transformateur'){
   this.adminService.filterOffers2('transformateur')
   .subscribe(response => {
     // Handle the response data here
-
+    // console.log("les offres de l'agric "+condition);
+    console.log(response);
     this.filtredOffersByActor=response.data;
+    console.log("filtred offers by actor   "+this.filtredOffersByActor)
     return response.data;
   }, error => {
     // Handle any errors here
+    console.error(error);
   });
 
 }
@@ -888,21 +984,25 @@ if(condition === 'agricole'){
     return response.data;
   }, error => {
     // Handle any errors here
-
+    console.error(error);
   });
 }
 }
 MyOffers:Offer[];
 filterOffersById(id:any){
+  console.log("id mil filterOffersById"+id);
+   // todo  lezem nraja3ha connectedUserToken
   this.adminService.filterOffersById(this.connectedUserToken,this.userId)
   .subscribe(response => {
-   
+    console.log(" mtoken connedté mil filterOffersById"+this.connectedUserToken);
+    console.log(response.data);
   this.MyOffers=response.data;
    
     return response.data;
   }, error => {
     // Handle any errors here
-
+    console.log("filtrage mta3 l'offre bil id memchech")
+    console.error(error);
   });
 }
 
@@ -922,12 +1022,12 @@ searchUserById(userId: string) {
   this.http.post(apiUrl, requestBody,this.httpOptions).subscribe(
     (response:any) => {
       this.userByRole=response.data[0];
-    
+      console.log('User found:', response.data[0].name);
      
       // Handle the response data
     },
     (error) => {
-      
+      console.error('An error occurred', error);
       // Handle the error
     }
   );
@@ -936,8 +1036,10 @@ return this.userByRole
 message:string;
 createViolationReclamation(event: Event,message:any) {
   event.preventDefault();
+console.log("reclamation:::"+this.message)
 this.adminService.createViolationReclamation(message,this.connectedUserToken).subscribe(
   response => {
+    console.log('Message sent successfully:', response);
     this.validationMessage=true;
     setTimeout(()=>{
       this.validationMessage=false;
@@ -945,6 +1047,7 @@ this.adminService.createViolationReclamation(message,this.connectedUserToken).su
     // Do something with the response if needed
   },
   error => {
+    console.error('Error sending message:', error);
   this.errorMessage=true;
   setTimeout(()=>{
     this.errorMessage=false;
@@ -960,7 +1063,8 @@ reclammmations:reclamation[];
             this.loadUserNamesByReclammation()
           },
           error => {
-            
+            console.log("fama mochkel fil reclammmations")
+            console.error('Error sending message:', error);
             // Handle the error if needed
           }
         );
@@ -976,7 +1080,7 @@ reclammmations:reclamation[];
                         this.phoneNumbersWithReclamation[reclamation.userRef] = response.data[0].phone;
                       },
                       error => {
-                      
+                        console.error(error);
                         this.userNamesWithReclammation[reclamation.userRef] = ''; // Assign a default value in case of error
                         this.phoneNumbersWithReclamation[reclamation.userRef] = '';
                       }
@@ -986,8 +1090,7 @@ reclammmations:reclamation[];
               
 filteredOffersByActor: Offer[];
 userNames: { [key: string]: string } = {};
-phoneNumbers: { [key: string]: string } = {};   
-timestamps: { [key: string]: string } = {};      
+phoneNumbers: { [key: string]: string } = {};        
                 loadUserNamesAndPhoneNumbers() {
                   for (const offer of this.filteredOffersByActor) {
                     this.adminService.searchUserById(offer.actorRef).subscribe(
@@ -997,7 +1100,7 @@ timestamps: { [key: string]: string } = {};
                         this.phoneNumbers[offer.actorRef] = response.data[0].phone;
                       },
                       error => {
-                      
+                        console.error(error);
                         this.userNames[offer.actorRef] = ''; // Assign a default value in case of error
                         this.phoneNumbers[offer.actorRef] = ''; // Assign a default value in case of error
                       }
@@ -1013,18 +1116,13 @@ loadHistoryUserNames() {
                       response => {
                         const userName = response.data[0].name;
                         const userPhone=response.data[0].phone;
-                      
-                        
                         this.userNames[histoire.seller] = userName;
                         this.phoneNumbers[histoire.seller] = userPhone;
-                        const date = new Date(parseInt(histoire.timestamp) * 1000);
-                        this.timestamps[histoire.seller] = date.toLocaleDateString();
                         
                       },
                       error => {
-                  
+                        console.error(error);
                         this.userNames[histoire.seller] = ''; // Assign a default value in case of error
-                        this.timestamps[histoire.seller] = '';
                       }
                     );
                   }  
@@ -1035,15 +1133,11 @@ loadHistoryUserNames() {
                         this.userNames[histoire.buyer] = userName;
                         const userPhone=response.data[0].phone;
                         this.phoneNumbers[histoire.buyer] = userPhone;
-                        const date = new Date(parseInt(histoire.timestamp) * 1000);
-                        this.timestamps[histoire.buyer] = date.toLocaleDateString();
-
 
                       },
                       error => {
-                        
+                        console.error(error);
                         this.userNames[histoire.buyer] = ''; // Assign a default value in case of error
-                        this.timestamps[histoire.buyer] = '';
                       }
                     );
                   }   
@@ -1064,26 +1158,31 @@ consulterHistoriqueUtilisateur(){
   let history;
   this.adminService.consulterHistoriqueUtilisateur(pubKey,this.connectedUserToken).subscribe(
     (response)=>{
+console.log(response.data[0].args)
 const history=response.data[0].args;
 this.historyId=response.data[0].args._prod_id;
 this.historyQlty=response.data[0].args._prod_qlt;
 this.historyQty=response.data[0].args._prod_qty;
+console.log("history="+this.historyId)
     },
     (error)=>{
+console.log(error)
     }
   );
   // return history;
 }
 
 acheterOffre(id:any){
-
+  console.log("offer id is "+id)
 this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
   (response)=>{
+    console.log(response);
     if(this.userRole === 'exportateur' || this.userType2 === 'exportateur'){
       
       this.adminService.filterOffers2('transformateur')
       .subscribe(response => {
         this.filteredOffersByActor=response.data;
+        console.log("filtred offers by actor   "+this.filteredOffersByActor)
         this.loadUserNamesAndPhoneNumbers();
         this.loadHistoryUserNames();
         this.historiqueAchat();
@@ -1091,6 +1190,7 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
         return response.data;
       }, error => {
         // Handle any errors here
+        console.error(error);
       });
       
     }
@@ -1106,11 +1206,14 @@ this.adminService.acheterOffre(id,this.connectedUserToken).subscribe(
         return response.data;
       }, error => {
         // Handle any errors here
+        console.error(error);
       });
       this.filterOffers2('transformateur');
     }
   },
   (error)=>{
+    console.log("theb techri l'offre "+id)
+    console.log(error);
   }
 );
 }
@@ -1119,10 +1222,13 @@ transactionHistory:any;
 getTransactionAccountHistory(){
   this.adminService.getTransactionAccountHistory(this.connectedUserToken).subscribe(
     (Response)=>{
+      console.log('history of account ::::');
+      console.log(Response);
       this.transactionHistory=Response.message;
     
     },
-    (Error)=>{    
+    (Error)=>{
+      console.log(Error);     
     }
     );
 }
@@ -1139,14 +1245,37 @@ filtrerOffresById(token: any, id: any) {
   this.http.post(url, body, { headers }).subscribe(
     (response: any) => {
       // Traiter la réponse ici
+      console.log(response);
+      console.log(response.data);
+     
     },
     (error: any) => {
       // Gérer les erreurs ici
+      console.error(error);
     }
   );
 }
 
 
+// filtrerOffres() {
+//   const url = 'http://localhost:5000/api/user/offers/filter_offers';
+//   const body = {
+//     actorRef: '64778d70fe84e131d38b2354'
+//   };
+//   const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkZDVmZTg0ZTEzMWQzOGIyMzU2Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoidHJhbnNmb3JtYXRldXIiLCJwdWJsaWNfa2V5IjoiMHhFOTM5M0M3YjhFRWRBYjA1RDllOTZkNkRlMzdDRjBDMDY3YzY4NTVkIiwicHJpdmF0ZV9rZXkiOiIweDllZWNkNGYyNGUxMjk0Y2U3ZGQ3MDAyYmQwMzQwNWI4YWYyMWQ5Njk0NGY5MjU5M2VhMGFkMjIyZjBlZGJlMjYiLCJleHAiOjI1MzQwMjIxNDQwMH0.nWF89LUhOC_-6shXgP-9Ue0eejXxr22-fPtLSgyihJs');
+
+//   this.http.post(url, body, { headers }).subscribe(
+//     (response) => {
+//       // Traiter la réponse ici
+//       console.log("from filtrerOffres")
+//       console.log(response);
+//     },
+//     (error) => {
+//       // Gérer les erreurs ici
+//       console.error(error);
+//     }
+//   );
+// }
 
 
 getCookieValue(name: string): string | null {
@@ -1159,7 +1288,21 @@ getCookieValue(name: string): string | null {
   }
   return null;
 }
- 
+ timestamp = 1623496400000;
+
+// Create a new Date object using the timestamp
+ date = new Date(this.timestamp);
+
+// Format the date to a desired format using Angular's DatePipe
+
+
+// Create an instance of DatePipe
+ datePipe = new DatePipe('en-US');
+
+// Format the date using the desired format (e.g., 'yyyy-MM-dd')
+formattedDate: string | null  = this.datePipe.transform(this.date, 'yyyy-MM-dd');
+
+// console.log(this.formattedDate);
   
 
 
@@ -1173,11 +1316,14 @@ historique:any[]=[];
 historiqueAchat(){
   this.adminService.historiqueAchat(this.connectedUserToken).subscribe(
     (response)=>{
+      console.log("$$$$$ l'historique des achats $$$$");
+      console.log(response.data);
      this.historique=response.data; 
      this.loadHistoryUserNames();
 
     },
     (errror)=>{
+      console.error("historique mayemchic")
     }
   )
 }
@@ -1191,7 +1337,6 @@ export interface User {
   name: string;
   phone: string;
   role: "admin" | "user";
-  state:"approved" | "waiting";
   type:"agriculteur" | "transformateur" | "exportateur";
   public_key: string;
 }

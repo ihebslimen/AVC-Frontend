@@ -28,17 +28,24 @@ password:string=''; passwordError=false;
   sendMessage(cin:any){
     this.authenticationService.sendMessage(cin).subscribe(
       response=>{
- 
-
+        console.log(response);
+        // console.log("temchi yes");
+        // console.log("response.data"+response.data);
+        console.log("response.data._id"+response.data._id);
         // document.cookie = `loggedUserId=${response.data._id}`;
 this.idLoggedUser=response.data._id;
- 
+        // console.log("response[0]"+response[0]);
+        // console.log("response[0].data"+response[0].data);
+        // console.log("response[0].data[0]"+response[0].data[0]);
+        // console.log("response[0].data[0]._id"+response[0].data[0]._id);
+        // console.log("send message response "+response.data[0]);
       //   const id = response.data._id;
-
+      // console.log(id); 
         
       },
       (error)=>{
- 
+        console.log(error);
+        console.log("erreur fil login")
       }
       );
   }
@@ -48,33 +55,39 @@ this.idLoggedUser=response.data._id;
     
     this.authenticationService.verifyCode(otp_code,this.idLoggedUser).subscribe(
       (response)=>{
-       
+        console.log(this.idLoggedUser +"id user")
+        console.log(response.data);
         document.cookie = `loggedUser=${response.data}`;
         this.authenticationService.login2();
         } ,
       (error)=>{
-      
+        console.log(error);
       }
       );
     
-    
+    // console.log(otp_code+" type= "+typeof(otp_code_as_num));
   }
 onSubmitLogin(){
   this.loginIsSubmitted=true; 
    // regular expression to match only numbers
   // this.loginIsValid = this.regex.test(this.cin) ;
+  console.log(this.cin)
   this.loginIsValid=this.cin>= 1000000 && this.cin <= 99999999
   if(this.loginIsValid){
       const cinToString=this.cin.toString()
+      // console.log(cinToString+ typeof(cinToString));
      
     
       this.sendMessage(cinToString);
+      console.log("phone =="+sessionStorage.getItem('phone')+'\n'+"role = "+sessionStorage.getItem('phone'))
     this.showSuccessMessage = true;
+// console.log("login valid")
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 1000);
   }
   else{
+    console.log("login is not valid")
     this.showerrorMessage=true;
     setTimeout(() => {
       // this.loginIsValid=true;
@@ -98,15 +111,24 @@ onSubmitCin(event:Event){
   this.cinSubmitted=true;
 this.cinRegisterIsValid=(this.cinRegister >= 1000000 && this.cinRegister <= 99999999) ? true : false;
 if(this.cinRegisterIsValid){
- 
+  console.log(this.cinRegisterIsValid);
+  console.log(this.cinRegister);
+  console.log(this.nomSignup);
+  console.log(this.emailSignup);
+  console.log(this.phoneSignup);
+  console.log(this.roleSignup);
+  console.log(this.stateSingup);
+  console.log(this.typeSignup);
+  console.log(this.localisationSignup);
     this.showSuccessMessage=true;
   setTimeout(() => {
     this.showSuccessMessage = false;
   }, 1000);
 }
-else{
-  
+else{console.log(this.cinRegisterIsValid);
   event.preventDefault();
+  console.log(this.cinRegister);
+  console.log("4alt");
   this.showerrorMessage=true;
   setTimeout(() => {
     this.showerrorMessage = false;
@@ -129,6 +151,7 @@ onSubmitCode(){
   }
   else{
     this.codeRegisterIsValid=false;
+    console.log(this.codeSubmitted);
 this.showerrorMessage=true;
     setTimeout(() => {
       this.showerrorMessage = false;
@@ -138,10 +161,12 @@ this.showerrorMessage=true;
 
 
 onSubmitPassword(code:any){
+  console.log(this.password);
   this.verifycode(code);
   
   this.router.navigate(['listOfUsers'],{ queryParams: { userType: "user",userRole:"agricole" } });
 
+// todo
   // this.authenticationService.login(this.password);
   
   // this.authenticationService.login2();
@@ -152,6 +177,7 @@ isHidden = false; isWaiting=false;
 isActive=false;
 active(){ 
   this.isActive= !this.isActive;
+  console.log(this.isActive);
 }
 front=true;
 moveLoginForm(): void {
@@ -249,8 +275,10 @@ moveLoginForm(): void {
       "actorInfoJson":{"localisation": "bizerte"}
       // Add more parameters as needed
     };
+    console.log(requestBody);
     this.adminService.ajouterUtilisateur(requestBody).subscribe(
       (response) => {
+        console.log('User added');
         this.showSuccessMessage=true;
 this.userAdded=true;
 setTimeout(()=>{
@@ -258,7 +286,7 @@ setTimeout(()=>{
 },1000);
       },
       (error) => {
-        this.showerrorMessage=true;
+        console.error('An error occurred', error); this.showerrorMessage=true;
  this.userNotAdded=true;
  setTimeout(()=>{
   this.userNotAdded=false; this.showerrorMessage=false;
