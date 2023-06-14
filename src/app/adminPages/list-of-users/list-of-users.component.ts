@@ -168,7 +168,7 @@ getUsersByRef(ref: any): User {
 
   sortTable() {
     if (this.sortValue === 'name') {
-      this.users = this.users.slice().sort(
+      this.approvedUsers = this.approvedUsers.slice().sort(
         (a, b) => a.name.localeCompare(b.name)
       );
     }
@@ -176,34 +176,34 @@ getUsersByRef(ref: any): User {
   sortTableArrows(param: string, order: string) {
     if (order == "asc") {
       if (param === 'name') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         );
       }
       if (param === 'username') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         );
       }
       if (param === 'email') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.email.localeCompare(b.name)
         );
       }
     }
     if (order == "des") {
       if (param === 'name') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         ).reverse();
       }
       if (param === 'username') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.name.localeCompare(b.name)
         ).reverse();
       }
       if (param === 'email') {
-        this.users = this.users.slice().sort(
+        this.approvedUsers = this.approvedUsers.slice().sort(
           (a, b) => a.email.localeCompare(b.name)
         ).reverse();
       }
@@ -637,14 +637,24 @@ this.updateStockMode=false;
     const url = `http://localhost:5000/api/admin/users/${id}`;
     this.adminService.deleteUser2(id).subscribe(
       (response) => {
-        this.getUsers2();
+        // this.getUsers2();
         this.filterUsers();
+        this.validationMessage=true;
+        this.showModalFlag=true;
+        setTimeout(()=>{
+          this.showModalFlag=false;
+        },1500)
+        setTimeout(()=>{
+          this.validationMessage=false;
+        },1000)
       },
       (error) => {
-        this.errorMessage=true;
-        this.showModalFlag =false;
+        this.validationMessage=true;
         setTimeout(()=>{
-          this.errorMessage=false;
+          this.showModalFlag=false;
+        },1500)
+        setTimeout(()=>{
+          this.validationMessage=false;
         },1000)
       }
     );
@@ -704,12 +714,23 @@ this.updateStockMode=false;
       (response) => {
         this.filterUsers();
         this.validationMessage=true;
+        this.showModalFlag=true;
+        setTimeout(()=>{
+          this.showModalFlag=false;
+        },1500)
         setTimeout(()=>{
           this.validationMessage=false;
         },1000)
       },
       (error) => {
-  
+        this.errorMessage=true;
+        this.showModalFlag=true;
+        setTimeout(()=>{
+          this.showModalFlag=false;
+        },1500)
+        setTimeout(()=>{
+          this.errorMessage=false;
+        },1000) 
       }
     );
   }
@@ -827,6 +848,7 @@ usersByType:User[];
       (response) => {
         // Handle the response here
         this.usersByType=response.data;
+        this.usersByType=this.usersByType.filter(user=>user.state ==='approved')
         // this.usersByType=response.data;
         // return response;
       },
@@ -1169,6 +1191,7 @@ export interface User {
   name: string;
   phone: string;
   role: "admin" | "user";
+  state:"approved" | "waiting";
   type:"agriculteur" | "transformateur" | "exportateur";
   public_key: string;
 }

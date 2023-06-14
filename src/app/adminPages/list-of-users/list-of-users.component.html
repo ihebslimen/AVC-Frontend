@@ -1,8 +1,8 @@
 <app-header></app-header>
 <body style="background-color: #f6f9ff;">
 <div class="container">
-    <div class="row" id="adminRole" *ngIf="userType==='admin'">
-           <div class="col-2  fixed-left taille" *ngIf="userType === 'admin'" style="background-color:  rgb(41, 78, 157);">
+    <div class="row" id="adminRole" *ngIf="userRole2==='admin'">
+           <div class="col-2  fixed-left taille" *ngIf="userRole2 === 'admin'" style="background-color:  rgb(41, 78, 157);">
             <div class="nav flex-column nav-pills mt-5 d-flex flex-column functions" style="Display:fixed; ">
               <h1 style="color: white;">Dashboard admin</h1><br><br> 
               <a  style="color: white;" class="dropdown-item" (click)="toggleSection('utilisateur',$event)" ><h6>&nbsp;Gestion utilisateur</h6></a><br>
@@ -48,8 +48,8 @@
             <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
             <!-- <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th> -->
             <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('email','des')">▼</span></th>
-            <th>phone&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
-            <th>type&nbsp;<span class="arrow" (click)="sortTableArrows('type','asc')">▲</span><span class="arrow" (click)="sortTableArrows('type','des')">▼</span></th>
+            <th>phone&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')"></span><span class="arrow" (click)="sortTableArrows('phone','des')"></span></th>
+            <th>type&nbsp;<span class="arrow" (click)="sortTableArrows('type','asc')"></span><span class="arrow" (click)="sortTableArrows('type','des')"></span></th>
 
             <th colspan="2">Action</th>
           </tr>
@@ -113,12 +113,27 @@
         <td>{{user.phone}}</td>
         <td>{{user.type}}</td>
 
-        <td>
-          <a class="btn btn-primary tooltips" (click)="showModal(user,'edit')" data-placement="top" data-original-title="Edit" style="color:white;" >
-            <i class="fa fa-pencil"></i> Edit
-          </a>&nbsp;&nbsp;
-          <a class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete" (click)="showModal(user,'delete')" style="color:white;" >
-            <i class="fa fa-trash"></i> Delete
+        <td class="actions" colspan="2">
+
+          <a class="btn btn-primary tooltips" data-placement="top" (click)="showModal(user,'edit')"> 
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+              <path d="M13.5 6.5l4 4"></path>
+           </svg>          
+          </a>
+        
+        &nbsp;&nbsp;
+        
+          <a class="btn btn-danger tooltips" data-placement="top" (click)="showModal(user,'delete')" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" style="color: white;" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M4 7l16 0"></path>
+              <path d="M10 11l0 6"></path>
+              <path d="M14 11l0 6"></path>
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+           </svg>  
           </a>
         </td>
       </tr>
@@ -583,7 +598,6 @@
           
         <th>Name&nbsp;</th>
         <th>phone</th>
-            <!-- <th>Username&nbsp;</th> -->
             <th>Email&nbsp;</th>
       </tr>
       
@@ -591,9 +605,9 @@
       <tbody class="table-light">
       
         <tr *ngFor="let user of getPaginatedData2(usersByType,5)" >
-          <td>{{user.name}}</td>
-          <td>{{user.phone}}</td>
-          <td>{{user.email}}</td>
+          <td >{{user.name}}</td>
+          <td >{{user.phone}}</td>
+          <td >{{user.email}}</td>
       </tr>
         </tbody>
       
@@ -604,7 +618,6 @@
             
           <th>Name&nbsp;</th>
           <th>phone</th>
-              <!-- <th>Username&nbsp;</th> -->
               <th>Email&nbsp;</th>
         </tr>
         
@@ -612,6 +625,7 @@
         <tbody class="table-light">
         
           <tr *ngFor="let user of getPaginatedData2(filtredUsersByType,5)" >
+
             <td>{{user.name}}</td>
             <td>{{user.phone}}</td>
             <td>{{user.email}}</td>
@@ -981,9 +995,9 @@
           <tr>
               <th style="text-align: center;">ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
               <th style="text-align: center;">cin<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
-              <th style="text-align: center;">quantité&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th style="text-align: center;">qualité&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th style="text-align: center;">prix&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')">▲</span><span class="arrow" (click)="sortTableArrows('phone','des')">▼</span></th>
+              <th style="text-align: center;">quantité&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')"></span><span class="arrow" (click)="sortTableArrows('name','des')"></span></th>
+              <th style="text-align: center;">qualité&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')"></span><span class="arrow" (click)="sortTableArrows('name','des')"></span></th>
+              <th style="text-align: center;">prix&nbsp;<span class="arrow" (click)="sortTableArrows('phone','asc')"></span><span class="arrow" (click)="sortTableArrows('phone','des')"></span></th>
 
               <th colspan="2" style="text-align: center;">Action</th>
             </tr>
@@ -1007,9 +1021,9 @@
       <thead>
           <tr>
               <th>ID<span class="arrow"   (click)="sortTable()"></span><span class="arrow"></span></th>
-              <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
-              <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')">▲</span><span class="arrow" (click)="sortTableArrows('name','des')">▼</span></th>
+              <th>Name&nbsp;<span class="arrow" (click)="sortTableArrows('name','asc')"></span><span class="arrow" (click)="sortTableArrows('name','des')"></span></th>
+              <th>Username&nbsp;<span class="arrow" (click)="sortTableArrows('username','asc')"></span><span class="arrow" (click)="sortTableArrows('name','des')"></span></th>
+              <th>Email&nbsp;<span class="arrow" (click)="sortTableArrows('email','asc')"></span><span class="arrow" (click)="sortTableArrows('name','des')"></span></th>
               <th colspan="2">Action</th>
             </tr>
       </thead>
@@ -1278,7 +1292,7 @@
 
 
 
-<div class="marget" *ngIf="filtrage" >
+<div class="marget" *ngIf="filtrage && !showSectionInscription" >
      
   <div class="col-md-12 s8ir" >
 

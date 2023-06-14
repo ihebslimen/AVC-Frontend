@@ -168,7 +168,7 @@ farmers:any=[];
     'Authorization': `Bearer ${this.adminToken}`
   });
 
-  return this.http.put(url, updateData, { headers });
+  return this.http.put(url, updateData,this.httpOptions);
 }
 
   
