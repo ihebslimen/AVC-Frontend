@@ -1013,8 +1013,8 @@ loadHistoryUserNames() {
                         this.userNames[histoire.buyer] = userName;
                         const userPhone=response.data[0].phone;
                         this.phoneNumbers[histoire.buyer] = userPhone;
-                        const timestamp=response.data[0].timestamp;
-                        this.timestamps[histoire.buyer] = timestamp;
+                        const date = new Date(parseInt(histoire.timestamp) * 1000);
+                        this.timestamps[histoire.buyer] = date.toLocaleDateString();
 
 
                       },
