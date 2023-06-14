@@ -66,17 +66,18 @@ connectedUserToken:any;
 // public conditionn:string='agricole';
 ngOnInit() {
   // this.loadData()
+  this.connectedUserToken=this.getCookieValue('loggedUser'); 
  
 
-  this.connectedUserToken=this.getCookieValue('loggedUser'); 
+  
 if(this.userRole2==='user'){
   this.historiqueAchat();
   this.getTransactionAccountHistory(); 
   this.filterOffersById(this.userId);
 }
-  this.getUsers2();
-  this.getAllOffers();
-  this.filterUsers();
+this.getUsers2();
+this.getAllOffers();
+this.filterUsers();
   if(this.userRole2==='user'){
   this.consulterHistoriqueUtilisateur();
 
@@ -995,7 +996,6 @@ loadHistoryUserNames() {
                         this.userNames[histoire.seller] = userName;
                         this.phoneNumbers[histoire.seller] = userPhone;
                         const date = new Date(parseInt(histoire.timestamp) * 1000);
-                    
                         this.timestamps[histoire.seller] = date.toLocaleDateString();
                         
                       },
