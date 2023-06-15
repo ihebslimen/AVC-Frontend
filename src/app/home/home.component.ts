@@ -22,37 +22,11 @@ export class HomeComponent  {
 
     connectedUserToken:any;
     ngOnInit(){
-    this.connectedUserToken=this.getCookieValue('loggedUser'); 
- this.historiqueAchat()   
-    }
-  
-    historique:any[]=[];
-    historiqueAchat(){
-      this.adminService.historiqueAchat(this.connectedUserToken).subscribe(
-        (response)=>{
-          console.log("$$$$$ l'historique des achats $$$$");
-          console.log(response.data);
-         this.historique=response.data; 
-        
-    
-        },
-        (errror)=>{
-          console.error("historique mayemchic")
-        }
-      )
+   
     }
 
 
-    getCookieValue(name: string): string | null {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-          return cookie.substring(name.length + 1);
-        }
-      }
-      return null;
-    }
+
 
     plusSlides(n: number) {
       this.showSlides(this.slideIndex += n);
@@ -84,20 +58,6 @@ export class HomeComponent  {
   
 
 
-
-  
-
-
-
-
-
-
-
-
-    
-   
-
-
     showSectionHome: boolean = true;
     showSectionStarted: boolean =false;
     
@@ -110,45 +70,6 @@ export class HomeComponent  {
       this.showSectionStarted = true;
     }
 
-// consulterHistoriqueUtilisateur(){
-//   let pubKey='0x421472051071af95d1425E290D814dFd55d81b14';
-//   this.adminService.consulterHistoriqueUtilisateur(pubKey).subscribe(
-//     (response)=>{
-// console.log(response.data[0].args["_prod_id"])
-//     },
-//     (error)=>{
-// console.log(error)
-//     }
-//   );
-// }
-
-
-
-
-
-// filtrerOffres() {
-//   const url = 'http://localhost:5000/api/user/offers/filter_offers';
-//   const body = {
-//     actorRef: '64778d70fe84e131d38b2354'
-//   };
-//   const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ3NzhkNzBmZTg0ZTEzMWQzOGIyMzU0Iiwicm9sZSI6InVzZXIiLCJ0eXBlIjoiYWdyaWNvbGUiLCJwdWJsaWNfa2V5IjoiMHg3QTI3NzUzZTMwNWRDMDQ1ZUZGNkRmQTQzZDEwMzFlZjM4ZkIzQ2UyIiwicHJpdmF0ZV9rZXkiOiIweDIwMGMyNDI4YmQwNTlmMWQyNWFhMjAyZDM5YmZmMmE0ODE4NTY1ZTRhOWFhM2E2NzZmOWM3MjkxN2VjMGQzODciLCJleHAiOjI1MzQwMjIxNDQwMH0.8MSmnFysI3EEfmG2eL3lPnNk89dpYAtIcGdmlXTWHYM');
-
-//   this.http.post(url, body, { headers }).subscribe(
-//     (response) => {
-//       // Traiter la réponse ici
-//       console.log("from filtrerOffres")
-//       console.log(response);
-//     },
-//     (error) => {
-//       // Gérer les erreurs ici
-//       console.error(error);
-//     }
-//   );
-// }
- 
-
-   
- 
 
 
 }
